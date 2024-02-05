@@ -23,18 +23,15 @@
     display: flex;
 }
 
-.arrowIzquierda {
-    outline: 1px solid red;
-    position:relative;
-    top: 120px;
-    left: 0;
+.arrowIzquierda,
+.arrowDerecha {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 1em;
+    cursor: pointer;
 }
-.arrowDerecha{
-    outline: 1px solid red;
-    position:relative;
-    top: 0;
-    left: 0;
-}
+
 .carrusel {
     overflow: hidden;
     display: flex;
@@ -45,14 +42,21 @@
 }
 
 .card {
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    box-shadow: 0 0px 8px 0 #ffffff5e;
     backdrop-filter: blur(7px);
     -webkit-backdrop-filter: blur(7px);
     border-radius: 10px;
-    margin: 0.5rem;
+    margin: 1rem;
     width: 100%;
+    transition: .2s;
+    color: white;
 }
-.MovieList{
+
+.card:hover {
+    transform: scale(1.04);
+    cursor: pointer;
+}
+
+.MovieList {
     display: flex;
 }

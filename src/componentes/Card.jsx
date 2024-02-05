@@ -7,4 +7,4 @@ export default function Card({ imgUrl, title }) {
       <p className='titulo'>{title}</p>
     </div>
   );
-}
+} 

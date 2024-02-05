@@ -13,7 +13,7 @@
     list-style: none;
     display: flex;
 }
-.lista li{
+.lista *{
     margin: 0 1em;
 }
 a{

@@ -1,10 +1,6 @@
 .imgUrl{
     border-radius: 5px;
-    transition: .2s;
     max-height: 200px;
-}
-.imgUrl:hover{
-    transform: scale(1.01);
 }
 .cardComponent{
     margin: 1rem .5rem;

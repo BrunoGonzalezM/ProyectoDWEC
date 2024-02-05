@@ -1,17 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import "./App.css"
-import Header from "./componentes/Header"
 import Container from "./componentes/Container"
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from "./componentes/Header";
 function App() {
   return (
     <>
-      <div className="contenido">
-          <Header />
-          <Container />
-      </div> 
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Container />} />
+          <Route path="/pelicula"  />
+          <Route path="/series"  />
+          <Route path="/categorias"  />
+        </Routes>
+      </Router>
     </>
   )
 }
