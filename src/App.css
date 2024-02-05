@@ -1,0 +1,10 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui;
+}
+.contenido{
+    padding-inline: 0em;
+    overflow-x:hidden;
+}
