@@ -9,8 +9,8 @@ export const fetchCategorias = async () => {
     try {
         const response = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
         const data = await response.json();
-
         return data.genres;
+        
     } catch (err) {
         console.error(err);
         throw err

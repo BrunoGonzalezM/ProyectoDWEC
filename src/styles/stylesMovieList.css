@@ -16,7 +16,10 @@
     height: 100%;
     width: 100%;
 }
-
+.contenidoMovieList{
+    overflow-x: hidden ;
+    padding: 1em;
+}
 .movie-container {
     margin: 1em;
     text-align: center;
@@ -45,24 +48,10 @@
     width: calc(100vw - 12em);
 }
 
-.card {
-    box-shadow: 0 0px 8px 0 #ffffff5e;
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(7px);
-    border-radius: 10px;
-    margin: 1rem;
-    width: 100%;
-    transition: .2s;
-    text-align: center;
-}
-
-.card:hover {
-    transform: scale(1.04);
-    cursor: pointer;
-}
-
 .MovieList {
     display: flex;
     flex-direction: row;
     padding-inline: 0em;
 }
+
+

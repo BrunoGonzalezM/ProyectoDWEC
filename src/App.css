@@ -1,9 +1,36 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: system-ui;
 }
-html{
+
+html {
     height: 100vh;
+}
+
+ul {
+    display: flex;
+    list-style: none;
+    overflow-x: hidden;
+    padding: 20px 0;
+    flex: 0 0 calc(100vw - 2em);
+    margin: 0 auto;
+
+    padding-inline: 1em;
+}
+li {
+    flex: 0 0 200px;
+    background: white;
+    margin: 0 20px 0 0;
+    user-select: none;
+    color: black;
+    cursor: pointer;
+    transition: 1s;
+}
+li:hover{
+    transform: scale(1.08);
+}
+li:last-of-type {
+    margin: 0;
 }
