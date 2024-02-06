@@ -9,7 +9,8 @@ const fetchMovies = async () => {
 
     try {
         let page = Math.random() * 99;
-        const response = await fetch(`https://api.themoviedb.org/3/discover/movie?&page=1&sort_by=popularity.desc`, options);
+        // const response = await fetch(`https://api.themoviedb.org/3/discover/movie?&page=1&sort_by=popularity.desc`, options);
+        const response = await fetch(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`, options)
         const data = await response.json();
 
         if (data.results && data.results.length > 0) {
