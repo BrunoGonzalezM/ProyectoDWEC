@@ -1,6 +1,5 @@
-import Pelicula from "../componentes/Pelicula";
 
-const fetchMovieTrailers = async ({peliculaId}) => {
+const fetchMovieTrailers = async (peliculaId) => {
     const options = {
         method: 'GET',
         headers: {
@@ -12,14 +11,13 @@ const fetchMovieTrailers = async ({peliculaId}) => {
         const response = await fetch(`https://api.themoviedb.org/3/movie/${peliculaId}/videos?language=en-US`, options)
         const data = await response.json();
 
-        if (data.results && data.results.length > 0) {
-            return data.results;
-        } else {
-            throw new Error('No se ha encontrado ninguna película');
+        if(!response.ok){
+            throw new Error("Error al encontrar el trailer")  
         }
+        return data.results[0]
     } catch (err) {
         console.error(err);
-        throw new Error('Error al obtener la lista de películas');
+        throw err
     }
 };
 

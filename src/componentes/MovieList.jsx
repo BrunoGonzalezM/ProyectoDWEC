@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import "../styles/stylesMovieList.css";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import fetchMovies from "../funciones/fetchMovies"
+import { Link } from "react-router-dom";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -21,7 +22,7 @@ const MovieList = () => {
     };
     fetchData();
   }, []);
-  
+
 
   const moverIzquierda = () => {
     if (carruselRef.current) {
@@ -35,7 +36,7 @@ const MovieList = () => {
     }
   };
 
-    return (
+  return (
     <>
       <div id="movies-list">
         {error ? (
@@ -46,7 +47,9 @@ const MovieList = () => {
             <div className="carrusel" ref={carruselRef}>
               {movies.map((movie) => (
                 <div key={movie.id} className="card">
-                  <Card imgUrl={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} title={movie.title} />
+                  <Link to={`/pelicula/${movie.id}`}>
+                    <Card imgUrl={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} title={movie.title}  />
+                  </Link>
                 </div>
               ))}
             </div>

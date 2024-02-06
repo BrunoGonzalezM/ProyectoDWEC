@@ -1,4 +1,4 @@
-const fetchTrailer = async () => {
+const fetchCategorias = async () => {
     const options = {
         method: 'GET',
         headers: {
@@ -8,19 +8,14 @@ const fetchTrailer = async () => {
     };
 
     try {
-        const movie_id = 866398;
-        const response = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/videos?language=en-US`, options)
+        const response = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
         const data = await response.json();
 
-        if (data.results && data.results.length > 0) {
-            return data.results;
-        } else {
-            throw new Error('No se ha encontrado ninguna película');
-        }
+        return data.genres;
     } catch (err) {
         console.error(err);
-        throw new Error('Error al obtener la lista de películas');
+        throw err
     }
 };
 
-export default fetchTrailer;
+export default fetchCategorias;
