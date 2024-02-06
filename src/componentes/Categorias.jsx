@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import fetchCategorias from "../funciones/fetchCategorias"
+import {fetchCategorias} from "../funciones/fetch"
 import { Link } from 'react-router-dom';
+import "../styles/stylesCategorias.css"
 
 export default function Categorias() {
     const [categorias, setCategorias] = useState([]);
@@ -20,7 +21,7 @@ export default function Categorias() {
         <>
             <div>
                 {categorias.map((categoria) => (
-                    <Link key={categoria.id} to={`/pelicula/${categoria.name}`}>
+                    <Link key={categoria.id} to={`/categoria/${categoria.id}`}>
                         <div className='categoriaDiv'  >
                             <div>
                                 {categoria.name}

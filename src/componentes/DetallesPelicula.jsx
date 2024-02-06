@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import fetchMovieTrailers from '../funciones/fetchMovieTrailers';
+import {fetchMovieTrailers} from '../funciones/fetch';
 import "../styles/stylesDetallesPelicula.css"
 
 export default function DetallesPelicula() {
-    const [movies, setMovies] = useState([]);
+    const [trailersData, setTrailers] = useState([]);
     const [error, setError] = useState(null);
 
     const { id } = useParams();
@@ -12,8 +12,8 @@ export default function DetallesPelicula() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const moviesData = await fetchMovieTrailers(id);
-                setMovies(moviesData);
+                const trailersData = await fetchMovieTrailers(id);
+                setTrailers(trailersData);
             } catch (err) {
                 setError(err.message);
             }
@@ -28,7 +28,7 @@ export default function DetallesPelicula() {
                     <p>{error}</p>
                 ) : (
                     <div>
-                        <a href={`https://www.youtube.com/watch?v=${movies.key}`} target='blank_'>
+                        <a href={`https://www.youtube.com/watch?v=${trailersData.key}`} target='blank_'>
                             <div className="botonTrailer">
                                 VER TRAILER
                             </div>
