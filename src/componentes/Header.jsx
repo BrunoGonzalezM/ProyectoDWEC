@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/styleHeader.css';
+import logo from '../IMG/MovieWorld logo.png'
 
 const links = [
     {
@@ -8,7 +9,7 @@ const links = [
         href: '/',
     },
     {
-        name: 'Peliculas',
+        name: 'Películas',
         href: '/peliculas',
     },
     {
@@ -16,7 +17,7 @@ const links = [
         href: '/series',
     },
     {
-        name: 'Categorias',
+        name: 'Categorías',
         href: '/categorias',
     },
 ];
@@ -25,7 +26,7 @@ const Header = () => {
     return (
         <div className='header'>
         <div className='containerHeader'>
-            <h1>PelisFlix</h1>
+            <img src={logo} alt='MovieWorld logo'></img>
 
             <div className='lista'>
                 {links.map((link) => (
@@ -36,8 +37,8 @@ const Header = () => {
             </div>
 
             <div className='buscador'>
-                <input type='text' />
-                <button>Buscar</button>
+                <input className='inputBuscador' type='text' placeholder='¿Qué película quieres buscar?'/>
+                <button className='botonBuscador'>BUSCAR</button>
             </div>
         </div>
     </div>
