@@ -1,9 +1,9 @@
 .imgUrl{
     border-radius: 5px;
-    max-height: 200px;
+    max-height: 250px;
 }
 .cardComponent{
-    margin: 1rem .5rem;
+    margin: 1em .5em;
     text-align: center;
     width: 180px;
     color: black;
@@ -16,5 +16,6 @@
     text-overflow: ellipsis;
     max-width: 10rem;
     margin: 0 auto;
+    color: white;
 }
 
