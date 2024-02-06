@@ -10,6 +10,11 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    color: white;
+
+    background-color:#222222;
+    height: 100%;
+    width: 100%;
 }
 
 .movie-container {
@@ -17,7 +22,6 @@
     text-align: center;
     width: 180px;
 }
-
 .slick-dots li {
     list-style: none;
     display: flex;
@@ -36,9 +40,9 @@
     overflow: hidden;
     display: flex;
     scroll-snap-type: x mandatory;
-    width: 90vw;
     margin: 0 auto;
     padding: 0 15px;
+    width: calc(100vw - 12em);
 }
 
 .card {
@@ -49,7 +53,7 @@
     margin: 1rem;
     width: 100%;
     transition: .2s;
-    color: white;
+    text-align: center;
 }
 
 .card:hover {
@@ -59,4 +63,6 @@
 
 .MovieList {
     display: flex;
+    flex-direction: row;
+    padding-inline: 0em;
 }

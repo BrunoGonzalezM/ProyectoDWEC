@@ -2,7 +2,7 @@ import Card from "./Card"
 import React, { useEffect, useState, useRef } from 'react';
 import "../styles/stylesMovieList.css";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import { fetchMovies  } from "../funciones/fetch"
+import { fetchMovies } from "../funciones/fetch"
 import { Link } from 'react-router-dom';
 
 
@@ -23,7 +23,7 @@ const MovieList = () => {
     };
     fetchData();
   }, []);
-
+  
   const moverIzquierda = () => {
     if (carruselRef.current) {
       carruselRef.current.scrollLeft -= 200;
@@ -36,25 +36,29 @@ const MovieList = () => {
     }
   };
 
+
+  
   return (
     <>
       <div id="movies-list">
         {error ? (
           <p>{error}</p>
         ) : (
-          <div className="MovieList">
-
-            <div className="arrowIzquierda" onClick={moverIzquierda}><IoIosArrowBack size={50} color="white" /></div>
-            <div className="carrusel" ref={carruselRef}>
-              {movies.map((movie) => (
-                <div key={movie.id} className="card">
-                  <Link to={`/pelicula/id/${movie.id}`}>
-                    <Card imgUrl={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} title={movie.title} />
-                  </Link>
-                </div>
-              ))}
+          <div className=" ">
+            <h1>Peliculas</h1>
+            <div className="MovieList">
+              <div className="arrowIzquierda" onClick={moverIzquierda}><IoIosArrowBack size={50} color="white" /></div>
+              <div className="carrusel" ref={carruselRef}>
+                {movies.map((movie) => (
+                  <div key={movie.id} className="card">
+                    <Link to={`/pelicula/id/${movie.id}`}>
+                      <Card imgUrl={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} title={movie.title} />
+                    </Link>
+                  </div>
+                ))}
+              </div>
+              <div className="arrowDerecha" onClick={moverDerecha}><IoIosArrowForward size={50} color="white" /></div>
             </div>
-            <div className="arrowDerecha" onClick={moverDerecha}><IoIosArrowForward size={50} color="white" /></div>
           </div>
         )}
       </div>
