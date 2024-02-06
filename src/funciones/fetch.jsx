@@ -61,7 +61,7 @@ export const fetchCategoriaPelicula = async (id) => {
         throw err
     }
 };
-export const fetchMovieDetails = async (id) => {
+export const fetchMovieDetails = async (id) =>{
     const options = {
         method: 'GET',
         headers: {
@@ -71,21 +71,18 @@ export const fetchMovieDetails = async (id) => {
     };
     try {
         const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
+
         const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error("Error al encontrar los detalles");
+        if(!response.ok){
+            throw new Error("Error al encontrar los detalles")  
         }
-        
-        const trailers = data.results.filter(result => result.type === "Trailer");
-        
-        return trailers;
+        return data;
     } catch (err) {
         console.error(err);
-        throw err;
+        throw err
     }
 }
-
 export const fetchMovieTrailers = async (peliculaId) => {
     const options = {
         method: 'GET',
@@ -101,7 +98,9 @@ export const fetchMovieTrailers = async (peliculaId) => {
         if(!response.ok){
             throw new Error("Error al encontrar el trailer")  
         }
-        return data.results[0]
+        const trailers = data.results.filter(result => result.type === "Trailer");
+
+        return trailers[0];
     } catch (err) {
         console.error(err);
         throw err
