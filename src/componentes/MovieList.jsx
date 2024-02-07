@@ -55,13 +55,22 @@ const MovieCarousel = ({ movies }) => {
   const ref = useRef(null);
   const [scrollLeft, setScrollLeft] = useState(0);
 
-
   const handleMoveLeft = () => {
-    ref.current.scrollLeft -= 220;
+    const newPosition = scrollLeft === 0 ? 0 : scrollLeft - 220
+    ref.current.scrollTo({
+      left: newPosition,
+      behavior: 'smooth'
+    });
+    setScrollLeft(newPosition)
   };
 
   const handleMoveRight = () => {
-    ref.current.scrollLeft += 220;
+    const newPosition = scrollLeft === 3520 ? 3520 : scrollLeft + 220
+    ref.current.scrollTo({
+      left: newPosition,
+      behavior: 'smooth'
+    });
+    setScrollLeft(newPosition)
   };
 
   return (
@@ -71,7 +80,7 @@ const MovieCarousel = ({ movies }) => {
         {movies.map((movie) => (
           <li key={movie.id}>
             <Link to={`/pelicula/id/${movie.id}`}>
-              <Card imgUrl={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} title={movie.title} desc={movie.overview}/>
+              <Card imgUrl={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} title={movie.title} desc={movie.overview} />
             </Link>
           </li>
         ))}
