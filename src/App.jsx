@@ -1,10 +1,12 @@
-import "./App.css"
+import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from "./componentes/Header";
 import DetallesPelicula from "./componentes/DetallesPelicula";
 import Categorias from "./componentes/Categorias";
 import PeliculaCategoria from "./componentes/PeliculaCategoria";
 import MovieList from "./componentes/MovieList";
+import "./styles/fonts.css";
+
 function App() {
   return (
     <>
