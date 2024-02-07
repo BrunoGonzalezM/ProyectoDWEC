@@ -67,8 +67,10 @@ li:hover {
 li:last-of-type {
     margin: 0;
 }
-
-
+/* TITULOS DE HOME */
+.tituloPelis{
+    margin-left: 2.5em;
+}
 /* BOTONES DE CARRUSEL */
 .left,
 .right {

@@ -21,6 +21,17 @@
     position: relative;
     bottom: 0;
 }
+.tituloAlternativo{
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 10rem;
+    margin: 0 auto;
+    transition: bottom 0.4s ease;
+    overflow: hidden;
+    position: relative;
+    bottom: 0;
+}
 .descripcion {
     text-align:justify;
     white-space: wrap;
@@ -31,11 +42,15 @@
     margin: 0 auto;
     position: relative;
     bottom: -90px;
-    transition: bottom .5s ease;
+    transition: bottom .3s ease;
     font-size: 10px;
 }
 .cardComponent:hover .titulo {
     bottom: 75px;
+    color: white;
+}
+.cardComponent:hover .tituloAlternativo {
+    bottom: 10px;
     color: white;
 }
 .cardComponent:hover .descripcion {
@@ -53,9 +68,10 @@
     transition: height 0.4s ease;
     border-radius: 5px;
     overflow: hidden;
+    display: none;
 }
 
 .cardComponent:hover .gradiente {
     height: 100%;
-
+    display: block;
 }

@@ -39,7 +39,7 @@ const MovieList = () => {
             { title: "Más vistas", movies: moviesNowPlay }
           ].map(({ title, movies }) => (
             <div key={title}>
-              <h1 className='tituloPelis'>{title}</h1>
+              <h2 className='tituloPelis'>{title}</h2>
               <MovieCarousel movies={movies} ul="1" />
             </div>
           ))}
@@ -51,24 +51,24 @@ const MovieList = () => {
 
 export const MovieCarousel = ({ movies, ul }) => {
   const ref = useRef(null);
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const [scroll, setScroll] = useState(0);
 
   const handleMoveLeft = () => {
-    const newPosition = scrollLeft === 0 ? 0 : scrollLeft - 220;
+    const newPosition = scroll === 0 ? 0 : scroll - 220;
     ref.current.scrollTo({
       left: newPosition,
       behavior: 'smooth'
     });
-    setScrollLeft(newPosition);
+    setScroll(newPosition);
   };
 
   const handleMoveRight = () => {
-    const newPosition = scrollLeft === 3520 ? 3520 : scrollLeft + 220;
+    const newPosition = scroll === 3520 ? 3520 : scroll + 220;
     ref.current.scrollTo({
       left: newPosition,
       behavior: 'smooth'
     });
-    setScrollLeft(newPosition);
+    setScroll(newPosition);
   };
 
   return (
