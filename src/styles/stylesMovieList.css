@@ -56,6 +56,7 @@ li {
     cursor: pointer;
     transition: 1s;
     border-radius: 5px;
+    height:  270px;
 }
 
 li:hover {
