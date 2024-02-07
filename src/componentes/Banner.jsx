@@ -1,37 +1,49 @@
-import "../styles/stylesBanner.css"
-import { Card, CardBody, CardFooter,Image,Stack,Heading,Text,Button } from '@chakra-ui/react'
+import { Link } from "react-router-dom";
+import "../styles/stylesBanner.css";
+import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Button } from '@chakra-ui/react';
+
 export default function Banner({ movies }) {
     return (
         <>
-            <Card
-                direction={{ base: 'column', sm: 'row' }}
-                overflow='hidden'
-                variant='outline'
-            >
-                <Image
-                    objectFit='cover'
-                    maxW={{ base: '100%', sm: '200px' }}
-                    src='https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60'
-                    alt='Caffe Latte'
-                />
+            {movies.slice(0, 1).map((movie) => {
+                if (movie) {
+                    return (
+                        <Card
+                            key={movie.id}
+                            direction={{ base: 'column', sm: 'row' }}
+                            overflow='hidden'
+                            variant='outline'
+                        >
+                            <Image
+                                objectFit='cover'
+                                maxW={{ base: '100%', sm: '200px' }}
+                                src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : ""}
+                                alt={`${movie.title}`}
+                            />
 
-                <Stack>
-                    <CardBody>
-                        <Heading size='md'>The perfect latte</Heading>
+                            <Stack>
+                                <CardBody>
+                                    <Heading size='md'>{movie.title}</Heading>
+                                    <Text py='2' w= 'full' fontSize='sm' color='gray.500'  textAlign='left'>
+                                        Rating: {movie.vote_average}/10 | Released on {new Date(movie.release_date).getFullYear()}
+                                        <br />
+                                        {movie.overview ? movie.overview : ""}
+                                    </Text>
+                                </CardBody>
 
-                        <Text py='2'>
-                            Caffè latte is a coffee beverage of Italian origin made with espresso
-                            and steamed milk.
-                        </Text>
-                    </CardBody>
-
-                    <CardFooter>
-                        <Button variant='solid' colorScheme='blue'>
-                            Buy Latte
-                        </Button>
-                    </CardFooter>
-                </Stack>
-            </Card>
+                                <CardFooter>
+                                    <Link to={`/pelicula/id/${movie.id}`} >
+                                        <Button colorScheme="red" >
+                                            VER TRAILER
+                                        </Button>
+                                    </Link>
+                                </CardFooter>
+                            </Stack>
+                        </Card>
+                    );
+                }
+                return null;
+            })}
         </>
     );
 }
