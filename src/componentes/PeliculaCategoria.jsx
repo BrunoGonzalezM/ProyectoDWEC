@@ -27,7 +27,7 @@ export default function PeliculaCategoria() {
 
     return (
         <>
-            {/* {loading&& !error&& <h1>Cargando...</h1>} */}
+            {loading&& !error&& <h1>Cargando...</h1>}
             {peliPorCategoria.map((movie)=>(
                 <div key={movie.id}>
                     <p>{movie.title}</p>
