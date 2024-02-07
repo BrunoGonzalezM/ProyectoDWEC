@@ -5,7 +5,6 @@ import DetallesPelicula from "./componentes/DetallesPelicula";
 import Categorias from "./componentes/Categorias";
 import PeliculaCategoria from "./componentes/PeliculaCategoria";
 import MovieList from "./componentes/MovieList";
-import "./styles/fonts.css";
 
 function App() {
   return (

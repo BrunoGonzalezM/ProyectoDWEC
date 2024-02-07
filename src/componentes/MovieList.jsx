@@ -4,6 +4,7 @@ import { fetchMovies } from "../funciones/fetch";
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import Card from "./Card";
+import Banner from './Banner';
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -33,6 +34,7 @@ const MovieList = () => {
         <p>{error}</p>
       ) : (
         <div className="contenidoMovieList">
+          <Banner movies={movies}/>
           {[
             { title: "Populares", movies: movies },
             { title: "Mejor valoradas", movies: moviesTop },
@@ -90,13 +92,13 @@ export const MovieCarousel = ({ movies, ul }) => {
       ) : (
         <div>
           <div className='nolistado'>
-              {movies.map((movie) => (
-                <li key={movie.id} >
-                  <Link  to={`/pelicula/id/${movie.id}`}>
-                    <Card imgUrl={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} title={movie.title} desc={movie.overview} />
-                  </Link>
-                </li>
-              ))}
+            {movies.map((movie) => (
+              <li key={movie.id} >
+                <Link to={`/pelicula/id/${movie.id}`}>
+                  <Card imgUrl={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} title={movie.title} desc={movie.overview} />
+                </Link>
+              </li>
+            ))}
           </div>
         </div>
       )}
