@@ -7,7 +7,8 @@
     text-align: center;
     width: 180px;
     color:white;
-    max-height: 300px
+    max-height: 300px;
+    overflow: hidden;
 }
 .titulo {
     text-align: center;
@@ -20,7 +21,7 @@
     position: relative;
     bottom: 0;
 }
-.titulo2 {
+.descripcion {
     text-align:justify;
     white-space: wrap;
     overflow: hidden;
@@ -29,7 +30,7 @@
     max-height: 3.7rem;
     margin: 0 auto;
     position: relative;
-    bottom: -40px;
+    bottom: -90px;
     transition: bottom .5s ease;
     font-size: 10px;
 }
@@ -37,47 +38,10 @@
     bottom: 75px;
     color: white;
 }
-.cardComponent:hover .titulo2 {
+.cardComponent:hover .descripcion {
     bottom: 70px;
     color: white;
 } 
-/* .titulo {
-    text-align: center;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 10rem;
-    margin: 0 auto;
-    color: #ffffff00;
-    position: relative;
-    bottom: -100%;
-    transition: bottom 0.4s ease;
-    overflow: hidden;
-}
-.titulo2 {
-    text-align:justify;
-    white-space: wrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 9rem;
-    max-height: 3.7rem;
-    margin: 0 auto;
-    color: #ffffff00;
-    position: relative;
-    bottom: -100px;
-    transition: bottom .5s ease;
-    font-size: 10px;
-}
-.cardComponent:hover .titulo {
-    bottom: 85px;
-    color: white;
-    left: 25px;
-}
-.cardComponent:hover .titulo2 {
-    bottom: 20px;
-    color: white;
-    left: 25px;
-} 
-
 .gradiente {
     position: absolute;
     bottom: 0;
@@ -95,4 +59,3 @@
     height: 100%;
 
 }
- */

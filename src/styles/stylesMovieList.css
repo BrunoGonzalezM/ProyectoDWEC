@@ -13,7 +13,7 @@
     color: white;
 
     background-color: #222222;
-    height: 100%;
+    height: max-content;
     width: 100%;
 }
 
@@ -34,6 +34,7 @@
     padding-inline: 0em;
     align-items: center;
 }
+
 /* CARRUSEL */
 ul {
     display: flex;
@@ -56,7 +57,7 @@ li {
     cursor: pointer;
     transition: 1s;
     border-radius: 5px;
-    height:  270px;
+    height: 270px;
 }
 
 li:hover {
@@ -68,15 +69,29 @@ li:last-of-type {
 }
 
 
-/* BOTONES */
+/* BOTONES DE CARRUSEL */
 .left,
 .right {
     height: 100%;
     transition: .4s;
     color: #a7a7a7;
 }
+
 .left:hover,
 .right:hover {
     transform: scale(1.6);
     color: white;
+}
+
+/* ESTILOS PARA LAS PELICULAS QUE NO QUEREMOS CARRUSEL (EJ:CUANDO SELECCIONAMOS UNA CATERGORIA DE PELICULAS) */
+.nolistado {
+    display: flex;
+    justify-content: baseline;
+    align-content: center;
+    gap: 1em;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 1em;
+    width: 90vw;
+    height: 100%;
 }
