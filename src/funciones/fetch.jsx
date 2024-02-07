@@ -17,7 +17,22 @@ export const fetchCategorias = async () => {
     }
 };
 
-export const fetchMovies = async () => {
+export const fetchMovies = async (option) => {
+    let url;
+    switch(option) {
+        case 1:
+            url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
+            break;
+        case 2:
+            url = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1';
+            break;
+        case 3:
+            url = 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=2';
+            break;
+        default:
+            throw new Error('Hubo un error!');
+    }
+
     const options = {
         method: 'GET',
         headers: {
@@ -25,23 +40,21 @@ export const fetchMovies = async () => {
             Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MzhhZWI4NTM0ZTViMjEwNTg1M2M4NjE0MGM4Yzc3MCIsInN1YiI6IjY1YjNkZmQyNTU0MWZhMDE2NGIxODQwMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j8sdRSc8ytai4z5XJI4z3J0upLvu65EC_MPNvX0zxbk'
         }
     };
-
     try {
-        let page = Math.random() * 99;
-        // const response = await fetch(`https://api.themoviedb.org/3/discover/movie?&page=1&sort_by=popularity.desc`, options);
-        const response = await fetch(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`, options)
+        const response = await fetch(url, options)
         const data = await response.json();
-
-        if (data.results && data.results.length > 0) {
-            return data.results;
+        if (!response.ok) {
+            throw new Error('No se han encontrado las películas');
         } else {
-            throw new Error('No se ha encontrado ninguna película');
+            return data.results;
         }
     } catch (err) {
         console.error(err);
         throw new Error('Error al obtener la lista de películas');
     }
 };
+
+
 export const fetchCategoriaPelicula = async (id) => {
     const options = {
         method: 'GET',
@@ -73,7 +86,6 @@ export const fetchMovieDetails = async (id) =>{
         const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
 
         const data = await response.json();
-
         if(!response.ok){
             throw new Error("Error al encontrar los detalles")  
         }
