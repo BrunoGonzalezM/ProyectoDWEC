@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {fetchMovieTrailers , fetchMovieDetails} from '../funciones/fetch';
-import "../styles/stylesDetallesPelicula.css"
+import { fetchMovieTrailers, fetchMovieDetails } from '../funciones/fetch';
+import "../styles/stylesDetallesPelicula.css";
 
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState([]);
@@ -22,7 +22,7 @@ export default function DetallesPelicula() {
         };
         fetchData();
     }, []);
-    
+
     useEffect(() => {
         fetchMovieDetails(id)
             .then((detalles) => {
@@ -31,26 +31,26 @@ export default function DetallesPelicula() {
             .catch((err) => {
                 setError(err.message);
             })
-            .finally(()=>{
-                setLoading(false)
-            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
-    const imgURL = `https://image.tmdb.org/t/p/w200`;
+
+    const imgURL = `https://image.tmdb.org/t/p/w200/`;
+
     return (
         <>
             <div id="detallesPelicula">
-                {error ? (
-                    <p>{error}</p>
-                ) : (
-                    <div>
+                {detalles && detalles.title && (
+                    <>
                         {detalles.title}
-                        <img src={`${imgURL}${detalles.poster_path}`} />
-                        <a href={`https://www.youtube.com/watch?v=${trailersData.key}`} target='blank_'>
+                        {detalles.poster_path && <img src={`${imgURL}${detalles.poster_path}`} />}
+                        <a href={`https://www.youtube.com/watch?v=${trailersData.key}`} target='_blank'>
                             <div className="botonTrailer">
                                 VER TRAILER
                             </div>
                         </a>
-                    </div>
+                    </>
                 )}
             </div>
         </>

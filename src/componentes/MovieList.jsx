@@ -12,68 +12,26 @@ const MovieList = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (category, setter) => {
       try {
-        const moviesData = await fetchMovies(1);
-        setMovies(moviesData);
+        const moviesData = await fetchMovies(category);
+        setter(moviesData);
       } catch (err) {
         setError(err.message);
       }
     };
-    fetchData();
-    const fetchDataTop = async () => {
-      try {
-        const moviesTopData = await fetchMovies(2);
-        setMoviesTop(moviesTopData);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-    fetchDataTop();
-    const fetchDataNowPlay = async () => {
-      try {
-        const moviesNowPlayData = await fetchMovies(3);
-        setMoviesNowPlay(moviesNowPlayData);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-    fetchDataNowPlay();
+
+    fetchData(1, setMovies);
+    fetchData(2, setMoviesTop);
+    fetchData(3, setMoviesNowPlay);
   }, []);
 
-  return (
-    <>
-      <div id="movies-list">
-        {error ? (
-          <p>{error}</p>
-        ) : (
-          <div className="contenidoMovieList">
-            <h1>Populares</h1>
-            <MovieCarousel movies={movies} />
-            <h1>Mejor valoradas</h1>
-            <MovieCarousel movies={moviesTop} />
-            <h1>Más vistas</h1>
-            <MovieCarousel movies={moviesNowPlay} />
-          </div>
-        )}
-      </div>
-    </>
-  );
-};
-const MovieCarousel = ({ movies }) => {
-  const ref = useRef(null);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const [trackMouse, setTrackMouse] = useState(false);
-  const [animationComplete, setAnimationComplete] = useState(true);
-  const x = useMotionValue(0);
-
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e, ref, trackMouse, startX, scrollLeft, setAnimationComplete) => {
     if (!ref.current || !trackMouse) return;
     setAnimationComplete(false);
     const xVal = e.pageX - ref.current.offsetLeft;
     const walk = (xVal - startX) * 2;
-    const controls = animate(x, scrollLeft - walk, {
+    const controls = animate(scrollLeft, scrollLeft - walk, {
       type: "tween",
       ease: "easeOut",
       duration: 0.5,
@@ -91,7 +49,7 @@ const MovieCarousel = ({ movies }) => {
     return controls.stop;
   };
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e, ref, setTrackMouse, setStartX, setScrollLeft) => {
     if (!ref.current) return;
     setTrackMouse(true);
     const startX = e.pageX - ref.current.offsetLeft;
@@ -100,23 +58,61 @@ const MovieCarousel = ({ movies }) => {
     setScrollLeft(scrollLeft);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = (setTrackMouse) => {
     setTrackMouse(false);
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (setTrackMouse) => {
     setTrackMouse(false);
   };
+
+  return (
+    <>
+      <div id="movies-list">
+        {error ? (
+          <p>{error}</p>
+        ) : (
+          <div className="contenidoMovieList">
+            {[
+              { title: "Populares", movies: movies },
+              { title: "Mejor valoradas", movies: moviesTop },
+              { title: "Más vistas", movies: moviesNowPlay }
+            ].map(({ title, movies }) => (
+              <div key={title}>
+                <h1>{title}</h1>
+                <MovieCarousel movies={movies}
+                  handleMouseMove={handleMouseMove}
+                  handleMouseDown={handleMouseDown}
+                  handleMouseLeave={handleMouseLeave}
+                  handleMouseUp={handleMouseUp} />
+              </div>
+            ))}
+          </div>
+
+        )}
+      </div>
+    </>
+  );
+};
+
+const MovieCarousel = ({ movies, handleMouseMove, handleMouseDown, handleMouseLeave, handleMouseUp }) => {
+  const ref = useRef(null);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [trackMouse, setTrackMouse] = useState(false);
+  const [animationComplete, setAnimationComplete] = useState(true);
+  const x = useMotionValue(0);
 
   return (
     <div className="MovieList">
       <motion.ul
         ref={ref}
-        onMouseMove={handleMouseMove}
-        onMouseDown={(e) => { e.preventDefault(); handleMouseDown(e);}}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseLeave}
+        onMouseMove={(e) => handleMouseMove(e, ref, trackMouse, startX, scrollLeft, setAnimationComplete)}
+        onMouseDown={(e) => { e.preventDefault(); handleMouseDown(e, ref, setTrackMouse, setStartX, setScrollLeft); }}
+        onMouseUp={() => handleMouseUp(setTrackMouse)}
+        onMouseLeave={() => handleMouseLeave(setTrackMouse)}
       >
+
         {movies.map((movie) => (
           <motion.li key={movie.id} >
             <Link to={`/pelicula/id/${movie.id}`}>
@@ -124,6 +120,7 @@ const MovieCarousel = ({ movies }) => {
             </Link>
           </motion.li>
         ))}
+
       </motion.ul>
     </div>
   );
