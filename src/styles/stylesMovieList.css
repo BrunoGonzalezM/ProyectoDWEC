@@ -12,19 +12,22 @@
     flex-wrap: wrap;
     color: white;
 
-    background-color:#222222;
+    background-color: #222222;
     height: 100%;
     width: 100%;
 }
-.contenidoMovieList{
-    overflow-x: hidden ;
+
+.contenidoMovieList {
+    overflow-x: hidden;
     padding: 1em;
 }
+
 .movie-container {
     margin: 1em;
     text-align: center;
     width: 180px;
 }
+
 .slick-dots li {
     list-style: none;
     display: flex;
@@ -40,18 +43,19 @@
 }
 
 .carrusel {
-    overflow: hidden;
     display: flex;
-    scroll-snap-type: x mandatory;
     margin: 0 auto;
-    padding: 0 15px;
-    width: calc(100vw - 12em);
+    padding-inline: 1em;
+    margin: 1em;
+    max-width: calc(100vw - 9em);
+    overflow: hidden;
 }
 
 .MovieList {
     display: flex;
     flex-direction: row;
     padding-inline: 0em;
+    align-items: center;
 }
 
 ul {
@@ -64,6 +68,7 @@ ul {
 
     padding-inline: 1em;
 }
+
 li {
     flex: 0 0 0px;
     background: #00000030;
@@ -73,9 +78,23 @@ li {
     transition: 1s;
     border-radius: 5px;
 }
-li:hover{
+
+li:hover {
     transform: scale(1.08);
 }
+
 li:last-of-type {
     margin: 0;
+}
+
+.left,
+.right {
+    height: 100%;
+    transition: .4s;
+    color: #a7a7a7;
+}
+.left:hover,
+.right:hover {
+    transform: scale(1.6);
+    color: white;
 }

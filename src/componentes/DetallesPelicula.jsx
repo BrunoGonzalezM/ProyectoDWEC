@@ -46,7 +46,7 @@ export default function DetallesPelicula() {
         fetchDataCredits();
     }, [id]); // Agregado id como dependencia para que se vuelva a cargar cuando cambie
 
-    const imgURL = `https://image.tmdb.org/t/p/w200/`;
+    const imgURL = `https://image.tmdb.org/t/p/w400/`;
 
     return (
         <>
