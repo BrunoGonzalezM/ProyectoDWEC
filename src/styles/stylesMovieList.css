@@ -40,7 +40,7 @@ ul {
     display: flex;
     list-style: none;
     overflow: hidden;
-    padding: 20px 0;
+    padding: 40px 0;
     flex: 0 0 calc(100vw - 9em);
     margin: 1em;
     max-width: calc(100vw - 9em);
@@ -96,4 +96,12 @@ li:last-of-type {
     padding: 1em;
     width: 90vw;
     height: 100%;
+}
+
+
+
+/* DESPUES DE CHACKRA */
+
+li{
+    height: max-content;
 }

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "../styles/stylesBanner.css";
-import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Button } from '@chakra-ui/react';
+import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Button, ButtonGroup } from '@chakra-ui/react';
 
 export default function Banner({ movies }) {
     return (
@@ -24,8 +24,8 @@ export default function Banner({ movies }) {
                             <Stack>
                                 <CardBody>
                                     <Heading size='md'>{movie.title}</Heading>
-                                    <Text py='2' w= 'full' fontSize='sm' color='gray.500'  textAlign='left'>
-                                        Rating: {movie.vote_average}/10 | Released on {new Date(movie.release_date).getFullYear()}
+                                    <Text py='2' w='full' fontSize='sm' color='gray.500' textAlign='left'>
+                                        Puntación: {movie.vote_average.toFixed(1)}/10 | Lanzado el {new Date(movie.release_date).getFullYear()}
                                         <br />
                                         {movie.overview ? movie.overview : ""}
                                     </Text>
@@ -33,7 +33,7 @@ export default function Banner({ movies }) {
 
                                 <CardFooter>
                                     <Link to={`/pelicula/id/${movie.id}`} >
-                                        <Button colorScheme="red" >
+                                        <Button colorScheme='teal' variant='solid'>
                                             VER TRAILER
                                         </Button>
                                     </Link>
