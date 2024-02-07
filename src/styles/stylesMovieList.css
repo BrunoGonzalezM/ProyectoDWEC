@@ -28,47 +28,26 @@
     width: 180px;
 }
 
-.slick-dots li {
-    list-style: none;
-    display: flex;
-}
-
-.arrowIzquierda,
-.arrowDerecha {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 1em;
-    cursor: pointer;
-}
-
-.carrusel {
-    display: flex;
-    margin: 0 auto;
-    padding-inline: 1em;
-    margin: 1em;
-    max-width: calc(100vw - 9em);
-    overflow: hidden;
-}
-
 .MovieList {
     display: flex;
     flex-direction: row;
     padding-inline: 0em;
     align-items: center;
 }
-
+/* CARRUSEL */
 ul {
     display: flex;
     list-style: none;
-    overflow-x: hidden;
+    overflow: hidden;
     padding: 20px 0;
-    flex: 0 0 calc(100vw - 2em);
-    margin: 0 auto;
+    flex: 0 0 calc(100vw - 9em);
+    margin: 1em;
+    max-width: calc(100vw - 9em);
 
     padding-inline: 1em;
 }
 
+/* ITEMS DEL CARRUSEL (tarjetas) */
 li {
     flex: 0 0 0px;
     background: #00000030;
@@ -87,6 +66,8 @@ li:last-of-type {
     margin: 0;
 }
 
+
+/* BOTONES */
 .left,
 .right {
     height: 100%;

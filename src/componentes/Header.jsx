@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/styleHeader.css';
-import logo from '../IMG/MovieWorld logo.png'
 
 const links = [
     {
@@ -27,7 +26,7 @@ const Header = () => {
     return (
         <div className='header'>
         <div className='containerHeader'>
-            <img src={logo} alt='MovieWorld logo'></img>
+            <img src='' alt='Logo'></img>
 
             <div className='lista'>
                 {links.map((link) => (
