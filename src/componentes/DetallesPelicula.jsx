@@ -97,6 +97,7 @@ export default function DetallesPelicula() {
                                             <Flex
                                                 flexDirection="row"
                                                 justifyContent="center"
+                                                px=""
                                             >
                                                 <Image
                                                     maxW="25%"
