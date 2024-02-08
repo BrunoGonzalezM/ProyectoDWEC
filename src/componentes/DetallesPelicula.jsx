@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos } from '../funciones/fetch';
 import "../styles/stylesDetallesPelicula.css";
 import { Tag, TagLabel, Box, Button, Heading, Text, Flex, Image } from "@chakra-ui/react";
@@ -46,56 +46,129 @@ export default function DetallesPelicula() {
         fetchDataCredits();
     }, [id]);
 
-    const imgURL = `https://image.tmdb.org/t/p/original/`;
+    const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
     return (
         <>
-            <Flex
-                id="detallesPelicula"
-                bg="#222222"
-                color="white"
-            >
-                {detalles && detalles.title && (
-                    <>
-                        <Box>
+            <Box
+                bg="black">
+                <Flex
+                    id="detallesPelicula"
+                    bg="black"
+                    color="white"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignContent="center"
+                    h="maxContent"
+                    overflow="hidden"
+                >
+                    {detalles && detalles.title && (
+                        <>
+                            <Box
+                                w={`calc(100vw - 2em)`}
+                                h={`calc(100vh - 4em)`}
+                                backgroundImage={`url(${imgURL}${detalles.poster_path})`}
+                                backgroundPosition="center"
+                                transform="scale(2)"
+                                filter="blur(20px)"
+                                backgroundRepeat="repeat"
+                            >
+                            </Box>
                             <Flex
+                                position="absolute"
+                                top="7em"
                                 flexDirection="column"
                                 justifyContent="center"
                                 alignContent="center"
-                                m={5}
-                                textAlign="center"
+                                margin="0"
+                                padding="0"
+                                boxSizing='border-box'
+                                bg="#00000069"
+                                w="100%"
                             >
-                                {detalles.poster_path && <Image maxW="25%" src={`${imgURL}${detalles.poster_path}`} />}
-                                <Heading>{detalles.title}</Heading>
-                                <Text fontSize="2xl" > {detalles.tagline}</Text>
-                                <Flex justifyContent="center">
-                                    <Text fontSize="1xl" maxW={900} > {detalles.overview}</Text>
+                                <Flex
+                                    flexDirection="column"
+                                    justifyContent="center"
+                                    alignContent="center"
+                                    p={10}
+                                >
+                                    {detalles.poster_path &&
+                                        <>
+                                            <Flex
+                                                flexDirection="row"
+                                                justifyContent="center"
+                                            >
+                                                <Image
+                                                    maxW="25%"
+                                                    minW="250px"
+                                                    maxH="360px"
+                                                    src={`${imgURL}${detalles.poster_path}`}
+                                                    alt={`Poster de ${detalles.title}`}
+                                                    borderRadius="md"
+                                                />
+                                                <Flex
+                                                    flexDirection="column"
+                                                    justifyContent="space-between"
+                                                    px={5}
+                                                    maxW="100%"
+                                                    height="maxContent"
+                                                    width="100%"
+                                                >
+                                                    <Box>
+                                                        <Heading mx={5}>{detalles.title}</Heading>
+                                                        <Text fontSize="2xl" mx={5}> {detalles.tagline}</Text>
+                                                        <Text fontSize="1xl" maxW={900} m={5} > {detalles.overview}</Text>
+                                                        <Box>
+                                                            {detalles.genres.map((genre) => (
+                                                                <Tag
+                                                                    key={genre.id}
+                                                                    size='lg'
+                                                                    color='green'
+                                                                    borderRadius='full'
+                                                                    m={5}   
+                                                                >
+                                                                    <TagLabel mx={3} >
+                                                                        <Link to={`/categoria/${genre.id}`}>
+                                                                            <Box
+                                                                                mx={5}
+                                                                                color='green'
+                                                                            >
+                                                                                {genre.name}
+                                                                            </Box>
+                                                                        </Link>
+                                                                    </TagLabel>
+                                                                </Tag>
+                                                            ))}
+                                                        </Box>
+                                                    </Box>
+                                                    {trailersData && trailersData.key && (
+                                                        <Button
+                                                            mx={5}
+                                                            colorScheme='green'
+                                                            onClick={() => { window.open(`https://www.youtube.com/watch?v=${trailersData.key}`) }}
+                                                        >
+                                                            VER TRAILER
+                                                        </Button>
+                                                    )}
+                                                </Flex>
+                                            </Flex>
+                                        </>
+                                    }
                                 </Flex>
-                                <Box m={2}>
-                                    {detalles.genres.map((genre) => (
-                                        <Tag
-                                            key={genre.id}
-                                            size='lg'
-                                            colorScheme='green'
-                                            borderRadius='full'
-                                            m={5}
-                                        >
-                                            <TagLabel mx={3} >
-                                                {genre.name}
-                                            </TagLabel>
-                                        </Tag>
-
-                                    ))}
-                                </Box>
-                                {trailersData && trailersData.key && (
-                                    <a href={`https://www.youtube.com/watch?v=${trailersData.key}`} target='_blank'>
-                                        <Button colorScheme='green'>VER TRAILER</Button>
-                                    </a>
-                                )}
                             </Flex>
-                            <Box>
-                                <Text>Creditos:</Text><br />
-                                <Box>
+                            <Box
+                                my="1em"
+                                overflow="hidden"
+                                zIndex="1"
+                            >
+                                <Heading fontSize="3xl" mx="2em">
+                                    Creditos:
+                                </Heading>
+                                <Flex
+                                    flexDirection="row"
+                                    justifyContent="space-evenly"
+                                    m="2em"
+                                >
                                     {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).slice(0, 5).map((actor) => (
                                         <Box key={actor.id}>
                                             <Text>{actor.name}</Text> <br />
@@ -103,14 +176,12 @@ export default function DetallesPelicula() {
                                             <strong>Personaje:</strong> <p>{actor.character}</p>
                                         </Box>
                                     ))}
-                                </Box>
+                                </Flex>
                             </Box>
-                        </Box>
-
-
-                    </>
-                )}
-            </Flex>
+                        </>
+                    )}
+                </Flex>
+            </Box>
         </>
     );
 }
