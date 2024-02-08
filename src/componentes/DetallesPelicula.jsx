@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos } from '../funciones/fetch';
 import "../styles/stylesDetallesPelicula.css";
-
+import { Tag, TagLabel, Box, Button, Heading, Text, Flex, Image } from "@chakra-ui/react";
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
     const [error, setError] = useState(null);
-    const [detalles, setDetalles] = useState(null); 
-    const [creditos, setCreditos] = useState({ cast: [] }); 
+    const [detalles, setDetalles] = useState(null);
+    const [creditos, setCreditos] = useState({ cast: [] });
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
 
@@ -44,50 +44,73 @@ export default function DetallesPelicula() {
         fetchData();
         fetchDataDetails();
         fetchDataCredits();
-    }, [id]); 
+    }, [id]);
 
-    const imgURL = `https://image.tmdb.org/t/p/w400/`;
+    const imgURL = `https://image.tmdb.org/t/p/original/`;
 
     return (
         <>
-            <div id="detallesPelicula">
+            <Flex
+                id="detallesPelicula"
+                bg="#222222"
+                color="white"
+            >
                 {detalles && detalles.title && (
                     <>
-                        <div className='detallesBody'>
-                            <div className='detalles'>
-                                {detalles.poster_path && <img src={`${imgURL}${detalles.poster_path}`} />}
-                                <h1>{detalles.title}</h1>
-                                <h2>{detalles.tagline}</h2>
-                                <p>{detalles.overview}</p>
-                                <div className="categorias">
+                        <Box>
+                            <Flex
+                                flexDirection="column"
+                                justifyContent="center"
+                                alignContent="center"
+                                m={5}
+                                textAlign="center"
+                            >
+                                {detalles.poster_path && <Image maxW="25%" src={`${imgURL}${detalles.poster_path}`} />}
+                                <Heading>{detalles.title}</Heading>
+                                <Text fontSize="2xl" > {detalles.tagline}</Text>
+                                <Flex justifyContent="center">
+                                    <Text fontSize="1xl" maxW={900} > {detalles.overview}</Text>
+                                </Flex>
+                                <Box m={2}>
                                     {detalles.genres.map((genre) => (
-                                        <div key={genre.id}><p>{genre.name}</p></div>
+                                        <Tag
+                                            key={genre.id}
+                                            size='lg'
+                                            colorScheme='green'
+                                            borderRadius='full'
+                                            m={5}
+                                        >
+                                            <TagLabel mx={3} >
+                                                {genre.name}
+                                            </TagLabel>
+                                        </Tag>
+
                                     ))}
-                                </div>
+                                </Box>
                                 {trailersData && trailersData.key && (
                                     <a href={`https://www.youtube.com/watch?v=${trailersData.key}`} target='_blank'>
-                                        <div className="botonTrailer">VER TRAILER</div>
+                                        <Button colorScheme='green'>VER TRAILER</Button>
                                     </a>
                                 )}
-                            </div>
-                            <div className='creditosBody'>
-                                <h3>Creditos:</h3><br />
-                                <div className='creditosCards'>
+                            </Flex>
+                            <Box>
+                                <Text>Creditos:</Text><br />
+                                <Box>
                                     {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).slice(0, 5).map((actor) => (
-                                        <div key={actor.id}>
-                                            <p>{actor.name}</p> <br />
-                                            {actor.profile_path && <img src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} />}
+                                        <Box key={actor.id}>
+                                            <Text>{actor.name}</Text> <br />
+                                            {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} borderRadius="md" alt={actor.name} />}
                                             <strong>Personaje:</strong> <p>{actor.character}</p>
-                                        </div>
+                                        </Box>
                                     ))}
-                                </div>
-                            </div>
-                        </div>
+                                </Box>
+                            </Box>
+                        </Box>
 
 
                     </>
                 )}
-            </div>
+            </Flex>
         </>
     );
 }
