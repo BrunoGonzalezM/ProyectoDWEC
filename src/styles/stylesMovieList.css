@@ -5,6 +5,7 @@
     font-family: system-ui;
 }
 
+/* 
 #movies-list {
     display: flex;
     justify-content: center;
@@ -15,18 +16,13 @@
     background-color: #222222;
     height: max-content;
     width: 100%;
-}
-
+} 
 .contenidoMovieList {
     overflow-x: hidden;
     padding: 1em;
-}
+} 
 
-.movie-container {
-    margin: 1em;
-    text-align: center;
-    width: 180px;
-}
+
 
 .MovieList {
     display: flex;
@@ -35,7 +31,9 @@
     align-items: center;
 }
 
+
 /* CARRUSEL */
+/*
 ul {
     display: flex;
     list-style: none;
@@ -47,9 +45,9 @@ ul {
 
     padding-inline: 1em;
 }
-
+*/
 /* ITEMS DEL CARRUSEL (tarjetas) */
-li {
+/* li {
     flex: 0 0 0px;
     background: #00000030;
     margin: 0 20px 0 0;
@@ -58,32 +56,35 @@ li {
     transition: 1s;
     border-radius: 5px;
     height: 270px;
-}
+} 
 
 li:hover {
     transform: scale(1.08);
 }
 
-li:last-of-type {
+*/
+/* li:last-of-type {
     margin: 0;
-}
+} */
+
 /* TITULOS DE HOME */
-.tituloPelis{
+/* .tituloPelis {
     margin-left: 2.5em;
-}
+} */
+
 /* BOTONES DE CARRUSEL */
-.left,
+/* .left,
 .right {
     height: 100%;
     transition: .4s;
     color: #a7a7a7;
-}
+} */
 
-.left:hover,
+/* .left:hover,
 .right:hover {
     transform: scale(1.6);
     color: white;
-}
+} */
 
 /* ESTILOS PARA LAS PELICULAS QUE NO QUEREMOS CARRUSEL (EJ:CUANDO SELECCIONAMOS UNA CATERGORIA DE PELICULAS) */
 .nolistado {
@@ -102,6 +103,6 @@ li:last-of-type {
 
 /* DESPUES DE CHACKRA */
 
-li{
+li {
     height: max-content;
 }
