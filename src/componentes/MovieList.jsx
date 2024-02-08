@@ -3,7 +3,7 @@ import { fetchMovies } from "../funciones/fetch";
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import Banner from './Banner';
-import { Card, CardBody, Image, Stack, Heading, Text, Flex, Box, UnorderedList, ListItem } from "@chakra-ui/react"
+import { Card, CardBody, Image, Stack, Heading, Text, Flex, Box, UnorderedList, ListItem,Spinner } from "@chakra-ui/react"
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -30,6 +30,13 @@ const MovieList = () => {
     <Flex justifyContent="center" alignItems="center" flexWrap="wrap" color="white" backgroundColor="#222222" height="max-content" width="100%">
       {error ? (<p>{error}</p>) : (
         <Box overflowX="hidden" padding="1em">
+          <Spinner
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='gray.200'
+            color='blue.500'
+            size='xl'
+          />
           <Banner movies={movies} />
           {[
             { title: "Populares", movies: movies },
@@ -115,41 +122,41 @@ export const MovieCarousel = ({ movies, ul }) => {
       ) : (
         <>
           <Flex className="MovieList" flexDirection="row" paddingInline="0em" alignItems="center" flexWrap="wrap" backgroundColor="#00000030"  >
-          {movies.map((movie) => (
-          <UnorderedList key={movie.id} display="flex" listStyleType="none" overflow="hidden" padding="40px 0" flex="0 0 20em" margin="1em" maxWidth="calc(100vw - 9em)" paddingInline="1em" ref={ref}>
-            <Link to={`/pelicula/id/${movie.id}`}  >
-                <Card size="sm" h="maxContent" borderRadius='lg'backgroundColor="#00000030"  transition="1s" _hover={{ transform: "scale(1.08)"}} >
-                  <CardBody minH="367px" minW="250px" p="3" borderRadius='lg' bg="black.800"  >
-                    <Image
-                      src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                      alt={`${movie.title}`}
-                      borderRadius='md'
-                      minW='260px'
-                      minH="330px"
-                      placeItems="center"
-                    />
-                    <Stack mt='6' spacing='3' color="white">
-                      <Heading size='md' noOfLines={1}>{`${movie.title}`}</Heading>
-                      {movie.overview ? (
-                        <Text noOfLines={3}>
-                          {`${movie.overview}`}
+            {movies.map((movie) => (
+              <UnorderedList key={movie.id} display="flex" listStyleType="none" overflow="hidden" padding="40px 0" flex="0 0 20em" margin="1em" maxWidth="calc(100vw - 9em)" paddingInline="1em" ref={ref}>
+                <Link to={`/pelicula/id/${movie.id}`}  >
+                  <Card size="sm" h="maxContent" borderRadius='lg' backgroundColor="#00000030" transition="1s" _hover={{ transform: "scale(1.08)" }} >
+                    <CardBody minH="367px" minW="250px" p="3" borderRadius='lg' bg="black.800"  >
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                        alt={`${movie.title}`}
+                        borderRadius='md'
+                        minW='260px'
+                        minH="330px"
+                        placeItems="center"
+                      />
+                      <Stack mt='6' spacing='3' color="white">
+                        <Heading size='md' noOfLines={1}>{`${movie.title}`}</Heading>
+                        {movie.overview ? (
+                          <Text noOfLines={3}>
+                            {`${movie.overview}`}
+                          </Text>
+                        ) : (
+                          <Box mt={3}>
+                            <br />
+                            <br />
+                            <br />
+                          </Box>
+                        )}
+                        <Text color='blue.600' fontSize='2xl'>
+                          {movie.vote_average.toFixed(1)}/10
                         </Text>
-                      ) : (
-                        <Box mt={3}>
-                          <br />
-                          <br />
-                          <br />
-                        </Box>
-                      )}
-                      <Text color='blue.600' fontSize='2xl'>
-                        {movie.vote_average.toFixed(1)}/10
-                      </Text>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </Link>
-            </UnorderedList>
-          ))}
+                      </Stack>
+                    </CardBody>
+                  </Card>
+                </Link>
+              </UnorderedList>
+            ))}
           </Flex>
         </>
       )}
