@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchCategoriaPelicula } from '../funciones/fetch';
-import "../styles/stylesMovieList.css";
 import { MovieCarousel } from './MovieList';
+import { Box, Button } from "@chakra-ui/react";
 
 export default function PeliculaCategoria() {
     const [peliPorCategoria, setPeliPorCategoria] = useState([]);
@@ -38,14 +38,15 @@ export default function PeliculaCategoria() {
         }
     };
     return (
-        <div id="movies-list">
-            <div className='nolistado'>
-                
-                <MovieCarousel movies={peliPorCategoria} />
-                <button onClick={handleBackPage} disabled={page <= 1}>ANTERIOR</button>
-                <button onClick={handleNextPage} disabled={page >= 99}>SIGUIENTE</button>
-            </div>
-        </div>
+        <Box bg="blackAlpha.800">            
+        <MovieCarousel movies={peliPorCategoria} />
+            <Button onClick={handleBackPage} isDisabled={page <= 1}>
+                ANTERIOR
+            </Button>
+            <Button onClick={handleNextPage} isDisabled={page >= 99}>
+                SIGUIENTE
+            </Button>
+        </Box>
     );
 
 }
