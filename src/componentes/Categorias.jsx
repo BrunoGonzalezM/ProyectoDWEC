@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {fetchCategorias} from "../funciones/fetch"
+import {fetchCategorias} from "../funciones/fetch";
 import { Link } from 'react-router-dom';
-import "../styles/stylesCategorias.css"
+import "../styles/stylesCategorias.css";
+import {Box } from '@chakra-ui/react';
 
 export default function Categorias() {
     const [categorias, setCategorias] = useState([]);
@@ -19,17 +20,17 @@ export default function Categorias() {
 
     return (
         <>
-            <div>
+            <Box>
                 {categorias.map((categoria) => (
                     <Link key={categoria.id} to={`/categoria/${categoria.id}`}>
-                        <div className='categoriaDiv'  >
-                            <div>
+                        <Box>
+                            <Box>
                                 {categoria.name}
-                            </div>
-                        </div>
+                            </Box>
+                        </Box>
                     </Link>
                 ))}
-            </div>
+            </Box>
         </>
     );
 }
