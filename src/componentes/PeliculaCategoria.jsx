@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchCategoriaPelicula } from '../funciones/fetch';
 import "../styles/stylesMovieList.css";
-
 import { MovieCarousel } from './MovieList';
 
 export default function PeliculaCategoria() {
@@ -41,11 +40,12 @@ export default function PeliculaCategoria() {
     return (
         <div id="movies-list">
             <div className='nolistado'>
+                
                 <MovieCarousel movies={peliPorCategoria} />
                 <button onClick={handleBackPage} disabled={page <= 1}>ANTERIOR</button>
                 <button onClick={handleNextPage} disabled={page >= 99}>SIGUIENTE</button>
             </div>
         </div>
     );
-    
+
 }

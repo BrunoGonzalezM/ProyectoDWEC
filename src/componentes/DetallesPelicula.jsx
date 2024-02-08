@@ -6,8 +6,8 @@ import "../styles/stylesDetallesPelicula.css";
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
     const [error, setError] = useState(null);
-    const [detalles, setDetalles] = useState(null); // Cambiado a null para evitar errores antes de cargar
-    const [creditos, setCreditos] = useState({ cast: [] }); // Inicializado como objeto con cast como un array vacío
+    const [detalles, setDetalles] = useState(null); 
+    const [creditos, setCreditos] = useState({ cast: [] }); 
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
 
@@ -44,7 +44,7 @@ export default function DetallesPelicula() {
         fetchData();
         fetchDataDetails();
         fetchDataCredits();
-    }, [id]); // Agregado id como dependencia para que se vuelva a cargar cuando cambie
+    }, [id]); 
 
     const imgURL = `https://image.tmdb.org/t/p/w400/`;
 

@@ -75,7 +75,7 @@ export const MovieCarousel = ({ movies, ul }) => {
 
   return (
     <>
-      {ul == 1 ? (
+      {ul ? (
         <div className="MovieList">
           <IoIosArrowBack className='left' onClick={handleMoveLeft} size={100} />
           <ul ref={ref} >
@@ -93,9 +93,15 @@ export const MovieCarousel = ({ movies, ul }) => {
                       />
                       <Stack mt='6' spacing='3' color="white">
                         <Heading size='md' noOfLines={1}>{`${movie.title}`}</Heading>
-                        <Text noOfLines={3}>
-                          {`${movie.overview}`}
-                        </Text>
+                        {movie.overview ? (
+                          <Text noOfLines={3}>
+                            {`${movie.overview}`}
+                          </Text>
+                        ) : (
+                          <div>
+                            <br></br><br></br><br></br>
+                          </div>
+                        )}
                         <Text color='blue.600' fontSize='2xl'>
                           {movie.vote_average.toFixed(1)}/10
                         </Text>
@@ -109,44 +115,41 @@ export const MovieCarousel = ({ movies, ul }) => {
           <IoIosArrowForward className='right' onClick={handleMoveRight} size={100} />
         </div>
       ) : (
-        <div>
-          <div className='nolistado'>
-            {movies.map((movie) => (
-              <li key={movie.id} >
-                <Card imgUrl={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} title={movie.title} desc={movie.overview} />
-              </li>
-            ))}
-          </div>
-        </div>)}
-
-
-      {/* {ul == 1 ? (
-        <div className="MovieList">
-          <IoIosArrowBack className='left' onClick={handleMoveLeft} size={100} />
-          <ul ref={ref} >
-            {movies.map((movie) => (
-              <li key={movie.id}>
-                <Link to={`/pelicula/id/${movie.id}`}>
-                  <Card imgUrl={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} title={movie.title} desc={movie.overview} />
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <IoIosArrowForward className='right' onClick={handleMoveRight} size={100} />
-        </div>
-      ) : (
-        <div>
-          <div className='nolistado'>
-            {movies.map((movie) => (
-              <li key={movie.id} >
-                <Link to={`/pelicula/id/${movie.id}`}>
-                  <Card imgUrl={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} title={movie.title} desc={movie.overview} />
-                </Link>
-              </li>
-            ))}
-          </div>
-        </div>
-      )} */}
+       <>
+        {movies.map((movie) => (
+          <li key={movie.id}  >
+            <Link to={`/pelicula/id/${movie.id}`}>
+              <Card size="sm" h="maxContent" borderRadius='lg' bg="transparent"  >
+                <CardBody minH="367px" minW="250px" p="3" borderRadius='lg' bg="black.800"  >
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                    alt={`${movie.title}`}
+                    borderRadius='md'
+                    w='100%'
+                    h="330px"
+                  />
+                  <Stack mt='6' spacing='3' color="white">
+                    <Heading size='md' noOfLines={1}>{`${movie.title}`}</Heading>
+                    {movie.overview ? (
+                      <Text noOfLines={3}>
+                        {`${movie.overview}`}
+                      </Text>
+                    ) : (
+                      <div>
+                        <br></br><br></br><br></br>
+                      </div>
+                    )}
+                    <Text color='blue.600' fontSize='2xl'>
+                      {movie.vote_average.toFixed(1)}/10
+                    </Text>
+                  </Stack>
+                </CardBody>
+              </Card>
+            </Link>
+          </li>
+        ))}
+       </>
+       )}
     </>
   );
 };
