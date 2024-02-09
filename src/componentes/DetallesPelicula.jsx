@@ -127,14 +127,14 @@ export default function DetallesPelicula() {
                                                     <Box>
                                                         <Flex flexDirection="row" w="100%">
                                                             <Heading mx={5}>{detalles.title} ({new Date(detalles.release_date).getFullYear()})</Heading>
-                                                            <Stat> 
-                                                               <Box float="right">
-                                                               <Heading fontSize="2xl">{detalles.vote_average.toFixed(1)}/10 </Heading>
-                                                                <StatHelpText >
-                                                                    <StatArrow type={(detalles.id % 100) < 30 ? 'decrease' : 'increase'} />
-                                                                    {((detalles.vote_count % 50) * 0.3384).toFixed(2)}%
-                                                                </StatHelpText>
-                                                               </Box>
+                                                            <Stat>
+                                                                <Box float="right">
+                                                                    <Heading fontSize="2xl">{detalles.vote_average.toFixed(1)}/10 </Heading>
+                                                                    <StatHelpText >
+                                                                        <StatArrow type={(detalles.id % 100) < 30 ? 'decrease' : 'increase'} />
+                                                                        {((detalles.vote_count % 50) * 0.3384).toFixed(2)}%
+                                                                    </StatHelpText>
+                                                                </Box>
                                                             </Stat>
                                                         </Flex>
                                                         <Text fontSize="2xl" mx={5}> {detalles.tagline}</Text>
@@ -186,7 +186,12 @@ export default function DetallesPelicula() {
                                 >
                                     {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).slice(0, 5).map((actor) => (
                                         <Box key={actor.id}>
-                                            <Text>{actor.name}</Text> <br />
+                                            <Text
+                                                
+                                            >
+                                                {actor.name}
+                                            </Text>
+                                            <br />
                                             {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} borderRadius="md" alt={actor.name} />}
                                             <strong>Personaje:</strong> <p>{actor.character}</p>
                                         </Box>
