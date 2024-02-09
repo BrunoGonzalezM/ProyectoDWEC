@@ -186,9 +186,7 @@ export default function DetallesPelicula() {
                                 >
                                     {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).slice(0, 5).map((actor) => (
                                         <Box key={actor.id}>
-                                            <Text
-                                                
-                                            >
+                                            <Text>
                                                 {actor.name}
                                             </Text>
                                             <br />
