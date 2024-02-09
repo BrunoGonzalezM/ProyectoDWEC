@@ -1,52 +1,39 @@
-.header {
-    background-color: #2c3e50;
-    color: white;
-    padding: 1em;
-}
-
-.containerHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-inline: 2em;
-}
-
-.lista {
-    list-style: none;
-    display: flex;
-}
-
-.lista * {
-    margin: 0 1em;
-}
-
-a {
-    text-decoration: none;
-    color: white;
-}
-
-.buscador {
-    display: flex;
-    align-items: center;
-}
-
-.inputBuscador {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 8px;
-    width: 200px;
-}
-
-.botonBuscador {
-    padding: 8px 12px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
+.button {
+    font-size: 18px;
+    color: #e1e1e1;
+    font-family: inherit;
+    font-weight: 800;
     cursor: pointer;
-}
-
-.botonBuscador:hover {
-    background-color: #0056b3;
-}
+    position: relative;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: color;
+  }
+  
+  .button:focus,
+  .button:hover {
+    color: #fff;
+  }
+  
+  .button:focus:after,
+  .button:hover:after {
+    width: 100%;
+    left: 0%;
+  }
+  
+  .button:after {
+    content: "";
+    pointer-events: none;
+    bottom: -2px;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: #fff;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: width, left;
+  }

@@ -3,6 +3,7 @@ import { Card, CardBody, CardFooter, Image, Heading, Text, Button, Box, Flex, St
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Icon, TriangleUpIcon, AddIcon } from "@chakra-ui/icons"
 import 'swiper/css';
+import "../styles/banner.css"
 export default function Banner({ movies }) {
 
     return (
@@ -14,34 +15,17 @@ export default function Banner({ movies }) {
                             <Box>
                                 <>
                                     <Flex flexDirection="row">
-                                        <Flex
-                                            //IMAGEN DE FONDO
-                                            w={`calc(100vw - 2em)`}
-                                            h={`calc(100vh - 50vh)`}
-                                            mb="15em"
-                                            position="abosulte"
-                                            backgroundImage={`url(https://image.tmdb.org/t/p/w500${movie.poster_path})`}
-                                            backgroundPosition="center"
-                                            transform="scale(0)"
-                                            // filter="blur(20px)"
-                                            backgroundRepeat="repeat"
-                                            overflow="hidden"
-                                        >
-                                        </Flex>
 
                                         <Flex
                                             //CONTENIDO DE movie
-                                            position="absolute"
-                                            left="0em"
                                             flexDirection="column"
                                             justifyContent="center"
                                             alignContent="center"
                                             boxSizing='border-box'
                                             bg="#00000069"
                                             w="100%"
-                                            h="90%"
+                                            h="calc(100vh - 10em)"
                                         >
-
                                             <Flex
                                                 flexDirection="column"
                                                 justifyContent="center"
@@ -87,7 +71,12 @@ export default function Banner({ movies }) {
                                                                         </Stat>
                                                                     </Flex>
                                                                     <Text fontSize="2xl" mx={5}> {movie.tagline}</Text>
-                                                                    <Flex>
+
+                                                                    <Flex
+                                                                        w="full"
+                                                                        mx="2em"
+                                                                        alignItems="center"
+                                                                    >
                                                                         <Link
                                                                             w="600px"
                                                                             h="600px"
@@ -106,11 +95,10 @@ export default function Banner({ movies }) {
                                                                         <Link
                                                                             w="200px"
                                                                             h="200px"
-                                                                            to={`/pelicula/id/${movie.id}`} 
-                                                                            
-                                                                            >
+                                                                            to={`/pelicula/id/${movie.id}`}
+                                                                        >
                                                                             <Button
-                                                                            mx="2em"
+                                                                                mx="2em"
                                                                                 aspectRatio="4/4"
                                                                                 borderRadius="full"
                                                                             >
@@ -121,12 +109,12 @@ export default function Banner({ movies }) {
                                                                             w="200px"
                                                                             h="200px"
                                                                             to={`/pelicula/id/${movie.id}`}  >
-                                                                            <Button
-                                                                                aspectRatio="4/4"
-                                                                                borderRadius="full"
-                                                                            >
-                                                                                <Icon boxSize="1.5em"/>
-                                                                            </Button>
+                                                                            <button className="learn-more">
+                                                                                <span className="circle" aria-hidden="true">
+                                                                                    <span className="icon arrow"></span>
+                                                                                </span>
+                                                                                <span className="button-text">Detalles</span>
+                                                                            </button>
                                                                         </Link>
 
                                                                     </Flex>

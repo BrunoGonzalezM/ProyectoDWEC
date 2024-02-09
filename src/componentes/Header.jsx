@@ -51,7 +51,7 @@ const Header = () => {
                     {links.map((link) => (
                         <Link key={link.name} to={link.href}>
 
-                            <Flex px="1em"
+                            <Button className='button' px="1em"
                                 w="maxcontent"
                                 h="70px"
                                 display="flex"
@@ -62,7 +62,7 @@ const Header = () => {
                                 _hover={{ bg: "#660015", color: "#fff", fontSize: "30px" }}
                             >
                                 {link.name}
-                            </Flex>
+                            </Button>
                         </Link>
 
                     ))}
