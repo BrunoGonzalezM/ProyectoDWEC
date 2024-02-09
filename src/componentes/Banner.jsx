@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Card, CardBody, CardFooter, Image, Heading, Text, Button, Box, Flex, Stack, Badge, Stat, StatHelpText, StatArrow } from '@chakra-ui/react';
-
+import Swiper from 'swiper';
 export default function Banner({ movies }) {
     return (
         <>
@@ -12,6 +12,8 @@ export default function Banner({ movies }) {
                                 flexDirection="row"
 
                             >
+                               
+
                                 <Flex
                                     //IMAGEN DE FONDO
                                     w={`calc(100vw - 2em)`}
@@ -59,6 +61,17 @@ export default function Banner({ movies }) {
                                                         alt={`Poster de ${movie.title}`}
                                                         borderRadius="md"
                                                     />
+                                                     <div class="swiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">Slide 1</div>
+                                        <div class="swiper-slide">Slide 2</div>
+                                        <div class="swiper-slide">Slide 3</div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                    <div class="swiper-button-prev"></div>
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-scrollbar"></div>
+                                </div>
                                                     <Flex
                                                         flexDirection="column"
                                                         justifyContent="space-between"
