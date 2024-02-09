@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card, CardBody, CardFooter, Image, Heading, Text, Button, Box, Flex, Stack, Badge, Stat, StatHelpText, StatArrow } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Icon, TriangleUpIcon, AddIcon } from "@chakra-ui/icons"
 import 'swiper/css';
 export default function Banner({ movies }) {
 
@@ -74,7 +75,7 @@ export default function Banner({ movies }) {
                                                                 {/* movie TEXTO */}
                                                                 <Box>
                                                                     <Flex flexDirection="row" w="100%">
-                                                                        <Heading mx={5}>{movie.title} ({new Date(movie.release_date).getFullYear()})</Heading>
+                                                                        <Heading mx={5}>{movie.title}</Heading>
                                                                         <Stat>
                                                                             <Box float="right">
                                                                                 <Heading fontSize="2xl">{movie.vote_average.toFixed(1)}/10 </Heading>
@@ -86,8 +87,49 @@ export default function Banner({ movies }) {
                                                                         </Stat>
                                                                     </Flex>
                                                                     <Text fontSize="2xl" mx={5}> {movie.tagline}</Text>
-                                                                    <Text fontSize="1xl" maxW={900} m={5} > {movie.overview}</Text>
+                                                                    <Flex>
+                                                                        <Link
+                                                                            w="600px"
+                                                                            h="600px"
+                                                                            to={`/pelicula/id/${movie.id}`}  >
+                                                                            <Button
+                                                                                width="5em"
+                                                                                height="5em"
+                                                                                transform="rotate(90deg)"
+                                                                                aspectRatio="4/4"
+                                                                                borderRadius="full"
+                                                                                placeContent="center"
+                                                                            >
+                                                                                <TriangleUpIcon boxSize="2em" />
+                                                                            </Button>
+                                                                        </Link>
+                                                                        <Link
+                                                                            w="200px"
+                                                                            h="200px"
+                                                                            to={`/pelicula/id/${movie.id}`} 
+                                                                            
+                                                                            >
+                                                                            <Button
+                                                                            mx="2em"
+                                                                                aspectRatio="4/4"
+                                                                                borderRadius="full"
+                                                                            >
+                                                                                <AddIcon />
+                                                                            </Button>
+                                                                        </Link>
+                                                                        <Link
+                                                                            w="200px"
+                                                                            h="200px"
+                                                                            to={`/pelicula/id/${movie.id}`}  >
+                                                                            <Button
+                                                                                aspectRatio="4/4"
+                                                                                borderRadius="full"
+                                                                            >
+                                                                                <Icon boxSize="1.5em"/>
+                                                                            </Button>
+                                                                        </Link>
 
+                                                                    </Flex>
                                                                 </Box>
                                                             </Flex>
                                                         </Flex>
