@@ -39,7 +39,7 @@ export default function Banner({ movies }) {
                                 <CardFooter>
                                     <Link to={`/pelicula/id/${movie.id}`} >
                                         <Button colorScheme='teal' variant='solid'>
-                                            VER TRAILER
+                                            VER MÁS
                                         </Button>
                                     </Link>
                                 </CardFooter>

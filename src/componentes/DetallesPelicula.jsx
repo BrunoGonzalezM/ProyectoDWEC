@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos } from '../funciones/fetch';
 import "../styles/stylesDetallesPelicula.css";
-import { Tag, TagLabel, Box, Button, Heading, Text, Flex, Image } from "@chakra-ui/react";
+import {
+    Tag, TagLabel, Box, Button, Heading, Text, Flex, Image, Stack, Badge, Stat,
+    StatLabel,
+    StatNumber,
+    StatHelpText,
+    StatArrow,
+    StatGroup,
+} from "@chakra-ui/react";
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
     const [error, setError] = useState(null);
@@ -65,6 +72,7 @@ export default function DetallesPelicula() {
                     {detalles && detalles.title && (
                         <>
                             <Box
+                                //IMAGEN DE FONDO
                                 w={`calc(100vw - 2em)`}
                                 h={`calc(100vh - 4em)`}
                                 backgroundImage={`url(${imgURL}${detalles.poster_path})`}
@@ -75,13 +83,12 @@ export default function DetallesPelicula() {
                             >
                             </Box>
                             <Flex
+                                //CONTENIDO DE DETALLES
                                 position="absolute"
-                                top="7em"
+                                top="8em"
                                 flexDirection="column"
                                 justifyContent="center"
                                 alignContent="center"
-                                margin="0"
-                                padding="0"
                                 boxSizing='border-box'
                                 bg="#00000069"
                                 w="100%"
@@ -100,6 +107,7 @@ export default function DetallesPelicula() {
                                                 px=""
                                             >
                                                 <Image
+                                                    //IMAGEN DEL POSTER
                                                     maxW="25%"
                                                     minW="250px"
                                                     maxH="360px"
@@ -115,36 +123,37 @@ export default function DetallesPelicula() {
                                                     height="maxContent"
                                                     width="100%"
                                                 >
+                                                    {/* DETALLES TEXTO */}
                                                     <Box>
-                                                        <Heading mx={5}>{detalles.title}</Heading>
+                                                        <Flex flexDirection="row" w="100%">
+                                                            <Heading mx={5}>{detalles.title} ({new Date(detalles.release_date).getFullYear()})</Heading>
+                                                            <Stat> 
+                                                               <Box float="right">
+                                                               <Heading fontSize="2xl">{detalles.vote_average.toFixed(1)}/10 </Heading>
+                                                                <StatHelpText >
+                                                                    <StatArrow type={(detalles.id % 100) < 30 ? 'decrease' : 'increase'} />
+                                                                    {((detalles.vote_count % 50) * 0.3384).toFixed(2)}%
+                                                                </StatHelpText>
+                                                               </Box>
+                                                            </Stat>
+                                                        </Flex>
                                                         <Text fontSize="2xl" mx={5}> {detalles.tagline}</Text>
                                                         <Text fontSize="1xl" maxW={900} m={5} > {detalles.overview}</Text>
                                                         <Box>
-                                                            {detalles.genres.map((genre) => (
-                                                                <Tag
-                                                                    key={genre.id}
-                                                                    size='lg'
-                                                                    color='green'
-                                                                    borderRadius='full'
-                                                                    m={5}   
-                                                                >
-                                                                    <TagLabel mx={3} >
-                                                                        <Link to={`/categoria/${genre.id}`}>
-                                                                            <Box
-                                                                                mx={5}
-                                                                                color='green'
-                                                                            >
-                                                                                {genre.name}
-                                                                            </Box>
-                                                                        </Link>
-                                                                    </TagLabel>
-                                                                </Tag>
-                                                            ))}
+                                                            <Stack direction='row' mx="1.2rem" >
+                                                                {detalles.genres.map((genre) => (
+                                                                    <Link key={genre.id} to={`/categoria/${genre.id}`}>
+                                                                        <Badge colorScheme='green'>
+                                                                            {genre.name}
+                                                                        </Badge>
+                                                                    </Link>
+                                                                ))}
+                                                            </Stack>
                                                         </Box>
                                                     </Box>
                                                     {trailersData && trailersData.key && (
                                                         <Button
-                                                            mx={5}
+                                                            mx={5} mt={2}
                                                             colorScheme='green'
                                                             onClick={() => { window.open(`https://www.youtube.com/watch?v=${trailersData.key}`) }}
                                                         >
@@ -158,12 +167,17 @@ export default function DetallesPelicula() {
                                 </Flex>
                             </Flex>
                             <Box
-                                my="1em"
+                                //CREDITOS
+                                py="2em"
                                 overflow="hidden"
                                 zIndex="1"
+                                bg="#00000069"
                             >
-                                <Heading fontSize="3xl" mx="2em">
-                                    Creditos:
+                                <Heading
+                                    fontSize="3xl"
+                                    textAlign="center"
+                                >
+                                    Creditos
                                 </Heading>
                                 <Flex
                                     flexDirection="row"
@@ -182,7 +196,7 @@ export default function DetallesPelicula() {
                         </>
                     )}
                 </Flex>
-            </Box>
+            </Box >
         </>
     );
 }
