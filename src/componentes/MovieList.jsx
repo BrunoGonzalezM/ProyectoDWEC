@@ -28,6 +28,16 @@ const MovieList = () => {
     fetchData(1, setMovies);
     fetchData(2, setMoviesTop);
     fetchData(3, setMoviesNowPlay);
+    
+        const fetchDataDetails = async () => {
+            try {
+                const detalles = await fetchMovieDetails(id);
+                setDetalles(detalles);
+            } catch (err) {
+                setError(err.message);
+            }
+        };
+
   }, []);
 
   return (
@@ -35,7 +45,7 @@ const MovieList = () => {
       {error ? (<p>{error}</p>) : (
         <Box 
         overflowX="hidden" 
-        padding="1em">
+        padding="0">
           {loading ? (
             <Flex
               h="90vh" 
@@ -52,7 +62,8 @@ const MovieList = () => {
           ) : (
             <>
               <Banner movies={movies} />
-              <Box >
+
+              <Box p="1em">
               {[
                 { title: "Populares", movies: movies },
                 { title: "Mejor valoradas", movies: moviesTop },

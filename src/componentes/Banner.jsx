@@ -6,22 +6,13 @@ export default function Banner({ movies }) {
 
     return (
         <>
-            <Box px="10em" py="5em" >
-                <Swiper
-                    spaceBetween={50}
-                    slidesPerView={1}
-                >
-
-                    {movies.slice(0, 1).map((movie) => {
-
-                        <SwiperSlide>
-                            <Box >
-                                
+            <Box >
+                <Swiper spaceBetween={0} slidesPerView={1}>
+                    {movies.slice(0, 21).map((movie) => (
+                        <SwiperSlide key={movie.id}>
+                            <Box>
                                 <>
-                                    <Flex
-                                        flexDirection="row"
-                                    >
-
+                                    <Flex flexDirection="row">
                                         <Flex
                                             //IMAGEN DE FONDO
                                             w={`calc(100vw - 2em)`}
@@ -30,9 +21,10 @@ export default function Banner({ movies }) {
                                             position="abosulte"
                                             backgroundImage={`url(https://image.tmdb.org/t/p/w500${movie.poster_path})`}
                                             backgroundPosition="center"
-                                            transform="scale(2)"
-                                            filter="blur(20px)"
+                                            transform="scale(0)"
+                                            // filter="blur(20px)"
                                             backgroundRepeat="repeat"
+                                            overflow="hidden"
                                         >
                                         </Flex>
 
@@ -40,13 +32,13 @@ export default function Banner({ movies }) {
                                             //CONTENIDO DE movie
                                             position="absolute"
                                             left="0em"
-                                            top="8em"
                                             flexDirection="column"
                                             justifyContent="center"
                                             alignContent="center"
                                             boxSizing='border-box'
                                             bg="#00000069"
                                             w="100%"
+                                            h="90%"
                                         >
 
                                             <Flex
@@ -105,13 +97,11 @@ export default function Banner({ movies }) {
                                         </Flex>
                                     </Flex>
                                 </>
-                                
                             </Box>
                         </SwiperSlide>
-
-                    })}
-
+                    ))}
                 </Swiper>
+
             </Box>
         </>
     );

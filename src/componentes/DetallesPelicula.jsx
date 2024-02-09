@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos } from '../funciones/fetch';
-import "../styles/stylesDetallesPelicula.css";
 import {
     Tag, TagLabel, Box, Button, Heading, Text, Flex, Image, Stack, Badge, Stat,
     StatLabel,
