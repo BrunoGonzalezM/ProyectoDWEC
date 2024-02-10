@@ -51,18 +51,18 @@ const Header = () => {
                     {links.map((link) => (
                         <Link key={link.name} to={link.href}>
 
-                            <Button className='button' px="1em"
+                            <button className='button' px="1em"
                                 w="maxcontent"
                                 h="70px"
                                 display="flex"
-                                alignItems="center"
-                                justifyContent="center"
+                                align-items="center"
+                                justify-content="center"
                                 fontSize="26"
                                 transition="0.4s"
                                 _hover={{ bg: "#660015", color: "#fff", fontSize: "30px" }}
                             >
                                 {link.name}
-                            </Button>
+                            </button>
                         </Link>
 
                     ))}

@@ -107,9 +107,10 @@ export default function DetallesPelicula() {
                                             >
                                                 <Image
                                                     //IMAGEN DEL POSTER
-                                                    maxW="25%"
+                                                    w="35%"
+                                                    h="100%"
                                                     minW="250px"
-                                                    maxH="360px"
+                                                    maxH=""
                                                     src={`${imgURL}${detalles.poster_path}`}
                                                     alt={`Poster de ${detalles.title}`}
                                                     borderRadius="md"

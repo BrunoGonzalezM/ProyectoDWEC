@@ -5,11 +5,10 @@ import { Icon, TriangleUpIcon, AddIcon } from "@chakra-ui/icons"
 import 'swiper/css';
 import "../styles/banner.css"
 export default function Banner({ movies }) {
-
     return (
         <>
             <Box >
-                <Swiper spaceBetween={0} slidesPerView={1}>
+                <Swiper spaceBetween={0} slidesPerView={1} >
                     {movies.slice(0, 21).map((movie) => (
                         <SwiperSlide key={movie.id}>
                             <Box>
@@ -57,67 +56,80 @@ export default function Banner({ movies }) {
                                                                 h="100%"
                                                             >
                                                                 {/* movie TEXTO */}
-                                                                <Box>
-                                                                    <Flex flexDirection="row" w="100%">
-                                                                        <Heading mx={5}>{movie.title}</Heading>
-                                                                        <Stat>
-                                                                            <Box float="right">
-                                                                                <Heading fontSize="2xl">{movie.vote_average.toFixed(1)}/10 </Heading>
-                                                                                <StatHelpText >
-                                                                                    <StatArrow type={(movie.id % 100) < 30 ? 'decrease' : 'increase'} />
-                                                                                    {((movie.vote_count % 50) * 0.3384).toFixed(2)}%
-                                                                                </StatHelpText>
-                                                                            </Box>
-                                                                        </Stat>
-                                                                    </Flex>
-                                                                    <Text fontSize="2xl" mx={5}> {movie.tagline}</Text>
+                                                                <Box
+                                                                    h="100%"
+                                                                    display="flex"
+                                                                    flexDirection="column"
+                                                                    justifyContent="space-between"
+                                                                >
 
-                                                                    <Flex
-                                                                        w="full"
-                                                                        mx="2em"
-                                                                        alignItems="center"
-                                                                    >
-                                                                        <Link
-                                                                            w="600px"
-                                                                            h="600px"
-                                                                            to={`/pelicula/id/${movie.id}`}  >
-                                                                            <Button
-                                                                                width="5em"
-                                                                                height="5em"
-                                                                                transform="rotate(90deg)"
-                                                                                aspectRatio="4/4"
-                                                                                borderRadius="full"
-                                                                                placeContent="center"
-                                                                            >
-                                                                                <TriangleUpIcon boxSize="2em" />
-                                                                            </Button>
-                                                                        </Link>
-                                                                        <Link
-                                                                            w="200px"
-                                                                            h="200px"
-                                                                            to={`/pelicula/id/${movie.id}`}
+                                                                    <Flex flexDirection="column" w="100%">
+                                                                        <Flex flexDirection="row" w="100%">
+                                                                            <Heading mx={5}>{movie.title} ({new Date(movie.release_date).getFullYear()})</Heading>
+                                                                            <Stat>
+                                                                                <Box float="right">
+                                                                                    <Heading fontSize="2xl">{movie.vote_average.toFixed(1)}/10 </Heading>
+                                                                                    <StatHelpText >
+                                                                                        <StatArrow type={(movie.id % 100) < 30 ? 'decrease' : 'increase'} />
+                                                                                        {((movie.vote_count % 50) * 0.3384).toFixed(2)}%
+                                                                                    </StatHelpText>
+                                                                                </Box>
+                                                                            </Stat>
+                                                                        </Flex>
+                                                                        <Text fontSize="2xl" maxW={900} m={5} > {movie.overview}</Text>
+
+                                                                    </Flex>
+                                                                    <>
+                                                                        <Text fontSize="2xl" mx={5}> {movie.tagline}</Text>
+                                                                        <Flex
+                                                                            w="full"
+                                                                            mx="2em"
+                                                                            alignItems="center"
+                                                                            paddingBottom="2em"
                                                                         >
-                                                                            <Button
-                                                                                mx="2em"
-                                                                                aspectRatio="4/4"
-                                                                                borderRadius="full"
+                                                                            <Link
+                                                                                w="600px"
+                                                                                h="600px"
+                                                                                to={`/pelicula/id/${movie.id}`}  >
+                                                                                <Button
+                                                                                    width="5em"
+                                                                                    height="5em"
+                                                                                    transform="rotate(90deg)"
+                                                                                    aspectRatio="4/4"
+                                                                                    borderRadius="full"
+                                                                                    _hover={{ transform: "scale(1.2) rotate(90deg)" }}
+                                                                                >
+                                                                                    <TriangleUpIcon boxSize="2em" />
+                                                                                </Button>
+                                                                            </Link>
+                                                                            <Link
+                                                                                w="200px"
+                                                                                h="200px"
+                                                                                to={`/pelicula/id/${movie.id}`}
                                                                             >
-                                                                                <AddIcon />
-                                                                            </Button>
-                                                                        </Link>
-                                                                        <Link
-                                                                            w="200px"
-                                                                            h="200px"
-                                                                            to={`/pelicula/id/${movie.id}`}  >
-                                                                            <button className="learn-more">
-                                                                                <span className="circle" aria-hidden="true">
-                                                                                    <span className="icon arrow"></span>
-                                                                                </span>
-                                                                                <span className="button-text">Detalles</span>
-                                                                            </button>
-                                                                        </Link>
-
-                                                                    </Flex>
+                                                                                <Button
+                                                                                    mx="2em"
+                                                                                    aspectRatio="4/4"
+                                                                                    borderRadius="full"
+                                                                                    transition="0.2s"
+                                                                                    _hover={{ transform: "scale(1.2)" }}
+                                                                                >
+                                                                                    <AddIcon />
+                                                                                </Button>
+                                                                            </Link>
+                                                                            <Link
+                                                                                w="200px"
+                                                                                h="200px"
+                                                                                to={`/pelicula/id/${movie.id}`}  >
+                                                                                <button className="learn-more">
+                                                                                    <span className="circle" aria-hidden="true">
+                                                                                        <span className="icon arrow"></span>
+                                                                                    </span>
+                                                                                    <span className="button-text">Detalles</span>
+                                                                                </button>
+                                                                            </Link>
+                                                                        </Flex>
+                                                                    </>
                                                                 </Box>
                                                             </Flex>
                                                         </Flex>
@@ -132,7 +144,7 @@ export default function Banner({ movies }) {
                     ))}
                 </Swiper>
 
-            </Box>
+            </Box >
         </>
     );
 }
