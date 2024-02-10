@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/styleHeader.css';
 import { Box, Image, Flex, Button, Input } from '@chakra-ui/react';
-import logo from '../IMG/MovieWorld logo.png';
 import { SearchIcon } from '@chakra-ui/icons';
+import { fetchBusqueda } from "../funciones/fetch";
+import logo from '../IMG/MovieWorld logo.png';
+import '../styles/styleHeader.css';
 
 const links = [
     {
@@ -22,10 +23,37 @@ const links = [
         name: 'Categorías',
         href: '/categorias',
     },
-
 ];
 
+
 const Header = () => {
+    const [busqueda, setBusqueda] = useState('');
+    const [movies, setMovies] = useState([]);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setLoading(true);
+        fetchBusqueda(busqueda)
+            .then((movies) => {
+                setMovies(movies);
+                console.log(movies)
+            })
+            .catch((err) => {
+                setError(err.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, [busqueda]);
+
+    const handleChange = (e) => {
+        setBusqueda(e.target.value);
+    };
+
+    function buscarPelicula() {
+        fetchBusqueda(busqueda)
+    }
+
     return (
         <Box
             m="0"
@@ -50,7 +78,6 @@ const Header = () => {
                 >
                     {links.map((link) => (
                         <Link key={link.name} to={link.href}>
-
                             <button className='button' px="1em"
                                 w="maxcontent"
                                 h="70px"
@@ -64,7 +91,6 @@ const Header = () => {
                                 {link.name}
                             </button>
                         </Link>
-
                     ))}
                 </Flex>
 
@@ -80,7 +106,16 @@ const Header = () => {
                         cursor="pointer"
                         _hover={{ bg: "transparent", color: "#fff" }}
                     >
-                        <SearchIcon boxSize="8"></SearchIcon>
+                        <Input
+                            required={true}
+                            value={busqueda}
+                            onChange={handleChange}
+                            placeholder='Busca tu pelicula favorita!' />
+
+                        <SearchIcon boxSize="8"
+                            onClick={buscarPelicula}
+                        ></SearchIcon>
+
                     </Button>
                 </Flex>
             </Flex>

@@ -7,6 +7,17 @@ const options = {
         Authorization: `${AUTHcode}`
     }
 };
+
+export const fetchBusqueda = async (busqueda) =>{
+    try {
+        const response = await fetch(`${urlAPIv3}search/movie?query=${busqueda}&include_adult=false&language=es-ES&page=1`, options)
+
+        const data = await response.json();
+        return data.results;
+    } catch (error) {
+        throw err
+    }
+}
 export const fetchCategorias = async () => {
     try {
         const response = await fetch(`${urlAPIv3}/genre/movie/list?language=es`, options)
