@@ -64,7 +64,7 @@ export default function Categorias() {
             <Flex bg="#1c1c1c" flexWrap="wrap" justifyContent="space-between">
                 {categorias.map((categoria) => (
                     <Link key={categoria.id} to={`/categoria/${categoria.id}`}>
-                        <Box p="30px" w="400px" h="400px" _hover={{transform:"rotateY(180deg)", transition:"transform 0.5s"}}>
+                        <Box p="30px" w="400px" h="400px">
                             <img src={categoriasImagenes[categoria.id]} alt={categoria.name} />
                             <Box color="white">
                                 {categoria.name}
