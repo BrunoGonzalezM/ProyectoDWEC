@@ -1,34 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../styles/stylesCard.css"
-import { Card, CardBody, Image, Stack, Heading, Box, Text } from "@chakra-ui/react"
+import { Card, CardBody, Image, Stack, Heading, Box, Text, Flex } from "@chakra-ui/react"
 
 const Tarjeta = ({ movie }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <>
-      <Card size="sm" h="maxContent" borderRadius='lg' bg="transparent">
-        <CardBody p="3" borderRadius='lg' bg="black.800" display="flex" flexDirection="column" justifyContent="space-between" >
-          <Image
-            src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
-            alt={`${movie.title}`}
-            borderRadius='md'
-            minW='4.3em'  
-            minH="6.6em"
-          />
-          <Stack mt='6' spacing='3' color="white" h="5em" justifyContent="space-between">
-            <Heading size='md' noOfLines={1}>{`${movie.title}`}</Heading>
+      <Box
+        position="relative"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <Card
+          size="sm"
+          borderRadius='lg'
+          bg="transparent"
+        >
+          <CardBody
+            p="3"
+            borderRadius='lg'
+            bg="black.800"
+            display="flex"
+            flexDirection="column"
+            justifyContent="space-between"
+          >
+            <Image
+              src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
+              alt={`${movie.title}`}
+              borderRadius='md'
+              minW='4.3em'
+              minH="6.6em"
+            />
+          </CardBody>
+        </Card>
+        <Box
+          position="absolute"
+          bottom={isHovered ? "0" : "-100%"}
+          left="0"
+          right="0"
+          h="80%"
+          background="linear-gradient(to top, rgba(34, 34, 34, 1), rgba(34, 34, 34, 0.6) 60%, rgba(34, 34, 34, 0))"
+          px="0.4em"
+          pb="0.5em"
+          borderRadius="0 0 10px 10px"
+          justifyContent="center"
+          alignContent="center"
+          transition="bottom 0.5s"
+        >
+          <Stack
+            h="100%"
+            color="white"
+            justifyContent="end"
+          >
+            <Heading size='sm' noOfLines={1}>{`${movie.title}`}</Heading>
             <Text
-              noOfLines={6}
-              fontSize=".4em"
+              noOfLines={5}
+              fontSize=".3em"
               fontWeight="200"
             >
               {movie.overview}
             </Text>
-            <Text color='blue.400' fontSize='.5em'>
-              {movie.vote_average.toFixed(1)}/10
-            </Text>
           </Stack>
-        </CardBody>
-      </Card>
+        </Box>
+      </Box>
     </>
   );
 }

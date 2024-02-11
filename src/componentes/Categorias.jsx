@@ -66,6 +66,7 @@ export default function Categorias() {
                     <Link key={categoria.id} to={`/categoria/${categoria.id}`}>
                         <Box p="30px" w="400px" h="400px">
                             <Image
+                                borderRadius="md"
                                 src={categoriasImagenes[categoria.id]}
                                 alt={categoria.name} />
                             <Box color="white">
