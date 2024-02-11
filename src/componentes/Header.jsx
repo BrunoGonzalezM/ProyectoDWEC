@@ -78,6 +78,12 @@ const Header = () => {
                     onChange={handleChange}
                     value={busqueda}
                     placeholder='Busca tu película favorita!'
+                    _placeholder={{ color: 'white' }}
+                    textColor="white"
+                    focusBorderColor='red.800'
+                    variant='flushed'
+                    textTransform="uppercase"
+                    maxW="15em"
                 />
                 <Flex
                     transition="0.4s"
@@ -90,7 +96,6 @@ const Header = () => {
                             border="none"
                             cursor="pointer"
                             _hover={{ bg: "transparent", color: "#fff" }}
-                            // onClick={buscarPelicula}
                         >
                             <SearchIcon boxSize="8" />
                         </Button>

@@ -30,16 +30,16 @@ export const fetchCategorias = async () => {
     }
 };
 
-export const fetchMovies = async (option) => {
+export const fetchMovies = async (option,page) => {
     let url;
     switch (option) {
-        case 1: url = `${urlAPIv3}/movie/popular?language=es-ES&page=1`;
+        case 1: url = `${urlAPIv3}/movie/popular?language=es-ES&page=${page}`;
             break;
-        case 2: url = `${urlAPIv3}/movie/top_rated?language=es-ES&page=1`;
+        case 2: url = `${urlAPIv3}/movie/top_rated?language=es-ES&page=${page}`;
             break;
-        case 3: url = `${urlAPIv3}/movie/now_playing?language=es-ES&page=2`;
+        case 3: url = `${urlAPIv3}/movie/upcoming?language=es-ES&page=${page}`;
             break;
-        case 4: url = `${urlAPIv3}/trending/movie/day?include_adult=false&llanguage=es-ES&page=1`;
+        case 4: url = `${urlAPIv3}/trending/movie/day?include_adult=false&language=es-ES&page=${page}`;
             break;
         default:
             throw new Error('Hubo un error!');

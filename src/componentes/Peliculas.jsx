@@ -41,7 +41,7 @@ function Peliculas() {
         </Flex>
         ):(
             <Flex>
-test
+                
             </Flex>
         )}
         </>

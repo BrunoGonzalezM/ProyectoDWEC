@@ -18,7 +18,7 @@ const MovieList = () => {
   useEffect(() => {
     const fetchData = async (category, setter) => {
       try {
-        const moviesData = await fetchMovies(category);
+        const moviesData = await fetchMovies(category,1);
         setter(moviesData);
       } catch (err) {
         setError(err.message);
@@ -91,13 +91,13 @@ export const MovieCarousel = ({ movies, ul, loading }) => {
   const [scroll, setScroll] = useState(0);
 
   const handleMoveLeft = () => {
-    const newPosition = scroll === 0 ? 0 : scroll - 220;
+    const newPosition = scroll <= 0 ? 0 : scroll - 220;
     ref.current.scrollTo({ left: newPosition, behavior: 'smooth' });
     setScroll(newPosition);
   };
 
   const handleMoveRight = () => {
-    const newPosition = scroll >= 4115 ? 4115 : scroll + 220;
+    const newPosition = scroll >= 3455 ? 3455: scroll + 220;
     ref.current.scrollTo({ left: newPosition, behavior: 'smooth' });
     setScroll(newPosition);
   };
