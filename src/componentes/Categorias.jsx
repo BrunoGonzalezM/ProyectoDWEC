@@ -3,6 +3,8 @@ import { fetchCategorias } from "../funciones/fetch";
 import { Link } from 'react-router-dom';
 import "../styles/stylesCategorias.css";
 import { Box, Flex, Image } from '@chakra-ui/react';
+
+//IMAGENES
 import imagenAccion from '../IMG/accion.jpg';
 import imagenComedia from '../IMG/comedia.jpg';
 import imagenAventura from '../IMG/aventura.jpg';

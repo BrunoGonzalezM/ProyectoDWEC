@@ -43,7 +43,7 @@ const Tarjeta = ({ movie }) => {
           background="linear-gradient(to top, rgba(34, 34, 34, 1), rgba(34, 34, 34, 0.6) 60%, rgba(34, 34, 34, 0))"
           px="0.4em"
           pb="0.5em"
-          borderRadius="0 0 10px 10px"
+          borderRadius="sm"
           justifyContent="center"
           alignContent="center"
           transition="bottom 0.5s"

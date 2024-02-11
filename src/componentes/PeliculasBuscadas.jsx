@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Flex, Box ,Text} from '@chakra-ui/react';
 import { fetchBusqueda } from "../funciones/fetch";
-import {MovieCarousel} from "../componentes/MovieList" 
-function Peliculas() {
+import {MovieCarousel} from "./MovieList" 
+function PeliculasBuscadas() {
     const { busqueda } = useParams();
     const [moviePeli, setMoviePeli] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -48,4 +48,4 @@ function Peliculas() {
     );
 }
 
-export default Peliculas;
+export default PeliculasBuscadas;

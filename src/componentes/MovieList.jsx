@@ -195,7 +195,7 @@ export const MovieCarousel = ({ movies, ul, loading }) => {
                       bg="black.800"
                     >
                       <Image
-                        src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                         alt={`${movie.title}`}
                         borderRadius='md'
                         minW='60px'
@@ -214,10 +214,7 @@ export const MovieCarousel = ({ movies, ul, loading }) => {
                             {`${movie.overview}`}
                           </Text>
                         ) : (
-                          <Box mt={3}>
-                            <br />
-                            <br />
-                            <br />
+                          <Box mt={3} h="4em" >
                           </Box>
                         )}
                         <Text color='blue.600' fontSize='2xl'>

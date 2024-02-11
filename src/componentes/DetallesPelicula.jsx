@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos } from '../funciones/fetch';
 import "../styles/stylesDetallesPelicula.css";
 import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Stat,StatHelpText,StatArrow,} from "@chakra-ui/react";
+
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
     const [error, setError] = useState(null);

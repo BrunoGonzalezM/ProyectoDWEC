@@ -37,7 +37,7 @@ export const fetchMovies = async (option,page) => {
             break;
         case 2: url = `${urlAPIv3}/movie/top_rated?language=es-ES&page=${page}`;
             break;
-        case 3: url = `${urlAPIv3}/movie/upcoming?language=es-ES&page=${page}`;
+        case 3: url = `${urlAPIv3}/movie/now_playing?language=es-ES&page=${page+1}`;
             break;
         case 4: url = `${urlAPIv3}/trending/movie/day?include_adult=false&language=es-ES&page=${page}`;
             break;
