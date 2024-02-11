@@ -40,12 +40,19 @@ export default function Banner({ movies }) {
                                                         >
                                                             <Image
                                                                 //IMAGEN DEL POSTER
-                                                                maxW="20%"
+                                                                w="25%"
                                                                 h="100%"
+                                                                maxW="300px"
+                                                                maxH="400px"
+                                                                aspectRatio="3/5"
                                                                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                                                 alt={`Poster de ${movie.title}`}
-                                                                borderRadius="md"
+                                                                borderRadius="0.7em"
+                                                                objectFit="cover"
+                                                                objectPosition="center"
+                                                                p="5px"
                                                             />
+
 
                                                             <Flex
                                                                 flexDirection="column"
