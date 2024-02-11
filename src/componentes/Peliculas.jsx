@@ -1,19 +1,16 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import { Flex, Box } from '@chakra-ui/react';
 
-const { search} = useParams();
-
-function Peliculas({search}) {
+function Peliculas() {
+    const { busqueda } = useParams();
     return (
-        <>
-            {search ? (
-                <Flex>
-                    {search.map((movie) => {
-                        <Box key={movie.id}>
-                            {movie.title}
-                        </Box>
-                    })}
-                </Flex>
-            ) : ("")}
-        </>
-    )
+        <Flex>
+            <Box>
+                Resultados de búsqueda para: {busqueda}
+            </Box>
+        </Flex>
+    );
 }
+
+export default Peliculas;

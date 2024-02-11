@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos } from '../funciones/fetch';
-import {
-    Tag, TagLabel, Box, Button, Heading, Text, Flex, Image, Stack, Badge, Stat,
-    StatLabel,
-    StatNumber,
-    StatHelpText,
-    StatArrow,
-    StatGroup,
-} from "@chakra-ui/react";
+import "../styles/stylesDetallesPelicula.css";
+import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Stat,StatHelpText,StatArrow,} from "@chakra-ui/react";
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
     const [error, setError] = useState(null);
@@ -107,10 +101,9 @@ export default function DetallesPelicula() {
                                             >
                                                 <Image
                                                     //IMAGEN DEL POSTER
-                                                    w="35%"
-                                                    h="100%"
+                                                    maxW="25%"
                                                     minW="250px"
-                                                    maxH=""
+                                                    maxH="360px"
                                                     src={`${imgURL}${detalles.poster_path}`}
                                                     alt={`Poster de ${detalles.title}`}
                                                     borderRadius="md"
