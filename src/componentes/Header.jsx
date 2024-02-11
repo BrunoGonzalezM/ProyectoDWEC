@@ -96,7 +96,6 @@ const Header = () => {
 
                 <Flex
                     transition="0.4s"
-                    _hover={{ bg: "#660015" }}
                     alignItems="center"
                     justifyContent="center"
                 >
