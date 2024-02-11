@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchCategorias } from "../funciones/fetch";
 import { Link } from 'react-router-dom';
 import "../styles/stylesCategorias.css";
-import { Box, Flex , Image} from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import imagenAccion from '../IMG/accion.jpg';
 import imagenComedia from '../IMG/comedia.jpg';
 import imagenAventura from '../IMG/aventura.jpg';
@@ -65,7 +65,9 @@ export default function Categorias() {
                 {categorias.map((categoria) => (
                     <Link key={categoria.id} to={`/categoria/${categoria.id}`}>
                         <Box p="30px" w="400px" h="400px">
-                            <Image src={categoriasImagenes[categoria.id]} alt={categoria.name} />
+                            <Image
+                                src={categoriasImagenes[categoria.id]}
+                                alt={categoria.name} />
                             <Box color="white">
                                 {categoria.name}
                             </Box>

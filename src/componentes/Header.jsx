@@ -30,22 +30,6 @@ const Header = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [movies, setMovies] = useState();
-    // const buscarPelicula = () => {
-    //     setLoading(true);
-    //     setError(null);
-    //     fetchBusqueda(busqueda)
-    //         .then((movies) => {
-    //             setMovies(movies);
-    //             console.log("Se busca :" + busqueda)
-    //             console.log(movies);
-    //         })
-    //         .catch((err) => {
-    //             setError(err.message);
-    //         })
-    //         .finally(() => {
-    //             setLoading(false);
-    //         });
-    // };
 
      const handleChange = (e) => {
          setBusqueda(e.target.value);
@@ -100,7 +84,7 @@ const Header = () => {
                     alignItems="center"
                     justifyContent="center"
                 >
-                    <Link to={`/peliculas/search/${busqueda}`}>
+                    <Link to={`/peliculas/search/${busqueda.trim()}`}>
                         <Button
                             bg="transparent"
                             border="none"

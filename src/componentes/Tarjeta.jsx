@@ -8,11 +8,11 @@ const Tarjeta = ({ movie }) => {
       <Card size="sm" h="maxContent" borderRadius='lg' bg="transparent">
         <CardBody p="3" borderRadius='lg' bg="black.800" display="flex" flexDirection="column" justifyContent="space-between" >
           <Image
-            src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
             alt={`${movie.title}`}
             borderRadius='md'
             minW='4.3em'  
-            h="6.6em"
+            minH="6.6em"
           />
           <Stack mt='6' spacing='3' color="white" h="5em" justifyContent="space-between">
             <Heading size='md' noOfLines={1}>{`${movie.title}`}</Heading>

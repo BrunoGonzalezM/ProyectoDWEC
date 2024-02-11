@@ -146,7 +146,7 @@ export const MovieCarousel = ({ movies, ul, loading }) => {
         </Flex >
       ) : (
         <>
-          {/* PELICULAS POR CATEGORIA */}
+          {/* PELICULAS POR CATEGORIA  y POR BUSQUEDA  QUEDA A CAMBIAR CARD POR TARJETA.JSX */}
           <Flex
             className="MovieList"
             flexDirection="row"
@@ -158,13 +158,13 @@ export const MovieCarousel = ({ movies, ul, loading }) => {
             {movies.map((movie) => (
               <UnorderedList
                 key={movie.id}
-
                 display="flex"
                 listStyleType="none"
                 overflow="hidden"
                 padding="40px 0"
                 flex="0 0 20em"
-                margin="1em"
+                justifyContent="center"
+                alignContent="center"
                 maxWidth="calc(100vw - 9em)"
                 paddingInline="1em"
                 ref={ref}
