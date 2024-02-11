@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Card, CardBody, CardFooter, Image, Heading, Text, Button, Box, Flex, Stack, Badge, Stat, StatHelpText, StatArrow } from '@chakra-ui/react';
+import { Image, Heading, Text, Button, Box, Flex, Stack, Badge, Stat, StatHelpText, StatArrow } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Icon, TriangleUpIcon, AddIcon } from "@chakra-ui/icons"
 import 'swiper/css';

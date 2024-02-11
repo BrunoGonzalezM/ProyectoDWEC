@@ -2,7 +2,7 @@ import React from 'react';
 import "../styles/stylesCard.css"
 import { Card, CardBody, Image, Stack, Heading, Box, Text } from "@chakra-ui/react"
 
-const Tarjeta = ({ movie, }) => {
+const Tarjeta = ({ movie }) => {
   return (
     <>
       <Card size="sm" h="maxContent" borderRadius='lg' bg="transparent">

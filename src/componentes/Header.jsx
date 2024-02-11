@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+// import { useHistory } from 'react-router';
 import { Box, Image, Flex, Button, Input } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { fetchBusqueda } from "../funciones/fetch";
 import logo from '../IMG/MovieWorld logo.png';
 import '../styles/styleHeader.css';
-
 const links = [
     {
         name: 'Inicio',
@@ -25,14 +25,20 @@ const links = [
     },
 ];
 
-
 const Header = () => {
     const [busqueda, setBusqueda] = useState('');
     const [movies, setMovies] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    // const history = useHistory();
+
+    function buscarPelicula() {
+    //     history.push(`/peliculas/search/${busqueda}`);
+     }
+
     useEffect(() => {
         setLoading(true);
+        setError(null)
         fetchBusqueda(busqueda)
             .then((movies) => {
                 setMovies(movies);
@@ -49,10 +55,6 @@ const Header = () => {
     const handleChange = (e) => {
         setBusqueda(e.target.value);
     };
-
-    function buscarPelicula() {
-        fetchBusqueda(busqueda)
-    }
 
     return (
         <Box
@@ -93,29 +95,28 @@ const Header = () => {
                         </Link>
                     ))}
                 </Flex>
-
+                <Input
+                    onChange={handleChange}
+                    placeholder='Busca tu pelicula favorita!'
+                    value={busqueda}
+                />
                 <Flex
                     transition="0.4s"
                     _hover={{ bg: "#660015" }}
                     alignItems="center"
                     justifyContent="center"
                 >
+
                     <Button
                         bg="transparent"
                         border="none"
                         cursor="pointer"
                         _hover={{ bg: "transparent", color: "#fff" }}
                     >
-                        <Input
-                            required={true}
-                            value={busqueda}
-                            onChange={handleChange}
-                            placeholder='Busca tu pelicula favorita!' />
-
                         <SearchIcon boxSize="8"
                             onClick={buscarPelicula}
-                        ></SearchIcon>
-
+                        >
+                        </SearchIcon>
                     </Button>
                 </Flex>
             </Flex>
