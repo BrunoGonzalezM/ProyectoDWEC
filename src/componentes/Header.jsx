@@ -95,9 +95,9 @@ const Header = () => {
                             bg="transparent"
                             border="none"
                             cursor="pointer"
-                            _hover={{ bg: "transparent", color: "#fff" }}
+                            _hover={{ bg: "transparent", color: "red" }}
                         >
-                            <SearchIcon boxSize="8" />
+                            <SearchIcon color="white" boxSize="8" />
                         </Button>
                     </Link>
                 </Flex>
