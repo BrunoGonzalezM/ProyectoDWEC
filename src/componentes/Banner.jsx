@@ -1,157 +1,148 @@
-import { Link } from "react-router-dom";
-import { Image, Heading, Text, Button, Box, Flex, Stack, Badge, Stat, StatHelpText, StatArrow } from '@chakra-ui/react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Icon, TriangleUpIcon, AddIcon } from "@chakra-ui/icons"
-import 'swiper/css';
+import React from 'react';
+import Slider from "react-slick";
 import "../styles/banner.css"
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
+import { Image, Heading, Text, Button, Box, Flex } from '@chakra-ui/react';
+import { TriangleUpIcon, AddIcon } from "@chakra-ui/icons";
+
 export default function Banner({ movies }) {
+    const config = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000
+    };
+
     return (
-        <>
-            <Box >
-                <Swiper spaceBetween={0} slidesPerView={1} >
-                    {movies.slice(0, 21).map((movie) => (
-                        <SwiperSlide key={movie.id}>
-                            <Box>
+        <Slider {...config}>
+            {movies.slice(0, 21).map((movie) => (
+                <div key={movie.id}>
+                    <Flex
+                        //CONTENIDO DE movie
+                        flexDirection="column"
+                        justifyContent="center"
+                        alignContent="center"
+                        boxSizing='border-box'
+                        bg="#00000069"
+                        w="100%"
+                        h="calc(100vh - 10em)"
+                    >
+                        <Flex
+                            flexDirection="column"
+                            justifyContent="center"
+                            alignContent="center"
+                            p={10}
+                        >
+                            {movie.poster_path &&
                                 <>
-                                    <Flex flexDirection="row">
-
+                                    <Flex
+                                        flexDirection="row"
+                                        justifyContent="center"
+                                        overflow="hidden"
+                                    >
+                                        <Image
+                                            //IMAGEN DEL POSTER
+                                            w="25%"
+                                            h="100%"
+                                            maxW="300px"
+                                            maxH="400px"
+                                            aspectRatio="3/5"
+                                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                            alt={`Poster de ${movie.title}`}
+                                            borderRadius="0.7em"
+                                            objectFit="cover"
+                                            objectPosition="center"
+                                            p="5px"
+                                        />
                                         <Flex
-                                            //CONTENIDO DE movie
                                             flexDirection="column"
-                                            justifyContent="center"
-                                            alignContent="center"
-                                            boxSizing='border-box'
-                                            bg="#00000069"
-                                            w="100%"
-                                            h="calc(100vh - 10em)"
+                                            justifyContent="space-between"
+                                            px={5}
+                                            maxW="100%"
+                                            width="calc(100vw - 35em)"
+                                            h="100%"
                                         >
-                                            <Flex
+                                            {/* movie TEXTO */}
+                                            <Box
+                                                h="100%"
+                                                display="flex"
                                                 flexDirection="column"
-                                                justifyContent="center"
-                                                alignContent="center"
-                                                p={10}
+                                                justifyContent="space-between"
                                             >
-                                                {movie.poster_path &&
-                                                    <>
-                                                        <Flex
-                                                            flexDirection="row"
-                                                            justifyContent="center"
-                                                            overflow="hidden"
-                                                        >
-                                                            <Image
-                                                                //IMAGEN DEL POSTER
-                                                                w="25%"
-                                                                h="100%"
-                                                                maxW="300px"
-                                                                maxH="400px"
-                                                                aspectRatio="3/5"
-                                                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                                                alt={`Poster de ${movie.title}`}
-                                                                borderRadius="0.7em"
-                                                                objectFit="cover"
-                                                                objectPosition="center"
-                                                                p="5px"
-                                                            />
-
-
-                                                            <Flex
-                                                                flexDirection="column"
-                                                                justifyContent="space-between"
-                                                                px={5}
-                                                                maxW="100%"
-                                                                width="calc(100vw - 35em)"
-                                                                h="100%"
+                                                {/* TITULOS DESCRIPCION Y VALORACION */}
+                                                <Flex flexDirection="column" w="100%">
+                                                    <Flex flexDirection="row" w="100%">
+                                                        <Heading mx={5}>{movie.title} ({new Date(movie.release_date).getFullYear()})</Heading>
+                                                        {/* Añade el código para mostrar la valoración aquí */}
+                                                    </Flex>
+                                                    <Text  noOfLines={5} fontSize="2xl" maxW={900} m={5} > {movie.overview}</Text>
+                                                </Flex>
+                                                <>
+                                                    <Text fontSize="2xl" mx={5}> {movie.tagline}</Text>
+                                                    {/* BOTONES DE BANNER (PLAY AÑADIR A FAVORITOS Y DETALLES) */}
+                                                    <Flex
+                                                        w="full"
+                                                        mx="2em"
+                                                        alignItems="center"
+                                                        paddingBottom="2em"
+                                                    >
+                                                        <Link
+                                                            w="600px"
+                                                            h="600px"
+                                                            to={`/pelicula/id/${movie.id}`}  >
+                                                            <Button
+                                                                width="5em"
+                                                                height="5em"
+                                                                transform="rotate(90deg)"
+                                                                aspectRatio="4/4"
+                                                                borderRadius="full"
+                                                                _hover={{ transform: "scale(1.2) rotate(90deg)" }}
                                                             >
-                                                                {/* movie TEXTO */}
-                                                                <Box
-                                                                    h="100%"
-                                                                    display="flex"
-                                                                    flexDirection="column"
-                                                                    justifyContent="space-between"
-                                                                >
-
-                                                                    <Flex flexDirection="column" w="100%">
-                                                                        <Flex flexDirection="row" w="100%">
-                                                                            <Heading mx={5}>{movie.title} ({new Date(movie.release_date).getFullYear()})</Heading>
-                                                                            <Stat>
-                                                                                <Box float="right">
-                                                                                    <Heading fontSize="2xl">{movie.vote_average.toFixed(1)}/10 </Heading>
-                                                                                    <StatHelpText >
-                                                                                        <StatArrow type={(movie.id % 100) < 30 ? 'decrease' : 'increase'} />
-                                                                                        {((movie.vote_count % 50) * 0.3384).toFixed(2)}%
-                                                                                    </StatHelpText>
-                                                                                </Box>
-                                                                            </Stat>
-                                                                        </Flex>
-                                                                        <Text fontSize="2xl" maxW={900} m={5} > {movie.overview}</Text>
-
-                                                                    </Flex>
-                                                                    <>
-                                                                        <Text fontSize="2xl" mx={5}> {movie.tagline}</Text>
-                                                                        <Flex
-                                                                            w="full"
-                                                                            mx="2em"
-                                                                            alignItems="center"
-                                                                            paddingBottom="2em"
-                                                                        >
-                                                                            <Link
-                                                                                w="600px"
-                                                                                h="600px"
-                                                                                to={`/pelicula/id/${movie.id}`}  >
-                                                                                <Button
-                                                                                    width="5em"
-                                                                                    height="5em"
-                                                                                    transform="rotate(90deg)"
-                                                                                    aspectRatio="4/4"
-                                                                                    borderRadius="full"
-                                                                                    _hover={{ transform: "scale(1.2) rotate(90deg)" }}
-                                                                                >
-                                                                                    <TriangleUpIcon boxSize="2em" />
-                                                                                </Button>
-                                                                            </Link>
-                                                                            <Link
-                                                                                w="200px"
-                                                                                h="200px"
-                                                                                to={`/pelicula/id/${movie.id}`}
-                                                                            >
-                                                                                <Button
-                                                                                    mx="2em"
-                                                                                    aspectRatio="4/4"
-                                                                                    borderRadius="full"
-                                                                                    transition="0.2s"
-                                                                                    _hover={{ transform: "scale(1.2)" }}
-                                                                                >
-                                                                                    <AddIcon />
-                                                                                </Button>
-                                                                            </Link>
-                                                                            <Link
-                                                                                w="200px"
-                                                                                h="200px"
-                                                                                to={`/pelicula/id/${movie.id}`}  >
-                                                                                <button className="learn-more">
-                                                                                    <span className="circle" aria-hidden="true">
-                                                                                        <span className="icon arrow"></span>
-                                                                                    </span>
-                                                                                    <span className="button-text">Detalles</span>
-                                                                                </button>
-                                                                            </Link>
-                                                                        </Flex>
-                                                                    </>
-                                                                </Box>
-                                                            </Flex>
-                                                        </Flex>
-                                                    </>
-                                                }
-                                            </Flex>
+                                                                <TriangleUpIcon boxSize="2em" />
+                                                            </Button>
+                                                        </Link>
+                                                        <Link
+                                                            w="200px"
+                                                            h="200px"
+                                                            to={`/pelicula/id/${movie.id}`}
+                                                        >
+                                                            <Button
+                                                                mx="2em"
+                                                                aspectRatio="4/4"
+                                                                borderRadius="full"
+                                                                transition="0.2s"
+                                                                _hover={{ transform: "scale(1.2)" }}
+                                                            >
+                                                                <AddIcon />
+                                                            </Button>
+                                                        </Link>
+                                                        <Link
+                                                            w="200px"
+                                                            h="200px"
+                                                            to={`/pelicula/id/${movie.id}`}  >
+                                                            <button className="learn-more">
+                                                                <span className="circle" aria-hidden="true">
+                                                                    <span className="icon arrow"></span>
+                                                                </span>
+                                                                <span className="button-text">Detalles</span>
+                                                            </button>
+                                                        </Link>
+                                                    </Flex>
+                                                </>
+                                            </Box>
                                         </Flex>
                                     </Flex>
                                 </>
-                            </Box>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-
-            </Box >
-        </>
+                            }
+                        </Flex>
+                    </Flex>
+                </div>
+            ))}
+        </Slider>
     );
 }

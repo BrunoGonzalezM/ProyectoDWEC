@@ -10,6 +10,8 @@ const MovieList = () => {
   const [movies, setMovies] = useState([]);
   const [moviesTop, setMoviesTop] = useState([]);
   const [moviesNowPlay, setMoviesNowPlay] = useState([]);
+  const [moviesTrending, setMoviesTrending] = useState([]);
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -28,19 +30,25 @@ const MovieList = () => {
     fetchData(1, setMovies);
     fetchData(2, setMoviesTop);
     fetchData(3, setMoviesNowPlay);
+    fetchData(4, setMoviesTrending)
 
   }, []);
 
   return (
-    <Flex justifyContent="center" alignItems="center" flexWrap="wrap" color="white" backgroundColor="#222222" height="max-content" width="100%">
+    <Flex
+      justifyContent="center"
+      alignItems="center"
+      flexWrap="wrap"
+      color="white"
+      backgroundColor="#222222"
+      height="max-content"
+      width="100%">
       {error ? (<p>{error}</p>) : (
         <Box
           overflowX="hidden"
           padding="0">
           {loading ? (
-            <Flex
-              h="90vh"
-            >
+            <Flex h="90vh" >
               <Spinner
                 margin="auto 0"
                 thickness='4px'
@@ -52,13 +60,14 @@ const MovieList = () => {
             </Flex>
           ) : (
             <>
-              <Banner movies={movies} />
+              <Banner movies={moviesTrending} />
 
               <Box p="1em">
                 {[
                   { title: "Populares", movies: movies },
                   { title: "Mejor valoradas", movies: moviesTop },
-                  { title: "Más vistas", movies: moviesNowPlay }
+                  { title: "Más vistas", movies: moviesNowPlay },
+                  { title: "Tendencias", movies: moviesTrending }
                 ].map(({ title, movies }) => (
                   <Heading key={title}>
                     <Box marginLeft="2em">
