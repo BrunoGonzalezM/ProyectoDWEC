@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import { useHistory } from 'react-router';
 import { Box, Image, Flex, Button, Input } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { fetchBusqueda } from "../funciones/fetch";
 import logo from '../IMG/MovieWorld logo.png';
 import '../styles/styleHeader.css';
+
 const links = [
     {
         name: 'Inicio',
@@ -27,34 +27,29 @@ const links = [
 
 const Header = () => {
     const [busqueda, setBusqueda] = useState('');
-    const [movies, setMovies] = useState([]);
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-    // const history = useHistory();
+    const [loading, setLoading] = useState(false);
+    const [movies, setMovies] = useState();
+    // const buscarPelicula = () => {
+    //     setLoading(true);
+    //     setError(null);
+    //     fetchBusqueda(busqueda)
+    //         .then((movies) => {
+    //             setMovies(movies);
+    //             console.log("Se busca :" + busqueda)
+    //             console.log(movies);
+    //         })
+    //         .catch((err) => {
+    //             setError(err.message);
+    //         })
+    //         .finally(() => {
+    //             setLoading(false);
+    //         });
+    // };
 
-    function buscarPelicula() {
-    //     history.push(`/peliculas/search/${busqueda}`);
-     }
-
-    useEffect(() => {
-        setLoading(true);
-        setError(null)
-        fetchBusqueda(busqueda)
-            .then((movies) => {
-                setMovies(movies);
-                console.log(movies)
-            })
-            .catch((err) => {
-                setError(err.message);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, [busqueda]);
-
-    const handleChange = (e) => {
-        setBusqueda(e.target.value);
-    };
+     const handleChange = (e) => {
+         setBusqueda(e.target.value);
+     };
 
     return (
         <Box
@@ -97,8 +92,8 @@ const Header = () => {
                 </Flex>
                 <Input
                     onChange={handleChange}
-                    placeholder='Busca tu pelicula favorita!'
                     value={busqueda}
+                    placeholder='Busca tu película favorita!'
                 />
                 <Flex
                     transition="0.4s"
@@ -106,18 +101,17 @@ const Header = () => {
                     alignItems="center"
                     justifyContent="center"
                 >
-
-                    <Button
-                        bg="transparent"
-                        border="none"
-                        cursor="pointer"
-                        _hover={{ bg: "transparent", color: "#fff" }}
-                    >
-                        <SearchIcon boxSize="8"
-                            onClick={buscarPelicula}
+                    <Link to={`/peliculas/search/${busqueda}`}>
+                        <Button
+                            bg="transparent"
+                            border="none"
+                            cursor="pointer"
+                            _hover={{ bg: "transparent", color: "#fff" }}
+                            // onClick={buscarPelicula}
                         >
-                        </SearchIcon>
-                    </Button>
+                            <SearchIcon boxSize="8" />
+                        </Button>
+                    </Link>
                 </Flex>
             </Flex>
         </Box >

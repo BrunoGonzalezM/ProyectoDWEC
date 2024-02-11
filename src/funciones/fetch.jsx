@@ -20,7 +20,7 @@ export const fetchBusqueda = async (busqueda) =>{
 }
 export const fetchCategorias = async () => {
     try {
-        const response = await fetch(`${urlAPIv3}/genre/movie/list?language=es`, options)
+        const response = await fetch(`${urlAPIv3}/genre/movie/list?language=es-ES`, options)
         const data = await response.json();
         return data.genres;
 
