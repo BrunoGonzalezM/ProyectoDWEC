@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Box, Image, Flex, Button, Input } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { fetchBusqueda } from "../funciones/fetch";
-import logo from '../IMG/MovieWorld logo.png';
+import logo from '../IMG/Logo.png';
 import '../styles/styleHeader.css';
 
 const links = [
@@ -49,7 +49,7 @@ const Header = () => {
                 alignItems="center"
                 justifyContent="space-between"
             >
-                <Image src={logo} alt='Logo' w="106px" p="0" m="0"></Image>
+                <Image src={logo} alt='Logo'h="100%" aspectRatio="4/4" filter="invert(1)" p="0.5em" mx="1em "></Image>
 
                 <Flex listStyleType="none"
                     m="0"
