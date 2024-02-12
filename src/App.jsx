@@ -24,6 +24,7 @@ function App() {
             <Route path="/categorias" element={<Categorias />} />
             <Route path="/pelicula/id/:id" element={<DetallesPelicula />} />
             <Route path="/categoria/:id" element={<PeliculaCategoria />} />
+            <Route path="/peliculas/search/" element={<PeliculasBuscadas />} />
             <Route path="/peliculas/search/:busqueda" element={<PeliculasBuscadas movies={movies} />} />
           </Routes>
         </Router>

@@ -11,7 +11,6 @@ const options = {
 export const fetchBusqueda = async (busqueda,page) =>{
     try {
         const response = await fetch(`${urlAPIv3}search/movie?query=${busqueda}&include_adult=false&language=es-ES&page=${page}`, options)
-
         const data = await response.json();
         return data.results;
     } catch (error) {
