@@ -16,11 +16,8 @@ function PeliculasBuscadas() {
     }, [busqueda]);
 
     useEffect(() => {
-        if (busqueda) {
-            buscarPelicula();
-        } else {
-            sinBuscarPeli();
-        }
+        buscarPelicula();
+        sinBuscarPeli();
     }, [busqueda, page]);
 
     const handleNextPage = () => {
@@ -55,7 +52,7 @@ function PeliculasBuscadas() {
         setError(null);
         fetchMovies(1, 1)
             .then((movies) => {
-                setMoviePeli(movies);
+                setMoviePeli(movies, page);
             })
             .catch((err) => {
                 setError(err.message);
@@ -87,13 +84,19 @@ function PeliculasBuscadas() {
                     </>
                 ) : (
                     moviePeli.length === 0 ? (
-                        <div>Sin resultados de búsqueda</div>
+                        <div>No se han encontrado peliculas</div>
                     ) : (
-                        moviePeli.map((movie, index) => (
-                            <div key={index}>
-                                {movie.title}
-                            </div>
-                        ))
+                        <Flex bg="#1c1c1c" flexWrap="wrap" justifyContent="space-between">
+                            <MovieCarousel movies={moviePeli} />
+                            <Box margin="0 auto">
+                                <Button mx="1em" onClick={handleBackPage} isDisabled={page <= 1}>
+                                    ANTERIOR
+                                </Button>
+                                <Button mx="1em" onClick={handleNextPage} isDisabled={page >= 99}>
+                                    SIGUIENTE
+                                </Button>
+                            </Box>
+                        </Flex>
                     )
                 )}
             </Flex>
