@@ -38,14 +38,19 @@ export default function PeliculaCategoria() {
         }
     };
     return (
-        <Box bg="blackAlpha.800">            
-        <MovieCarousel movies={peliPorCategoria} />
-            <Button onClick={handleBackPage} isDisabled={page <= 1}>
-                ANTERIOR
-            </Button>
-            <Button onClick={handleNextPage} isDisabled={page >= 99}>
-                SIGUIENTE
-            </Button>
+        <Box bg="blackAlpha.800" >
+            <MovieCarousel movies={peliPorCategoria} />
+            <Box margin="0 auto"
+                display="flex"
+                justifyContent="center"
+            >
+                <Button mx="1em" onClick={handleBackPage} isDisabled={page <= 1}>
+                    ANTERIOR
+                </Button>
+                <Button mx="1em" onClick={handleNextPage} isDisabled={page >= 99}>
+                    SIGUIENTE
+                </Button>
+            </Box>
         </Box>
     );
 

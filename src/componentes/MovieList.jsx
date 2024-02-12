@@ -3,7 +3,7 @@ import { fetchMovies } from "../funciones/fetch";
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import Banner from './Banner';
-import { Card, CardBody, Image, Stack, Heading, Text, Flex, Box, UnorderedList, ListItem, Spinner } from "@chakra-ui/react"
+import { Heading, Flex, Box, UnorderedList, ListItem, Spinner } from "@chakra-ui/react"
 import Tarjeta from './Tarjeta';
 
 const MovieList = () => {
@@ -18,7 +18,7 @@ const MovieList = () => {
   useEffect(() => {
     const fetchData = async (category, setter) => {
       try {
-        const moviesData = await fetchMovies(category,1);
+        const moviesData = await fetchMovies(category, 1);
         setter(moviesData);
       } catch (err) {
         setError(err.message);
@@ -42,11 +42,10 @@ const MovieList = () => {
       color="white"
       backgroundColor="#222222"
       height="max-content"
-      width="100%">
+      width="100%"
+    >
       {error ? (<p>{error}</p>) : (
-        <Box
-          overflowX="hidden"
-          padding="0">
+        <Box overflowX="hidden" padding="0">
           {loading ? (
             <Flex h="90vh" >
               <Spinner
@@ -61,7 +60,6 @@ const MovieList = () => {
           ) : (
             <>
               <Banner movies={moviesTrending} />
-
               <Box p="1em">
                 {[
                   { title: "Populares", movies: movies },
@@ -90,24 +88,24 @@ export const MovieCarousel = ({ movies, ul, loading }) => {
   const ref = useRef(null);
   const [scroll, setScroll] = useState(0);
 
+  //Funcion flecha izquierda de todos los carruseles
   const handleMoveLeft = () => {
     const newPosition = scroll <= 0 ? 0 : scroll - 220;
     ref.current.scrollTo({ left: newPosition, behavior: 'smooth' });
     setScroll(newPosition);
   };
 
+  //Funcion flecha derecha de todos los carruseles
   const handleMoveRight = () => {
-    const newPosition = scroll >= 3455 ? 3455: scroll + 220;
+    const newPosition = scroll >= 3455 ? 3455 : scroll + 220;
     ref.current.scrollTo({ left: newPosition, behavior: 'smooth' });
     setScroll(newPosition);
   };
   return (
     <>
       {ul ? (
-        <Flex
-          className="MovieList" flexDirection="row"
-          paddingInline="0em" alignItems="center"
-        >
+        // PELICULAS CON SLIDER CARRUSEL
+        <Flex className="MovieList" flexDirection="row" paddingInline="0em" alignItems="center">
           <Box
             className="left"
             _hover={{ transform: "scale(1.6)", color: "white", }}
@@ -155,14 +153,16 @@ export const MovieCarousel = ({ movies, ul, loading }) => {
         </Flex >
       ) : (
         <>
-          {/* PELICULAS POR CATEGORIA  y POR BUSQUEDA  QUEDA A CAMBIAR CARD POR TARJETA.JSX */}
+          {/* PELICULAS POR CATEGORIA  y POR BUSQUEDA */}
           <Flex
             className="MovieList"
             flexDirection="row"
-            paddingInline="0em"
             alignItems="center"
+            justifyContent="center"
             flexWrap="wrap"
             backgroundColor="#00000030"
+            w="100%"
+            margin="0 auto"
           >
             {movies.map((movie) => (
               <UnorderedList
@@ -179,50 +179,7 @@ export const MovieCarousel = ({ movies, ul, loading }) => {
                 ref={ref}
               >
                 <Link to={`/pelicula/id/${movie.id}`}  >
-                  <Card
-                    size="sm"
-                    h="maxContent"
-                    borderRadius='lg'
-                    backgroundColor="#00000030"
-                    transition="1s"
-                    _hover={{ transform: "scale(1.08)" }}
-                  >
-                    <CardBody
-                      h="367px"
-                      w="250px"
-                      p="3"
-                      borderRadius='lg'
-                      bg="black.800"
-                    >
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                        alt={`${movie.title}`}
-                        borderRadius='md'
-                        minW='60px'
-                        minH="330px"
-                        placeItems="center"
-                      />
-                      <Stack mt='6' spacing='3' color="white">
-                        <Heading
-                          size='md'
-                          noOfLines={1}
-                        >
-                          {movie.title}
-                        </Heading>
-                        {movie.overview ? (
-                          <Text noOfLines={3}>
-                            {`${movie.overview}`}
-                          </Text>
-                        ) : (
-                          <Box mt={3} h="4em" >
-                          </Box>
-                        )}
-                        <Text color='blue.600' fontSize='2xl'>
-                          {movie.vote_average.toFixed(1)}/10
-                        </Text>
-                      </Stack>
-                    </CardBody>
-                  </Card>
+                  <Tarjeta movie={movie} />
                 </Link>
               </UnorderedList>
             ))}

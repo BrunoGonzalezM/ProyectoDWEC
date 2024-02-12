@@ -56,7 +56,7 @@ const Tarjeta = ({ movie }) => {
             <Heading size='sm' noOfLines={1}>{`${movie.title}`}</Heading>
             <Text
               noOfLines={5}
-              fontSize=".3em"
+              fontSize="sm"
               fontWeight="200"
             >
               {movie.overview}

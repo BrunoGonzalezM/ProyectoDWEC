@@ -67,8 +67,8 @@ export default function DetallesPelicula() {
                         <>
                             <Box
                                 //IMAGEN DE FONDO
-                                w={`calc(100vw - 2em)`}
-                                h={`calc(100vh - 4em)`}
+                                w="100vw"
+                                h="40em"
                                 backgroundImage={`url(${imgURL}${detalles.poster_path})`}
                                 backgroundPosition="center"
                                 transform="scale(2)"
@@ -86,6 +86,7 @@ export default function DetallesPelicula() {
                                 boxSizing='border-box'
                                 bg="#00000069"
                                 w="100%"
+                                px="2em"
                             >
                                 <Flex
                                     flexDirection="column"

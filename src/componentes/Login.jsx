@@ -16,7 +16,6 @@ const Login = () => {
 
       if (usuarioAutenticado) {
         console.log('Inicio de sesión exitoso');
-
       } else {
         alert('Credenciales incorrectas');
       }
@@ -30,8 +29,6 @@ const Login = () => {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <img src="./IMG/logopng.png" alt="logo" />
-          <h2 className="mb-4">Login a la página Blog.html</h2>
           <form onSubmit={e => {
             e.preventDefault();
             handleLogin();

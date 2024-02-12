@@ -30,7 +30,7 @@ export default function Banner({ movies }) {
                         boxSizing='border-box'
                         bg="#00000069"
                         w="100%"
-                        h="calc(100vh - 10em)"
+                        h="maxContent"
                     >
                         <Flex
                             flexDirection="column"
@@ -69,7 +69,7 @@ export default function Banner({ movies }) {
                                         >
                                             {/* movie TEXTO */}
                                             <Box
-                                                h="100%"
+                                                h="25em"
                                                 display="flex"
                                                 flexDirection="column"
                                                 justifyContent="space-between"
@@ -80,7 +80,9 @@ export default function Banner({ movies }) {
                                                         <Heading mx={5}>{movie.title} ({new Date(movie.release_date).getFullYear()})</Heading>
                                                         {/* Añade el código para mostrar la valoración aquí */}
                                                     </Flex>
-                                                    <Text  noOfLines={5} fontSize="2xl" maxW={900} m={5} > {movie.overview}</Text>
+                                                    <Text noOfLines={5} fontSize="2xl" maxW={900} m={5} color="white.200" >
+                                                        {movie.overview}
+                                                    </Text>
                                                 </Flex>
                                                 <>
                                                     <Text fontSize="2xl" mx={5}> {movie.tagline}</Text>
