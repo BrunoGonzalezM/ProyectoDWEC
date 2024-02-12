@@ -6,6 +6,7 @@ import Categorias from "./componentes/Categorias";
 import PeliculaCategoria from "./componentes/PeliculaCategoria";
 import MovieList from "./componentes/MovieList";
 import PeliculasBuscadas from "./componentes/PeliculasBuscadas";
+import Login from "./componentes/Login";
 import { fetchBusqueda } from "./funciones/fetch"
 import { ChakraProvider } from '@chakra-ui/react';
 import React, { useState } from 'react';
@@ -18,7 +19,8 @@ function App() {
         <Router>
           <Header />
           <Routes>
-            <Route path="/" element={<MovieList />} />
+            <Route path="/" element={<Login/>}/>
+            <Route path="/inicio" element={<MovieList/>} />
             <Route path="/peliculas" element={<PeliculasBuscadas />} />
             <Route path="/series" />
             <Route path="/categorias" element={<Categorias />} />

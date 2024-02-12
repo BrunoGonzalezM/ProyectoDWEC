@@ -9,7 +9,7 @@ import '../styles/styleHeader.css';
 const links = [
     {
         name: 'Inicio',
-        href: '/',
+        href: '/inicio',
     },
     {
         name: 'Películas',

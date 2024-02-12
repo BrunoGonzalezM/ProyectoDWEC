@@ -1,5 +1,6 @@
 const AUTHcode = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MzhhZWI4NTM0ZTViMjEwNTg1M2M4NjE0MGM4Yzc3MCIsInN1YiI6IjY1YjNkZmQyNTU0MWZhMDE2NGIxODQwMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j8sdRSc8ytai4z5XJI4z3J0upLvu65EC_MPNvX0zxbk"
 const urlAPIv3 = "https://api.themoviedb.org/3/"
+const userAPI = "https://jsonplaceholder.typicode.com/users"
 const options = {
     method: 'GET',
     headers: {
