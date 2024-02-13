@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos } from '../funciones/fetch';
-import "../styles/stylesDetallesPelicula.css";
 import CircleProgressBar from './CircleProgressBar';
 import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Stat, StatHelpText, StatArrow, CircularProgress, } from "@chakra-ui/react";
+import { transform } from 'framer-motion';
 
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
@@ -47,8 +47,6 @@ export default function DetallesPelicula() {
         fetchDataDetails();
         fetchDataCredits();
     }, [id]);
-
-
 
     const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
@@ -125,7 +123,6 @@ export default function DetallesPelicula() {
                                                         <Flex flexDirection="row" w="100%">
                                                             <Heading mx={5}>{detalles.title}</Heading>
                                                             <Stat>
-                                                                
                                                                 <Heading
                                                                     display="flex"
                                                                     justifyContent="center"
@@ -135,27 +132,17 @@ export default function DetallesPelicula() {
                                                                     position="relative"
                                                                     bottom="2em"
                                                                 >
-                                                                    {/* <StatHelpText >
-                                                                        <StatArrow type={(detalles.id % 100) < 30 ? 'decrease' : 'increase'} />
-                                                                        {((detalles.vote_count % 50) * 0.3384).toFixed(2)}%
-                                                                    </StatHelpText> */}
-
                                                                     <CircleProgressBar max={100} value={detalles.vote_average.toFixed(1) * 10} />
-
                                                                 </Heading>
-
-                                                                <Box >
-                                                                    
-                                                                </Box>
                                                             </Stat>
                                                         </Flex>
                                                         <Text fontSize="2xl" mx={5} > {detalles.tagline}</Text>
                                                         <Text fontSize="1xl" maxW={900} m={5} > {detalles.overview}</Text>
-                                                        <Box>
+                                                        <Box >
                                                             <Stack direction='row' mx="1.2rem" >
                                                                 {detalles.genres.map((genre) => (
                                                                     <Link key={genre.id} to={`/categoria/${genre.id}`}>
-                                                                        <Badge colorScheme='green'>
+                                                                        <Badge  _hover={{ transform: "scale(1.08)"}} transition="0.5s" colorScheme='green'>
                                                                             {genre.name}
                                                                         </Badge>
                                                                     </Link>
