@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchCategoriaPelicula } from '../funciones/fetch';
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button,Flex } from "@chakra-ui/react";
 import MovieCarousel from "../componentes/MovieCarousel"
 
 export default function PeliculaCategoria() {
@@ -40,8 +40,8 @@ export default function PeliculaCategoria() {
     return (
         <Box bg="blackAlpha.800" >
             <MovieCarousel movies={peliPorCategoria} />
-            <Box margin="0 auto"
-                display="flex"
+            <Flex 
+                margin="0 auto"
                 justifyContent="center"
             >
                 <Button mx="1em" onClick={handleBackPage} isDisabled={page <= 1}>
@@ -50,7 +50,7 @@ export default function PeliculaCategoria() {
                 <Button mx="1em" onClick={handleNextPage} isDisabled={page >= 99}>
                     SIGUIENTE
                 </Button>
-            </Box>
+            </Flex>
         </Box>
     );
 

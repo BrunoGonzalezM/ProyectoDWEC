@@ -122,27 +122,27 @@ export default function DetallesPelicula() {
                                                     <Box>
                                                         <Flex flexDirection="row" w="100%">
                                                             <Heading mx={5}>{detalles.title}</Heading>
-                                                            <Stat>
-                                                                <Heading
-                                                                    display="flex"
-                                                                    justifyContent="center"
-                                                                    alignContent="center"
-                                                                    fontSize="2xl"
-                                                                    float="right"
-                                                                    position="relative"
-                                                                    bottom="2em"
-                                                                >
-                                                                    <CircleProgressBar max={100} value={detalles.vote_average.toFixed(1) * 10} />
-                                                                </Heading>
-                                                            </Stat>
+                                                            <Flex
+                                                                justifyContent="end"
+                                                                fontSize="2xl"
+                                                                float="right"
+                                                                position="absolute"
+                                                                right="4em"
+                                                                top="0"
+                                                            >
+                                                                
+                                                                <CircleProgressBar max={100} value={detalles.vote_average.toFixed(1) * 10} />
+                                                            </Flex>
                                                         </Flex>
                                                         <Text fontSize="2xl" mx={5} > {detalles.tagline}</Text>
-                                                        <Text fontSize="1xl" maxW={900} m={5} > {detalles.overview}</Text>
+                                                        <Text fontSize="1xl" maxW={900} m={5} pt="1em" color="whiteAlpha.800" noOfLines={7} >
+                                                            {detalles.overview}
+                                                        </Text>
                                                         <Box >
                                                             <Stack direction='row' mx="1.2rem" >
                                                                 {detalles.genres.map((genre) => (
                                                                     <Link key={genre.id} to={`/categoria/${genre.id}`}>
-                                                                        <Badge  _hover={{ transform: "scale(1.08)"}} transition="0.5s" colorScheme='green'>
+                                                                        <Badge _hover={{ transform: "scale(1.08)" }} transition="0.5s" colorScheme='green'>
                                                                             {genre.name}
                                                                         </Badge>
                                                                     </Link>
@@ -190,7 +190,7 @@ export default function DetallesPelicula() {
                                             </Text>
                                             <br />
                                             {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} borderRadius="md" alt={actor.name} />}
-                                            <strong>Personaje:</strong> <p>{actor.character}</p>
+                                            <Text >Personaje:</Text> <Text noOfLines={1} w="12.5em" >{actor.character}</Text>
                                         </Box>
                                     ))}
                                 </Flex>

@@ -87,7 +87,7 @@ export default function Banner({ movies }) {
                                                                 </StatHelpText>
                                                             </Box>
                                                         </Stat>                                                    </Flex>
-                                                    <Text noOfLines={5} fontSize="2xl" maxW={900} m={5} color="white.200" >
+                                                    <Text noOfLines={5} fontSize="md" maxW={900} m={5} color="whiteAlpha.800" >
                                                         {movie.overview}
                                                     </Text>
                                                 </Flex>

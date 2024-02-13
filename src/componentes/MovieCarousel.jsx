@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import { UnorderedList, ListItem, Flex, Box } from "@chakra-ui/react";
+import { UnorderedList, ListItem, Flex, Box, Heading } from "@chakra-ui/react";
 import Tarjeta from './Tarjeta';
+import PeliculaCategoria from './PeliculaCategoria';
 
 const MovieCarousel = ({ title, movies, conSlider }) => {
     const ref = useRef(null);
@@ -23,7 +24,6 @@ const MovieCarousel = ({ title, movies, conSlider }) => {
 
     return (
         <>
-            <h2>{title}</h2>
             {conSlider ? (
                 <Flex className="MovieList" flexDirection="row" paddingInline="0em" alignItems="center">
                     {scroll > 0 && (
@@ -90,7 +90,6 @@ const MovieCarousel = ({ title, movies, conSlider }) => {
             ) : (
                 <>
                     <Flex
-                        className="MovieList"
                         flexDirection="row"
                         alignItems="center"
                         justifyContent="center"
