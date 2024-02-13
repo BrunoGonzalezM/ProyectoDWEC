@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Flex, Text, Box, Button, Heading } from '@chakra-ui/react';
+import { Flex, Box, Button, Heading } from '@chakra-ui/react';
 import { fetchBusqueda, fetchMovies } from "../funciones/fetch";
-import { MovieCarousel } from "./MovieList";
+import  MovieCarousel  from "./MovieCarousel";
 
 function PeliculasBuscadas() {
     const { busqueda } = useParams();
     const [moviePeli, setMoviePeli] = useState([]);
+    const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
@@ -16,8 +17,11 @@ function PeliculasBuscadas() {
     }, [busqueda]);
 
     useEffect(() => {
-        buscarPelicula();
-        sinBuscarPeli();
+        if (busqueda) {
+            buscarPelicula();
+        } else {
+            sinBuscarPeli();
+        }
     }, [busqueda, page]);
 
     const handleNextPage = () => {
@@ -50,9 +54,9 @@ function PeliculasBuscadas() {
     const sinBuscarPeli = () => {
         setLoading(true);
         setError(null);
-        fetchMovies(1, 1)
+        fetchMovies(1, page) // Aquí se corrige el envío de la página a fetchMovies
             .then((movies) => {
-                setMoviePeli(movies, page);
+                setMovies(movies); // Se actualiza correctamente el estado de películas sin búsqueda
             })
             .catch((err) => {
                 setError(err.message);
@@ -84,10 +88,10 @@ function PeliculasBuscadas() {
                     </>
                 ) : (
                     moviePeli.length === 0 ? (
-                        <div>No se han encontrado peliculas</div>
+                        <div>No se han encontrado películas</div>
                     ) : (
                         <Flex bg="#1c1c1c" flexWrap="wrap" justifyContent="space-between">
-                            <MovieCarousel movies={moviePeli} />
+                            <MovieCarousel movies={movies} />
                             <Box margin="0 auto">
                                 <Button mx="1em" onClick={handleBackPage} isDisabled={page <= 1}>
                                     ANTERIOR

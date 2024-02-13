@@ -1,17 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { fetchMovies } from "../funciones/fetch";
-import { Link } from 'react-router-dom';
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { Flex, Box, Spinner } from "@chakra-ui/react";
 import Banner from './Banner';
-import { Heading, Flex, Box, UnorderedList, ListItem, Spinner } from "@chakra-ui/react"
-import Tarjeta from './Tarjeta';
+import MovieCarousel from './MovieCarousel';
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
   const [moviesTop, setMoviesTop] = useState([]);
   const [moviesNowPlay, setMoviesNowPlay] = useState([]);
   const [moviesTrending, setMoviesTrending] = useState([]);
-
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -30,8 +27,7 @@ const MovieList = () => {
     fetchData(1, setMovies);
     fetchData(2, setMoviesTop);
     fetchData(3, setMoviesNowPlay);
-    fetchData(4, setMoviesTrending)
-
+    fetchData(4, setMoviesTrending);
   }, []);
 
   return (
@@ -44,10 +40,12 @@ const MovieList = () => {
       height="max-content"
       width="100%"
     >
-      {error ? (<p>{error}</p>) : (
+      {error ? (
+        <p>{error}</p>
+      ) : (
         <Box overflowX="hidden" padding="0">
           {loading ? (
-            <Flex h="90vh" >
+            <Flex h="90vh">
               <Spinner
                 margin="auto 0"
                 thickness='4px'
@@ -61,132 +59,17 @@ const MovieList = () => {
             <>
               <Banner movies={moviesTrending} />
               <Box p="1em">
-                {[
-                  { title: "Populares", movies: movies },
-                  { title: "Mejor valoradas", movies: moviesTop },
-                  { title: "Más vistas", movies: moviesNowPlay },
-                  { title: "Tendencias", movies: moviesTrending }
-                ].map(({ title, movies }) => (
-                  <Heading key={title}>
-                    <Box marginLeft="2em">
-                      {title}
-                    </Box>
-                    <MovieCarousel movies={movies} ul loading={loading} />
-                  </Heading>
-                ))}
+                <MovieCarousel conSlider title="Populares" movies={movies} />
+                <MovieCarousel conSlider title="Mejor valoradas" movies={moviesTop} />
+                <MovieCarousel conSlider title="Más vistas" movies={moviesNowPlay} />
+                <MovieCarousel conSlider title="Tendencias" movies={moviesTrending} />
               </Box>
             </>
           )}
         </Box>
       )}
     </Flex>
-
   );
 };
 
-export const MovieCarousel = ({ movies, ul, loading }) => {
-  const ref = useRef(null);
-  const [scroll, setScroll] = useState(0);
-
-  //Funcion flecha izquierda de todos los carruseles
-  const handleMoveLeft = () => {
-    const newPosition = scroll <= 0 ? 0 : scroll - 220;
-    ref.current.scrollTo({ left: newPosition, behavior: 'smooth' });
-    setScroll(newPosition);
-  };
-
-  //Funcion flecha derecha de todos los carruseles
-  const handleMoveRight = () => {
-    const newPosition = scroll >= 3455 ? 3455 : scroll + 220;
-    ref.current.scrollTo({ left: newPosition, behavior: 'smooth' });
-    setScroll(newPosition);
-  };
-  return (
-    <>
-      {ul ? (
-        // PELICULAS CON SLIDER CARRUSEL
-        <Flex className="MovieList" flexDirection="row" paddingInline="0em" alignItems="center">
-          <Box
-            className="left"
-            _hover={{ transform: "scale(1.6)", color: "white", }}
-            height="100%"
-            transition=".4s"
-            color="#a7a7a7"
-          >
-            <IoIosArrowBack className='left' onClick={handleMoveLeft} size={40} />
-          </Box>
-          <UnorderedList
-            display="flex"
-            listStyleType="none"
-            overflow="hidden"
-            padding="40px 0"
-            flex="0 0 calc(100vw - 4em)"
-            margin="0em"
-            maxWidth="calc(100vw - 4em)"
-            paddingInline="1em" ref={ref}
-          >
-            {movies.map((movie) => (
-              <ListItem
-                backgroundColor="#00000030"
-                margin="0 1em 0 0"
-                cursor="pointer"
-                transition="1s"
-                borderRadius="5px"
-                key={movie.id}
-                _hover={{ transform: "scale(1.08)", }}
-              >
-                <Link to={`/pelicula/id/${movie.id}`}>
-                  <Tarjeta movie={movie} />
-                </Link>
-              </ListItem>
-            ))}
-          </UnorderedList>
-          <Box
-            className="right"
-            _hover={{ transform: "scale(1.6)", color: "white", }}
-            height="100%"
-            transition=".4s"
-            color="#a7a7a7"
-          >
-            <IoIosArrowForward className='right' onClick={handleMoveRight} size={40} />
-          </Box>
-        </Flex >
-      ) : (
-        <>
-          {/* PELICULAS POR CATEGORIA  y POR BUSQUEDA */}
-          <Flex
-            className="MovieList"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            flexWrap="wrap"
-            backgroundColor="#00000030"
-            w="100%"
-            margin="0 auto"
-          >
-            {movies.map((movie) => (
-              <UnorderedList
-                key={movie.id}
-                display="flex"
-                listStyleType="none"
-                overflow="hidden"
-                padding="40px 0"
-                flex="0 0 20em"
-                justifyContent="center"
-                alignContent="center"
-                maxWidth="calc(100vw - 9em)"
-                paddingInline="1em"
-                ref={ref}
-              >
-                <Link to={`/pelicula/id/${movie.id}`}  >
-                  <Tarjeta movie={movie} />
-                </Link>
-              </UnorderedList>
-            ))}
-          </Flex>
-        </>
-      )}
-    </>
-  );
-};
 export default MovieList;

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Box, Image, Flex, Button, Input } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
-import { fetchBusqueda } from "../funciones/fetch";
 import logo from '../IMG/Logo.png';
 import '../styles/styleHeader.css';
 

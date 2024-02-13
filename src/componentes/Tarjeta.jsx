@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "../styles/stylesCard.css"
 import { Card, CardBody, Image, Stack, Heading, Box, Text, Flex } from "@chakra-ui/react"
 
-const Tarjeta = ({ movie }) => {
+const Tarjeta = ({ movie, conSlider }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -16,6 +16,7 @@ const Tarjeta = ({ movie }) => {
           size="sm"
           borderRadius='lg'
           bg="transparent"
+          {...(conSlider ? { w: "11em" } : {})}
         >
           <CardBody
             p="3"

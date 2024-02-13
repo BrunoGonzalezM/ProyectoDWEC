@@ -4,7 +4,7 @@ import "../styles/banner.css"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-import { Image, Heading, Text, Button, Box, Flex } from '@chakra-ui/react';
+import { Image, Heading, Text, Button, Stat, StatHelpText, StatArrow, Box, Flex } from '@chakra-ui/react';
 import { TriangleUpIcon, AddIcon } from "@chakra-ui/icons";
 
 export default function Banner({ movies }) {
@@ -78,8 +78,15 @@ export default function Banner({ movies }) {
                                                 <Flex flexDirection="column" w="100%">
                                                     <Flex flexDirection="row" w="100%">
                                                         <Heading mx={5}>{movie.title} ({new Date(movie.release_date).getFullYear()})</Heading>
-                                                        {/* Añade el código para mostrar la valoración aquí */}
-                                                    </Flex>
+                                                        <Stat>
+                                                            <Box float="right">
+                                                                <Heading fontSize="2xl">{movie.vote_average.toFixed(1)}/10 </Heading>
+                                                                <StatHelpText >
+                                                                    <StatArrow type={(movie.id % 100) < 30 ? 'decrease' : 'increase'} />
+                                                                    {((movie.vote_count % 50) * 0.3384).toFixed(2)}%
+                                                                </StatHelpText>
+                                                            </Box>
+                                                        </Stat>                                                    </Flex>
                                                     <Text noOfLines={5} fontSize="2xl" maxW={900} m={5} color="white.200" >
                                                         {movie.overview}
                                                     </Text>
