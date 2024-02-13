@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos } from '../funciones/fetch';
 import "../styles/stylesDetallesPelicula.css";
-import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Stat, StatHelpText, StatArrow, } from "@chakra-ui/react";
+import CircleProgressBar from './CircleProgressBar';
+import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Stat, StatHelpText, StatArrow, CircularProgress, } from "@chakra-ui/react";
 
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
@@ -46,6 +47,8 @@ export default function DetallesPelicula() {
         fetchDataDetails();
         fetchDataCredits();
     }, [id]);
+
+
 
     const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
@@ -121,21 +124,33 @@ export default function DetallesPelicula() {
                                                     <Box>
                                                         <Flex flexDirection="row" w="100%">
                                                             <Heading mx={5}>{detalles.title}</Heading>
-                                                            <Flex alignItems="center">
-                                                                <Text fontSize={30} mb="0.35em">({new Date(detalles.release_date).getFullYear()})</Text>
-                                                            </Flex>
                                                             <Stat>
-                                                                <Box float="right">
-                                                                    <Heading fontSize="2xl">{detalles.vote_average.toFixed(1)}/10 </Heading>
-                                                                    <StatHelpText >
+                                                                
+                                                                <Heading
+                                                                    display="flex"
+                                                                    justifyContent="center"
+                                                                    alignContent="center"
+                                                                    fontSize="2xl"
+                                                                    float="right"
+                                                                    position="relative"
+                                                                    bottom="2em"
+                                                                >
+                                                                    {/* <StatHelpText >
                                                                         <StatArrow type={(detalles.id % 100) < 30 ? 'decrease' : 'increase'} />
                                                                         {((detalles.vote_count % 50) * 0.3384).toFixed(2)}%
-                                                                    </StatHelpText>
+                                                                    </StatHelpText> */}
+
+                                                                    <CircleProgressBar max={100} value={detalles.vote_average.toFixed(1) * 10} />
+
+                                                                </Heading>
+
+                                                                <Box >
+                                                                    
                                                                 </Box>
                                                             </Stat>
                                                         </Flex>
                                                         <Text fontSize="2xl" mx={5} > {detalles.tagline}</Text>
-                                                        <Text fontSize="1xl" maxW={900} m={5}  > {detalles.overview}</Text>
+                                                        <Text fontSize="1xl" maxW={900} m={5} > {detalles.overview}</Text>
                                                         <Box>
                                                             <Stack direction='row' mx="1.2rem" >
                                                                 {detalles.genres.map((genre) => (
@@ -200,3 +215,4 @@ export default function DetallesPelicula() {
         </>
     );
 }
+

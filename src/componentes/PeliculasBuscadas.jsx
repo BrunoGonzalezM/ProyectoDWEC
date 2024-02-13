@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Flex, Box, Button, Heading } from '@chakra-ui/react';
 import { fetchBusqueda, fetchMovies } from "../funciones/fetch";
-import  MovieCarousel  from "./MovieCarousel";
+import MovieCarousel from "../componentes/MovieCarousel";
 
 function PeliculasBuscadas() {
     const { busqueda } = useParams();
@@ -17,11 +17,8 @@ function PeliculasBuscadas() {
     }, [busqueda]);
 
     useEffect(() => {
-        if (busqueda) {
-            buscarPelicula();
-        } else {
-            sinBuscarPeli();
-        }
+        buscarPelicula();
+        sinBuscarPeli();
     }, [busqueda, page]);
 
     const handleNextPage = () => {

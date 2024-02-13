@@ -1,3 +1,25 @@
+.circle-progress-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.circle-progress {
+    transform: rotate(-90deg);
+}
+
+.circle-progress-circle {
+    stroke-width: 6px;
+    stroke-linecap: round;
+}
+
+.circle-progress-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 /* .botonTrailer{
     padding: 1em;
     background-color: #397ff0;

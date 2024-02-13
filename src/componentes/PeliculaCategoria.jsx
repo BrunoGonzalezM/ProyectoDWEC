@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchCategoriaPelicula } from '../funciones/fetch';
 import { Box, Button } from "@chakra-ui/react";
+import MovieCarousel from "../componentes/MovieCarousel"
 
 export default function PeliculaCategoria() {
     const [peliPorCategoria, setPeliPorCategoria] = useState([]);
