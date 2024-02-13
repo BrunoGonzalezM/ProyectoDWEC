@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Box, Image, Flex, Button, Input } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { fetchBusqueda } from "../funciones/fetch";
@@ -9,7 +9,7 @@ import '../styles/styleHeader.css';
 const links = [
     {
         name: 'Inicio',
-        href: '/',
+        href: '/inicio',
     },
     {
         name: 'Películas',
@@ -26,6 +26,13 @@ const links = [
 ];
 
 const Header = () => {
+    const location = useLocation();
+    const isLoginPage = location.pathname === '/';
+
+    // Si estamos en la página de inicio de sesión, no renderizamos el Header
+    if (isLoginPage) {
+        return null;
+    }
     const [busqueda, setBusqueda] = useState('');
 
     const handleChange = (e) => {
