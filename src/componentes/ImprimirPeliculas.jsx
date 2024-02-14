@@ -4,7 +4,7 @@ import { Flex, Box, Spinner } from "@chakra-ui/react";
 import Banner from './Banner';
 import MovieCarousel from './MovieCarousel';
 
-const MovieList = () => {
+const ImprimirPeliculas = () => {
   const [movies, setMovies] = useState([]);
   const [moviesTop, setMoviesTop] = useState([]);
   const [moviesNowPlay, setMoviesNowPlay] = useState([]);
@@ -72,4 +72,4 @@ const MovieList = () => {
   );
 };
 
-export default MovieList;
+export default ImprimirPeliculas;

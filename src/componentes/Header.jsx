@@ -38,20 +38,21 @@ const Header = () => {
         <>
             {!isLoginPage && (
                 <Box
-                    m="0"
-                    p="0"
                     bg="black"
                     fontFamily={"kanit, sans-serif"}
                     fontWeight={700}
                 >
                     <Flex
-                        h="70px"
+                        h="maxContent"
                         bg="#CC3344"
                         alignItems="center"
                         justifyContent="space-between"
                     >
-                        <Image src={logo} alt='Logo' h="100%" aspectRatio="4/4" filter="invert(1)" p="0.5em" mx="1em "></Image>
-
+                        <Flex w="4em">
+                            <Link to={`/inicio`}>
+                                <Image src={logo} alt='Logo' w="100%" aspectRatio="4/4" filter="invert(1)" p="0.5em" mx="1em" transition="0.2s" _hover={{transform: "scale(1.1)"}} />
+                            </Link>
+                        </Flex>
                         <Flex
                             listStyleType="none"
                             transition={{ color: '0.3s', fontSize: '0.3s' }}

@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { Image, Heading, Text, Button, Stat, StatHelpText, StatArrow, Box, Flex } from '@chakra-ui/react';
-import { TriangleUpIcon, AddIcon } from "@chakra-ui/icons";
+import { TriangleUpIcon, StarIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 
 export default function Banner({ movies }) {
     const config = {
@@ -126,7 +126,7 @@ export default function Banner({ movies }) {
                                                                 transition="0.2s"
                                                                 _hover={{ transform: "scale(1.2)" }}
                                                             >
-                                                                <AddIcon />
+                                                                <StarIcon />
                                                             </Button>
                                                         </Link>
                                                         <Link
@@ -134,7 +134,15 @@ export default function Banner({ movies }) {
                                                             h="200px"
                                                             to={`/pelicula/id/${movie.id}`}
                                                         >
-                                                            Aqui va un icono de detalles 
+                                                            <Button
+                                                                width="2.5m"
+                                                                height="2.5em"
+                                                                aspectRatio="4/4"
+                                                                borderRadius="full"
+                                                                _hover={{ transform: "scale(1.2)" }}
+                                                            >
+                                                                <InfoOutlineIcon boxSize="2em" />
+                                                            </Button>
                                                         </Link>
                                                     </Flex>
                                                 </>

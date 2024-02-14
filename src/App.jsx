@@ -5,7 +5,7 @@ import Header from "./componentes/Header";
 import DetallesPelicula from "./componentes/DetallesPelicula";
 import Categorias from "./componentes/Categorias";
 import Peliculas from "./componentes/Peliculas";
-import MovieList from "./componentes/MovieList";
+import ImprimirPeliculas from "./componentes/ImprimirPeliculas";
 import Login from "./componentes/Login";
 
 import { ChakraProvider } from '@chakra-ui/react';
@@ -19,7 +19,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/inicio" element={<MovieList />} />
+            <Route path="/inicio" element={<ImprimirPeliculas />} />
             <Route path="/series" />
             <Route path="/categorias" element={<Categorias />} />
             <Route path="/pelicula/id/:id" element={<DetallesPelicula />} />
