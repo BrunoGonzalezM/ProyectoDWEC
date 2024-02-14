@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, FormControl, FormLabel, Input, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import fondo from '../IMG/loginFondo.jpg';
 import "../styles/styleLogin.css"
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -50,21 +50,12 @@ const Login = () => {
           handleLogin();
         }} style={{ textAlign: 'center' }}
         >
-          <div class="login wrap">
-            <div class="h1">Login</div>
+          <div className="login wrap">
+            <div className="h1">Login</div>
             <input onChange={e => setEmail(e.target.value)} pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" placeholder="Email" id="email" name="email" type="text" />
             <input placeholder="password" id="password" name="password" onChange={e => setPassword(e.target.value)} type="password" />
-            <input value="Login" class="btn" type="submit" />
+            <input value="Login" className="btn" type="submit" />
           </div>
-          {/* <Box color="white">
-            <FormLabel htmlFor="email">Email</FormLabel>
-            <Input type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} required />
-          </Box>
-          <Box color="white">
-            <FormLabel htmlFor="password">Contraseña</FormLabel>
-            <Input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)} required />
-          </Box>
-          <Button type="submit" className="btn btn-primary" marginY="25px">ACCESO</Button> */}
         </form>
 
       </Flex>

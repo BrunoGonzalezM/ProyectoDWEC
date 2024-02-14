@@ -1,6 +1,5 @@
 import React from 'react';
 import Slider from "react-slick";
-import "../styles/banner.css"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
@@ -133,13 +132,9 @@ export default function Banner({ movies }) {
                                                         <Link
                                                             w="200px"
                                                             h="200px"
-                                                            to={`/pelicula/id/${movie.id}`}  >
-                                                            <button className="learn-more">
-                                                                <span className="circle" aria-hidden="true">
-                                                                    <span className="icon arrow"></span>
-                                                                </span>
-                                                                <span className="button-text">Detalles</span>
-                                                            </button>
+                                                            to={`/pelicula/id/${movie.id}`}
+                                                        >
+                                                            Aqui va un icono de detalles 
                                                         </Link>
                                                     </Flex>
                                                 </>

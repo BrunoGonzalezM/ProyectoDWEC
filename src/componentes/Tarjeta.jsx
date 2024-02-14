@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import "../styles/stylesCard.css"
-import { Card, CardBody, Image, Stack, Heading, Box, Text, Flex, SkeletonCircle, SkeletonText } from "@chakra-ui/react"
+import { Card, CardBody, Image, Stack, Heading, Box, Text, SkeletonCircle, SkeletonText } from "@chakra-ui/react"
 
 const Tarjeta = ({ movie, conSlider }) => {
   const [isHovered, setIsHovered] = useState(false);

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchCategorias } from "../funciones/fetch";
 import { Link } from 'react-router-dom';
-import "../styles/stylesCategorias.css";
 import { Box, Flex, Image } from '@chakra-ui/react';
 
 //IMAGENES
