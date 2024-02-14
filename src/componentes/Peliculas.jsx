@@ -40,15 +40,10 @@ function Peliculas() {
     }, [busqueda, id, page]);
 
     const handleNextPage = () => {
-        if (page < 99) {
-            setPage(page + 1);
-        }
+        {page < 99 && (setPage(page + 1))}
     };
-
     const handleBackPage = () => {
-        if (page > 1) {
-            setPage(page - 1);
-        }
+        {page > 1 && (setPage(page - 1))}
     };
 
     useEffect(() => {
@@ -60,7 +55,7 @@ function Peliculas() {
             {loading && <p>Cargando...</p>}
             {error && <p>Error: {error}</p>}
             {busqueda && <Heading color="white" mb="1em">Resultados de: {busqueda}</Heading>}
-            {id && <Heading color="white" mb="1em">Peliculas de la categoría: {id}</Heading>}
+            {id && <Heading color="white" mb="1em">Peliculas de la categoría: {name}</Heading>}
             {(showCarousel || movies.length > 0) && (
                 <>
                     <ImprimirPeliculas movies={movies} />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardBody, Image, Stack, Heading, Box, Text, SkeletonCircle, SkeletonText } from "@chakra-ui/react"
-
+import nofoundimg from "../assets/nofoundimg.png"
+import "../styles/stylesTarjeta.css"
 const Tarjeta = ({ movie, conSlider }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -25,24 +26,14 @@ const Tarjeta = ({ movie, conSlider }) => {
             flexDirection="column"
             justifyContent="space-between"
           >
-            {movie.poster_path ? (
               <Image
                 src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
                 alt={`${movie.title}`}
+                fallbackSrc={nofoundimg}
                 borderRadius='md'
-                minW='4.3em'
-                minH="6.6em"
+                flexGrow="1fr"
+                h="23em"
               />
-            ) : (
-              <>
-                <Box h="maxContent" w="16em" >
-                  <Box padding='6' h="24em" boxShadow='lg' bg="#22222299" borderRadius="md">
-                    <SkeletonCircle size='10' />
-                    <SkeletonText mt='4' noOfLines={6} spacing='4' skeletonHeight='2' />
-                  </Box>
-                </Box>
-              </>
-            )}
           </CardBody>
         </Card>
         <Box
