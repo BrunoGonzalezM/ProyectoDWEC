@@ -25,7 +25,7 @@ const MovieCarousel = ({ title, movies, conSlider }) => {
         <>
             {conSlider ? (
                 <>
-                    <Heading mx="0.6em" pt="1em">{title}-{scroll}</Heading> 
+                    <Heading m="0 auto" w="85vw" pt="1em">{title}</Heading>
                     <Flex className="MovieList" flexDirection="row" paddingInline="0em" alignItems="center">
                         {scroll > 0 && (
                             <Box
@@ -50,19 +50,19 @@ const MovieCarousel = ({ title, movies, conSlider }) => {
                             overflow="hidden"
                             padding="1em 0"
                             margin="0 auto"
-                            flex="0 0 calc(100vw - 4em)"
-                            width="calc(100vw - 4em)"
-                            paddingInline="1em" ref={ref}
+                            width="88vw"
+                            px="1em" ref={ref}
                             maxW="113em"
                         >
-                            {movies.map((movie) => (
+                            {movies.map((movie, index) => (
                                 <ListItem
+                                    key={movie.id}
                                     backgroundColor="#00000030"
-                                    margin="0 1em 0 0"
+                                    margin={index === 0 ? '0 2em 0 0' : '0 2em 0 0'}
                                     cursor="pointer"
                                     transition="1s"
                                     borderRadius="5px"
-                                    key={movie.id}
+                                    w="12em"
                                     _hover={{ transform: "scale(1.08)", }}
                                 >
                                     <Link to={`/pelicula/id/${movie.id}`}>
@@ -101,23 +101,25 @@ const MovieCarousel = ({ title, movies, conSlider }) => {
                         margin="0 auto"
                     >
                         {movies.map((movie) => (
-                            <UnorderedList
-                                key={movie.id}
-                                display="flex"
-                                listStyleType="none"
-                                overflow="hidden"
-                                padding="40px 0"
-                                flex="0 0 20em"
-                                justifyContent="center"
-                                alignContent="center"
-                                maxWidth="calc(100vw - 9em)"
-                                paddingInline="1em"
-                                ref={ref}
-                            >
-                                <Link to={`/pelicula/id/${movie.id}`}  >
-                                    <Tarjeta movie={movie} />
-                                </Link>
-                            </UnorderedList>
+                            <>
+                                {movie.poster_path && (
+                                    <UnorderedList
+                                        key={movie.id}
+                                        display="flex"
+                                        listStyleType="none"
+                                        overflow="hidden"
+                                        justifyContent="center"
+                                        alignContent="center"
+                                        maxWidth="calc(100vw - 9em)"
+                                        p="1em"
+                                        ref={ref}
+                                    >
+                                        <Link to={`/pelicula/id/${movie.id}`}  >
+                                            <Tarjeta movie={movie} />
+                                        </Link>
+                                    </UnorderedList>
+                                )}
+                            </>
                         ))}
                     </Flex>
                 </>

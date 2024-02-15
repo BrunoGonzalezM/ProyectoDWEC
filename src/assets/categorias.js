@@ -20,7 +20,7 @@ import imagenWestern from '../IMG/western.jpg';
 import imagenTerror from '../IMG/terror.jpg';
 
 export const categoriasImagenes = {
-    28: ["Accion", imagenAccion],
+    28: ["Acción", imagenAccion],
     35: ["Comedia", imagenComedia],
     12: ["Aventura", imagenAventura],
     16: ["Animación", imagenAnimación],

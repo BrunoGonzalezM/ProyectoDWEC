@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardBody, Image, Stack, Heading, Box, Text, SkeletonCircle, SkeletonText } from "@chakra-ui/react"
+import { Card, CardBody, Image, Stack, Heading, Box, Text, Skeleton } from "@chakra-ui/react"
 import nofoundimg from "../assets/nofoundimg.png"
 import "../styles/stylesTarjeta.css"
 const Tarjeta = ({ movie, conSlider }) => {
@@ -11,29 +11,35 @@ const Tarjeta = ({ movie, conSlider }) => {
         position="relative"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        overflow="hidden"
       >
         <Card
           borderRadius='lg'
           bg="transparent"
-          {...(conSlider ? { w: "16em" } : {})}
+          w={conSlider ? "12em" : ""}
         >
           <CardBody
-            p="3"
+            p="2"
             borderRadius='lg'
             bg="black.800"
             display="flex"
+            w="12em"
             flexDirection="column"
             justifyContent="space-between"
           >
+            {movie.poster_path ? (
               <Image
                 src={`https://image.tmdb.org/t/p/w400${movie.poster_path}`}
                 alt={`${movie.title}`}
-                fallbackSrc={nofoundimg}
+                // fallbackSrc={nofoundimg}
                 borderRadius='md'
-                flexGrow="1fr"
-                h="23em"
-                
+                h="16.5em"
               />
+            ) : (
+              <Skeleton>
+                <Box>Cargando</Box>
+              </Skeleton>
+            )}
           </CardBody>
         </Card>
         <Box

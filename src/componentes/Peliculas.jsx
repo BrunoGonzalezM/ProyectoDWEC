@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { fetchBusqueda, fetchCategoriaPelicula, fetchMovies } from '../funciones/fetch';
 import ImprimirPeliculas from './MovieCarousel';
+import { categoriasImagenes } from "../assets/categorias.js"
 
 function Peliculas() {
     const { busqueda, id } = useParams();
@@ -40,10 +41,10 @@ function Peliculas() {
     }, [busqueda, id, page]);
 
     const handleNextPage = () => {
-        {page < 99 && (setPage(page + 1))}
+        { page < 99 && (setPage(page + 1)) }
     };
     const handleBackPage = () => {
-        {page > 1 && (setPage(page - 1))}
+        { page > 1 && (setPage(page - 1)) }
     };
 
     useEffect(() => {
@@ -55,7 +56,7 @@ function Peliculas() {
             {loading && <p>Cargando...</p>}
             {error && <p>Error: {error}</p>}
             {busqueda && <Heading color="white" mb="1em">Resultados de: {busqueda}</Heading>}
-            {id && <Heading color="white" mb="1em">Peliculas de la categoría: {name}</Heading>}
+            {id && <Heading color="white" mb="1em">Peliculas de la categoría: {categoriasImagenes[id][0]}</Heading>}
             {(showCarousel || movies.length > 0) && (
                 <>
                     <ImprimirPeliculas movies={movies} />
