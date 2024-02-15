@@ -20,14 +20,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/inicio" element={<ImprimirPeliculas />} />
-            <Route path="/series" element={<Peliculas />} />
-            <Route path="/categorias" element={<Categorias />} />
+            <Route path="/series" element={<Peliculas isMovie={false}/>} />
+            <Route path="/categorias" element={<Categorias isMovie={true}/>} />
             <Route path="/pelicula/id/:id" element={<DetallesPelicula />} />
-            <Route path="/peliculas" element={<Peliculas isMovie={1} />} />
-            <Route path="/categoria/:id" element={<Peliculas isMovie={1} />} />
-            <Route path="/search/" element={<Peliculas isMovie={1} />} /> 
-            <Route path="/search/:busqueda" element={<Peliculas isMovie={1} />} />
-            <Route path="/peliculas/search/:busqueda" element={<Peliculas isMovie={1} />} /> 
+            <Route path="/peliculas" element={<Peliculas isMovie={true} />} />
+            <Route path="/categoria/:id" element={<Peliculas isMovie={true} />} />
+            <Route path="/search/" element={<Peliculas isMovie={true} />} /> 
+            <Route path="/search/:busqueda" element={<Peliculas isMovie={true} />} />
           </Routes>
         </Router>
       </ChakraProvider>

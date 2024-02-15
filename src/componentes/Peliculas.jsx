@@ -5,7 +5,7 @@ import { fetchBusqueda, fetchCategoriaPelicula, moviesPopular } from '../funcion
 import ImprimirPeliculas from './MovieCarousel';
 import { categoriasImagenes } from "../assets/categorias.js"
 
-function Peliculas({ isMovie }) { 
+function Peliculas({ isMovie }) {
     const { busqueda, id } = useParams();
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ function Peliculas({ isMovie }) {
         } else {
             fetchFunction = moviesPopular;
         }
-        fetchFunction(busqueda || id || page , isMovie ? "1" : "0" )
+        fetchFunction(page, busqueda || id , (isMovie ? true : false))
             .then((data) => {
                 setMovies(data);
             })

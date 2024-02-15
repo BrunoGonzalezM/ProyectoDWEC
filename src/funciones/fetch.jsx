@@ -8,26 +8,27 @@ const options = {
     }
 };
 
-export const fetchBusqueda = async (busqueda, page, isMovie) => {
+export const fetchBusqueda = async (page, busqueda, isMovie) => {
     try {
-        const response = await fetch(`${urlAPIv3}/search/${isMovie ? "movie" : "tv"}?query=${busqueda}&include_adult=false&language=es-ES&page=${page}`, options);
-        const responseData = await response.text();
-        if (!responseData.trim()) {
+        const type = isMovie == true ? "movie" : "tv"
+        const response = await fetch(`${urlAPIv3}/search/${type}?query=${busqueda}&include_adult=false&language=es-ES&page=${page}`, options);
+        const data = await response.json();
+        if (!response.ok) {
             throw new Error("La respuesta del servidor está vacía");
         }
-        const data = JSON.parse(responseData);
         return data.results;
 
     } catch (error) {
         throw error
     }
 }
-export const moviesPopular = async (page, isMovie) => {
+export const moviesPopular = async (page,parametroVacio,isMovie) => {
     try {
-        const response = await fetch(`${urlAPIv3}/${isMovie == 1 ? "movie" : "tv"}/popular?language=es-ES&page=${page}`, options);
+        const type = isMovie == true ? "movie" : "tv"
+        const response = await fetch(`${urlAPIv3}/${type}/popular?language=es-ES&page=${page}`, options);
         const data = await response.json();
         if (!response.ok) {
-            throw new Error(`No se han encontrado las ${isMovie ? "películas" : "series"}`);
+            throw new Error("La respuesta del servidor está vacía");
         } else {
             return data.results;
         }
@@ -79,9 +80,10 @@ export const moviesTrending = async (page) => {
     }
 }
 
-export const fetchCategoriaPelicula = async (id, page) => {
+export const fetchCategoriaPelicula = async (page, id, isMovie) => {
     try {
-        const response = await fetch(`${urlAPIv3}/discover/movie?include_adult=false&language=es-ES&page=${page}&sort_by=popularity.desc&with_genres=${id}`, options)
+        const type = isMovie == true ? "movie" : "tv"
+        const response = await fetch(`${urlAPIv3}/discover/${type}?include_adult=false&language=es-ES&page=${page}&sort_by=popularity.desc&with_genres=${id}`, options)
         const data = await response.json();
 
         return data.results;
