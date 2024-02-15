@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchMovies } from "../funciones/fetch";
+import { fetchMovies, moviesPopular, moviesTrending, moviesTopRated, moviesNowPlaying } from "../funciones/fetch";
 import { Flex, Box, Spinner } from "@chakra-ui/react";
 import Banner from './Banner';
 import MovieCarousel from './MovieCarousel';

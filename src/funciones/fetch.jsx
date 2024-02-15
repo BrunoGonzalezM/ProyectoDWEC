@@ -17,7 +17,62 @@ export const fetchBusqueda = async (busqueda, page) => {
         throw err
     }
 }
-
+export const moviesPopular = async (page) => {
+    try {
+        const response = await fetch(`${urlAPIv3}/movie/popular?language=es-ES&page=${page}`);
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error('No se han encontrado las películas');
+        } else {
+            return data.results;
+        }
+    } catch (err) {
+        console.error(err);
+        throw new Error('Error al obtener la lista de películas');
+    }
+}
+export const moviesTopRated = async (page) => {
+    try {
+        const response = await fetch(`${urlAPIv3}/movie/top_rated?language=es-ES&page=${page}`);
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error('No se han encontrado las películas');
+        } else {
+            return data.results;
+        }
+    } catch (err) {
+        console.error(err);
+        throw new Error('Error al obtener la lista de películas');
+    }
+}
+export const moviesNowPlaying = async (page) => {
+    try {
+        const response = await fetch(`${urlAPIv3}/movie/now_playing?language=es-ES&page=${page + 1}`);
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error('No se han encontrado las películas');
+        } else {
+            return data.results;
+        }
+    } catch (err) {
+        console.error(err);
+        throw new Error('Error al obtener la lista de películas');
+    }
+}
+export const moviesTrending = async (page) => {
+    try {
+        const response = await fetch(`${urlAPIv3}/trending/movie/day?include_adult=false&language=es-ES&page=${page}`);
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error('No se han encontrado las películas');
+        } else {
+            return data.results;
+        }
+    } catch (err) {
+        console.error(err);
+        throw new Error('Error al obtener la lista de películas');
+    }
+}
 export const fetchMovies = async (option, page) => {
     let url;
     switch (option) {
