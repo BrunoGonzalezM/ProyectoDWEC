@@ -22,13 +22,15 @@ function Peliculas() {
         setError(null);
         let fetchFunction;
         if (busqueda) {
+            console.log("busqueda : " + busqueda)
             fetchFunction = fetchBusqueda;
+            console.log(movies)
         } else if (id) {
             fetchFunction = fetchCategoriaPelicula;
         } else {
             fetchFunction = moviesPopular;
         }
-        fetchFunction(busqueda || id || null , page)
+        fetchFunction(busqueda || id || page , page)
             .then((data) => {
                 setMovies(data);
             })

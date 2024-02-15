@@ -10,11 +10,11 @@ const options = {
 
 export const fetchBusqueda = async (busqueda, page) => {
     try {
-        const response = await fetch(`${urlAPIv3}search/movie?query=${busqueda}&include_adult=false&language=es-ES&page=${page}`, options)
+        const response = await fetch(`${urlAPIv3}search/movie?query=${busqueda}&include_adult=false&language=es-ES&page=1`, options)
         const data = await response.json();
         return data.results;
     } catch (error) {
-        throw err
+        throw error
     }
 }
 export const moviesPopular = async (page) => {
