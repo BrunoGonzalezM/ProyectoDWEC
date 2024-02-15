@@ -101,10 +101,9 @@ const MovieCarousel = ({ title, movies, conSlider }) => {
                         margin="0 auto"
                     >
                         {movies.map((movie) => (
-                            <>
+                            <Box key={movie.id}>
                                 {movie.poster_path && (
                                     <UnorderedList
-                                        key={movie.id}
                                         display="flex"
                                         listStyleType="none"
                                         overflow="hidden"
@@ -119,7 +118,7 @@ const MovieCarousel = ({ title, movies, conSlider }) => {
                                         </Link>
                                     </UnorderedList>
                                 )}
-                            </>
+                            </Box>
                         ))}
                     </Flex>
                 </>

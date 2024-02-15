@@ -38,6 +38,7 @@ const Header = () => {
         <>
             {!isLoginPage && (
                 <Box
+                    overflow="hidden"
                     bg="black"
                     fontFamily={"kanit, sans-serif"}
                     fontWeight={700}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchMovies, moviesPopular, moviesTrending, moviesTopRated, moviesNowPlaying } from "../funciones/fetch";
+import { moviesPopular, moviesTrending, moviesTopRated, moviesNowPlaying } from "../funciones/fetch";
 import { Flex, Box, Spinner } from "@chakra-ui/react";
 import Banner from './Banner';
 import MovieCarousel from './MovieCarousel';
@@ -8,26 +8,31 @@ const ImprimirPeliculas = () => {
   const [movies, setMovies] = useState([]);
   const [moviesTop, setMoviesTop] = useState([]);
   const [moviesNowPlay, setMoviesNowPlay] = useState([]);
-  const [moviesTrending, setMoviesTrending] = useState([]);
+  const [moviesTrend, setMoviesTrend] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async (category, setter) => {
+    const fetchData = async () => {
       try {
-        const moviesData = await fetchMovies(category, 1);
-        setter(moviesData);
+        const [movies, moviesTop, moviesNowPlay, moviesTrend] = await Promise.all([
+          moviesPopular(1),
+          moviesTopRated(1),
+          moviesNowPlaying(1),
+          moviesTrending(1)
+        ])
+        setMovies(movies)
+        setMoviesTop(moviesTop)
+        setMoviesNowPlay(moviesNowPlay)
+        setMoviesTrend(moviesTrend)
+
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchData(1, setMovies);
-    fetchData(2, setMoviesTop);
-    fetchData(3, setMoviesNowPlay);
-    fetchData(4, setMoviesTrending);
+    fetchData();
   }, []);
 
   return (
@@ -57,12 +62,12 @@ const ImprimirPeliculas = () => {
             </Flex>
           ) : (
             <>
-              <Banner movies={moviesTrending} />
+              <Banner movies={moviesTrend} />
               <Box p="1em">
                 <MovieCarousel conSlider title="Populares" movies={movies} />
                 <MovieCarousel conSlider title="Mejor valoradas" movies={moviesTop} />
                 <MovieCarousel conSlider title="Más vistas" movies={moviesNowPlay} />
-                <MovieCarousel conSlider title="Tendencias" movies={moviesTrending} />
+                <MovieCarousel conSlider title="Tendencias" movies={moviesTrend} />
               </Box>
             </>
           )}

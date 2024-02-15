@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardBody, Image, Stack, Heading, Box, Text, Skeleton } from "@chakra-ui/react"
-import nofoundimg from "../assets/nofoundimg.png"
+// import nofoundimg from "../assets/nofoundimg.png"
 import "../styles/stylesTarjeta.css"
 const Tarjeta = ({ movie, conSlider }) => {
   const [isHovered, setIsHovered] = useState(false);

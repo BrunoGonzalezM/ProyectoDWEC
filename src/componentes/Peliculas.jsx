@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
-import { fetchBusqueda, fetchCategoriaPelicula, fetchMovies } from '../funciones/fetch';
+import { fetchBusqueda, fetchCategoriaPelicula, moviesPopular } from '../funciones/fetch';
 import ImprimirPeliculas from './MovieCarousel';
 import { categoriasImagenes } from "../assets/categorias.js"
 
@@ -26,9 +26,9 @@ function Peliculas() {
         } else if (id) {
             fetchFunction = fetchCategoriaPelicula;
         } else {
-            fetchFunction = fetchMovies;
+            fetchFunction = moviesPopular;
         }
-        fetchFunction(busqueda || id || 1, page)
+        fetchFunction(busqueda || id || null , page)
             .then((data) => {
                 setMovies(data);
             })
@@ -70,7 +70,7 @@ function Peliculas() {
                     </Flex>
                 </>
             )}
-            {(!busqueda && !id && movies.length <= 0) && <Box>No se han encontrado películas</Box>}
+            {(!busqueda && !id && movies.length === 0) && <Box>No se han encontrado películas</Box>}
         </Flex>
     );
 }
