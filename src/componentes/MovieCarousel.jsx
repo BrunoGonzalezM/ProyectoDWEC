@@ -9,13 +9,13 @@ const MovieCarousel = ({ title, movies, conSlider }) => {
     const [scroll, setScroll] = useState(0);
 
     const handleMoveLeft = () => {
-        const newPosition = scroll <= 0 ? 0 : scroll - 220;
+        const newPosition = scroll <= 0 ? 0 : scroll - 280;
         ref.current.scrollTo({ left: newPosition, behavior: 'smooth' });
         setScroll(newPosition);
     };
 
     const handleMoveRight = () => {
-        const newPosition = scroll >= 2600 ? 2600 : scroll + 220;
+        const newPosition = scroll >= 3750 ? 3750 : scroll + 280;
         console.log(newPosition)
         ref.current.scrollTo({ left: newPosition, behavior: 'smooth' });
         setScroll(newPosition);
@@ -25,7 +25,7 @@ const MovieCarousel = ({ title, movies, conSlider }) => {
         <>
             {conSlider ? (
                 <>
-                    <Heading mx="0.6em" pt="1em">{title}</Heading>
+                    <Heading mx="0.6em" pt="1em">{title}-{scroll}</Heading> 
                     <Flex className="MovieList" flexDirection="row" paddingInline="0em" alignItems="center">
                         {scroll > 0 && (
                             <Box
@@ -71,7 +71,7 @@ const MovieCarousel = ({ title, movies, conSlider }) => {
                                 </ListItem>
                             ))}
                         </UnorderedList>
-                        {scroll < 2599 && (
+                        {scroll < 3639 && (
                             <Box
                                 position="absolute"
                                 right="0"

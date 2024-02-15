@@ -13,10 +13,9 @@ const Tarjeta = ({ movie, conSlider }) => {
         onMouseLeave={() => setIsHovered(false)}
       >
         <Card
-          size="sm"
           borderRadius='lg'
           bg="transparent"
-          {...(conSlider ? { w: "11em" } : {})}
+          {...(conSlider ? { w: "16em" } : {})}
         >
           <CardBody
             p="3"
@@ -33,6 +32,7 @@ const Tarjeta = ({ movie, conSlider }) => {
                 borderRadius='md'
                 flexGrow="1fr"
                 h="23em"
+                
               />
           </CardBody>
         </Card>
