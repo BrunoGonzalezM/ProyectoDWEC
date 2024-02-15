@@ -10,9 +10,14 @@ const options = {
 
 export const fetchBusqueda = async (busqueda, page) => {
     try {
-        const response = await fetch(`${urlAPIv3}search/movie?query=${busqueda}&include_adult=false&language=es-ES&page=1`, options)
-        const data = await response.json();
+        const response = await fetch(`${urlAPIv3}/search/movie?query=${busqueda}&include_adult=false&language=es-ES&page=${page}`, options);
+        const responseData = await response.text();
+        if (!responseData.trim()) {
+            throw new Error("La respuesta del servidor está vacía");
+        }
+        const data = JSON.parse(responseData);
         return data.results;
+        
     } catch (error) {
         throw error
     }
