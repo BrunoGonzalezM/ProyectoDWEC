@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Box } from '@chakra-ui/react';
 import fondo from '../IMG/loginFondo.jpg';
 import "../styles/styleLogin.css"
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const handleLogin = async () => {
     try {
@@ -22,11 +23,11 @@ const Login = () => {
         console.log('Inicio de sesión exitoso');
         navigate('/inicio');
       } else {
-        alert('Credenciales incorrectas');
+        setError('Credenciales incorrectas');
       }
     } catch (error) {
       console.error(error);
-      alert('Error al intentar iniciar sesión');
+      setError('Error al intentar iniciar sesión');
     }
   };
 
@@ -51,11 +52,16 @@ const Login = () => {
         }} style={{ textAlign: 'center' }}
         >
           <div className="login wrap">
-            <div className="h1">Login</div>
+            <div className="h1">INICIO DE SESIÓN</div>
             <input onChange={e => setEmail(e.target.value)} pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" placeholder="Email" id="email" name="email" type="text" />
-            <input placeholder="password" id="password" name="password" onChange={e => setPassword(e.target.value)} type="password" />
-            <input value="Login" className="btn" type="submit" />
+            <input placeholder="Contraseña" id="password" name="password" onChange={e => setPassword(e.target.value)} type="password" />
+            <input value="ENTRAR" className="btn" type="submit" />
           </div>
+          {error && (
+            <Box color="red.500" fontSize="sm" mt={2} textAlign="center">
+              {error}
+            </Box>
+          )}
         </form>
 
       </Flex>
