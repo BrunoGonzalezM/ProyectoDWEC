@@ -16,7 +16,7 @@ const ImprimirPeliculas = () => {
     const fetchData = async () => {
       try {
         const [movies, moviesTop, moviesNowPlay, moviesTrend] = await Promise.all([
-          moviesPopular(1),
+          moviesPopular(1,1),
           moviesTopRated(1),
           moviesNowPlaying(1),
           moviesTrending(1)

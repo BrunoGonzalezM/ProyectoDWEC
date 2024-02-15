@@ -5,7 +5,7 @@ import { fetchBusqueda, fetchCategoriaPelicula, moviesPopular } from '../funcion
 import ImprimirPeliculas from './MovieCarousel';
 import { categoriasImagenes } from "../assets/categorias.js"
 
-function Peliculas() {
+function Peliculas({ isMovie }) { 
     const { busqueda, id } = useParams();
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -22,15 +22,13 @@ function Peliculas() {
         setError(null);
         let fetchFunction;
         if (busqueda) {
-            console.log("busqueda : " + busqueda)
             fetchFunction = fetchBusqueda;
-            console.log(movies)
         } else if (id) {
             fetchFunction = fetchCategoriaPelicula;
         } else {
             fetchFunction = moviesPopular;
         }
-        fetchFunction(busqueda || id || page , page)
+        fetchFunction(busqueda || id || page , isMovie ? "1" : "0" )
             .then((data) => {
                 setMovies(data);
             })
@@ -40,7 +38,7 @@ function Peliculas() {
             .finally(() => {
                 setLoading(false);
             });
-    }, [busqueda, id, page]);
+    }, [busqueda, id, page, isMovie]);
 
     const handleNextPage = () => {
         { page < 99 && (setPage(page + 1)) }
@@ -54,12 +52,12 @@ function Peliculas() {
     }, [busqueda, id]);
 
     return (
-        <Flex direction="column" alignItems="center" bg="#1c1c1c" p="2em">
+        <Flex direction="column" alignItems="center" bg="#1c1c1c" p="2em" color="white">
             {loading && <p>Cargando...</p>}
             {error && <p>Error: {error}</p>}
             {busqueda && <Heading color="white" mb="1em">Resultados de: {busqueda}</Heading>}
             {id && <Heading color="white" mb="1em">Peliculas de la categoría: {categoriasImagenes[id][0]}</Heading>}
-            {(showCarousel || movies.length > 0) && (
+            {((showCarousel || (movies && movies.length > 0))) && (
                 <>
                     <ImprimirPeliculas movies={movies} />
                     <Flex justifyContent="center">
@@ -72,6 +70,7 @@ function Peliculas() {
                     </Flex>
                 </>
             )}
+
             {(!busqueda && !id && movies.length === 0) && <Box>No se han encontrado películas</Box>}
         </Flex>
     );

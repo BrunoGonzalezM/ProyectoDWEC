@@ -8,26 +8,26 @@ const options = {
     }
 };
 
-export const fetchBusqueda = async (busqueda, page) => {
+export const fetchBusqueda = async (busqueda, page, isMovie) => {
     try {
-        const response = await fetch(`${urlAPIv3}/search/movie?query=${busqueda}&include_adult=false&language=es-ES&page=${page}`, options);
+        const response = await fetch(`${urlAPIv3}/search/${isMovie ? "movie" : "tv"}?query=${busqueda}&include_adult=false&language=es-ES&page=${page}`, options);
         const responseData = await response.text();
         if (!responseData.trim()) {
             throw new Error("La respuesta del servidor está vacía");
         }
         const data = JSON.parse(responseData);
         return data.results;
-        
+
     } catch (error) {
         throw error
     }
 }
-export const moviesPopular = async (page) => {
+export const moviesPopular = async (page, isMovie) => {
     try {
-        const response = await fetch(`${urlAPIv3}/movie/popular?language=es-ES&page=${page}`,options);
+        const response = await fetch(`${urlAPIv3}/${isMovie == 1 ? "movie" : "tv"}/popular?language=es-ES&page=${page}`, options);
         const data = await response.json();
         if (!response.ok) {
-            throw new Error('No se han encontrado las películas');
+            throw new Error(`No se han encontrado las ${isMovie ? "películas" : "series"}`);
         } else {
             return data.results;
         }
@@ -38,7 +38,7 @@ export const moviesPopular = async (page) => {
 }
 export const moviesTopRated = async (page) => {
     try {
-        const response = await fetch(`${urlAPIv3}/movie/top_rated?language=es-ES&page=${page}`,options);
+        const response = await fetch(`${urlAPIv3}/movie/top_rated?language=es-ES&page=${page}`, options);
         const data = await response.json();
         if (!response.ok) {
             throw new Error('No se han encontrado las películas');
@@ -52,7 +52,7 @@ export const moviesTopRated = async (page) => {
 }
 export const moviesNowPlaying = async (page) => {
     try {
-        const response = await fetch(`${urlAPIv3}/movie/now_playing?language=es-ES&page=${page + 1}`,options);
+        const response = await fetch(`${urlAPIv3}/movie/now_playing?language=es-ES&page=${page + 1}`, options);
         const data = await response.json();
         if (!response.ok) {
             throw new Error('No se han encontrado las películas');
@@ -66,7 +66,7 @@ export const moviesNowPlaying = async (page) => {
 }
 export const moviesTrending = async (page) => {
     try {
-        const response = await fetch(`${urlAPIv3}/trending/movie/day?include_adult=false&language=es-ES&page=${page}`,options);
+        const response = await fetch(`${urlAPIv3}/trending/movie/day?include_adult=false&language=es-ES&page=${page}`, options);
         const data = await response.json();
         if (!response.ok) {
             throw new Error('No se han encontrado las películas');
@@ -78,34 +78,6 @@ export const moviesTrending = async (page) => {
         throw new Error('Error al obtener la lista de películas');
     }
 }
-
-// export const fetchMovies = async (option, page) => {
-//     let url;
-//     switch (option) {
-//         case 1: url = `${urlAPIv3}/movie/popular?language=es-ES&page=${page}`;
-//             break;
-//         case 2: url = `${urlAPIv3}/movie/top_rated?language=es-ES&page=${page}`;
-//             break;
-//         case 3: url = `${urlAPIv3}/movie/now_playing?language=es-ES&page=${page + 1}`;
-//             break;
-//         case 4: url = `${urlAPIv3}/trending/movie/day?include_adult=false&language=es-ES&page=${page}`;
-//             break;
-//         default:
-//             throw new Error('Hubo un error!');
-//     }
-//     try {
-//         const response = await fetch(url, options)
-//         const data = await response.json();
-//         if (!response.ok) {
-//             throw new Error('No se han encontrado las películas');
-//         } else {
-//             return data.results;
-//         }
-//     } catch (err) {
-//         console.error(err);
-//         throw new Error('Error al obtener la lista de películas');
-//     }
-// };
 
 export const fetchCategoriaPelicula = async (id, page) => {
     try {

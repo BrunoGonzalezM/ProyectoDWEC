@@ -51,7 +51,7 @@ const Header = () => {
                     >
                         <Flex w="4em">
                             <Link to={`/inicio`}>
-                                <Image src={logo} alt='Logo' w="100%" aspectRatio="4/4" filter="invert(1)" p="0.5em" mx="1em" transition="0.2s" _hover={{transform: "scale(1.1)"}} />
+                                <Image src={logo} alt='Logo' w="100%" aspectRatio="4/4" filter="invert(1)" p="0.5em" mx="1em" transition="0.2s" _hover={{ transform: "scale(1.1)" }} />
                             </Link>
                         </Flex>
                         <Flex
@@ -91,7 +91,8 @@ const Header = () => {
                                 textTransform="uppercase"
                                 w="16em"
                             />
-                            <Link to={`/peliculas/search/${busqueda.trim()}`}>
+                            {/* <Link to={`/peliculas/search/${busqueda.trim()}`}> */}
+                            <Link to={`/search/${busqueda.trim()}`}>
                                 <Button
                                     bg="transparent"
                                     border="none"
