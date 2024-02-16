@@ -31,6 +31,8 @@ export default function DetallesPelicula() {
         };
         fetchData();
     }, [id]);
+    console.log(detalles);
+
 
     // URL de imagenes con un ancho de 500
     const imgURL = `https://image.tmdb.org/t/p/w500/`;
@@ -54,12 +56,13 @@ export default function DetallesPelicula() {
                             <Box
                                 // Imagen de fondo difuminada
                                 w="100vw"
-                                h="40em"
-                                backgroundImage={`url(${imgURL}${detalles.poster_path})`}
-                                backgroundPosition="center"
-                                transform="scale(2)"
-                                filter="blur(20px)"
-                                backgroundRepeat="repeat"
+                                h="32em"
+                                bgColor="rgba(0, 0, 0)"
+                                backgroundImage={`url(${`https://image.tmdb.org/t/p/original/`}${detalles.backdrop_path})`}
+                                backgroundPosition="top"
+                                backgroundSize="cover"
+                                backgroundRepeat="no-repeat"
+                                opacity="40%"
                             >
                             </Box>
                             <Flex
@@ -70,7 +73,6 @@ export default function DetallesPelicula() {
                                 justifyContent="center"
                                 alignContent="center"
                                 boxSizing='border-box'
-                                bg="#00000069"
                                 w="100%"
                                 px="2em"
                             >
@@ -78,7 +80,7 @@ export default function DetallesPelicula() {
                                     flexDirection="column"
                                     justifyContent="center"
                                     alignContent="center"
-                                    p={10}
+                                    px={10}
                                 >
                                     {detalles.poster_path &&
                                         <>
@@ -120,7 +122,10 @@ export default function DetallesPelicula() {
                                                             </Flex>
                                                         </Flex>
                                                         {/* Descripcion de la pelicula si es que hay y generos */}
+                                                        <Text fontSize="lg" mx={5} color="whiteAlpha.800">
+                                                             • {new Date(detalles.release_date).toLocaleDateString()} • {Math.floor(detalles.runtime/60)}h {detalles.runtime%60}m</Text>
                                                         <Text fontSize="2xl" mx={5} > {detalles.tagline}</Text>
+                                                        <Text fontSize="lg" mx={5} color="whiteAlpha.800">{detalles.certification}</Text>
                                                         {detalles.overview && (
                                                             <>
                                                                 <Text fontSize="1xl" maxW={900} mx={5} pr="6em" pt="1em" color="whiteAlpha.800" >
@@ -129,6 +134,9 @@ export default function DetallesPelicula() {
                                                             </>
                                                         )}
                                                         <Box mt="1em">
+                                                        {/* {detalles.budget !== null && detalles.budget !== 0 && (
+                                                            <Text fontSize="lg" mx={5} color="whiteAlpha.800">Presupuesto: ${detalles.budget}</Text>
+                                                        )} */}
                                                             <Stack direction='row' mx="1.2rem" >
                                                                 {detalles.genres.map((genre) => (
                                                                     <Link key={genre.id} to={`/categoria/${genre.id}`}>
