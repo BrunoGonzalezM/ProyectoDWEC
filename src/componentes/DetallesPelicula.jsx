@@ -40,10 +40,10 @@ export default function DetallesPelicula() {
     return (
         <>
             <Box
-                bg="black">
+                bg="transparent">
                 <Flex
                     id="detallesPelicula"
-                    bg="black"
+                    bg="#222222"
                     color="white"
                     flexDirection="column"
                     justifyContent="center"
@@ -57,7 +57,6 @@ export default function DetallesPelicula() {
                                 // Imagen de fondo difuminada
                                 w="100vw"
                                 h="32em"
-                                bgColor="rgba(0, 0, 0)"
                                 backgroundImage={`url(${`https://image.tmdb.org/t/p/original/`}${detalles.backdrop_path})`}
                                 backgroundPosition="top"
                                 backgroundSize="cover"
