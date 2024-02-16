@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { fetchBusqueda, fetchCategoriaPelicula, moviesPopular } from '../funciones/fetch.jsx';
-import ImprimirPeliculas from './MovieCarousel.jsx';
+import MovieCarousel from './MovieCarousel.jsx';
 import { categoriasImagenes } from "../assets/categorias.js"
 
 function PeliculasYSeries({ isMovie }) {
@@ -59,7 +59,7 @@ function PeliculasYSeries({ isMovie }) {
             {id && <Heading color="white" mb="1em">Peliculas de la categoría: {categoriasImagenes[id][0]}</Heading>}
             {((showCarousel || (movies && movies.length > 0))) && (
                 <>
-                    <ImprimirPeliculas movies={movies}  {...(isMovie ? {isMovie:true}:{isMovie:false})} />
+                    <MovieCarousel movies={movies}  {...(isMovie ? {isMovie:true}:{isMovie:false})} />
                     <Flex justifyContent="center">
                         <Button mx="1em" onClick={handleBackPage} isDisabled={page <= 1}>
                             ANTERIOR
