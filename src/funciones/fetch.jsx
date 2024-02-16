@@ -22,10 +22,11 @@ export const fetchBusqueda = async (page, busqueda, isMovie) => {
         throw error
     }
 }
-export const moviesPopular = async (page,parametroVacio,isMovie) => {
+export const moviesPopular = async (page, parametroVacio, isMovie) => {
     try {
         const type = isMovie == true ? "movie" : "tv"
-        const response = await fetch(`${urlAPIv3}/${type}/popular?language=es-ES&page=${page}`, options);
+        const chPopularTopRated = isMovie == true ? "popular" : "top_rated"
+        const response = await fetch(`${urlAPIv3}/${type}/${chPopularTopRated}?language=es-ES&page=${page}`, options);
         const data = await response.json();
         if (!response.ok) {
             throw new Error("La respuesta del servidor está vacía");
@@ -103,9 +104,10 @@ export const fetchCategorias = async () => {
         throw err
     }
 };
-export const fetchCreditos = async (id) => {
+export const fetchCreditos = async (id, isMovie) => {
     try {
-        const response = await fetch(`${urlAPIv3}/movie/${id}/credits?language=es-ES`, options)
+        const type = isMovie == true ? "movie" : "tv"
+        const response = await fetch(`${urlAPIv3}/${type}/${id}/credits?language=es-ES`, options)
         const data = await response.json();
 
         return data;
@@ -115,10 +117,10 @@ export const fetchCreditos = async (id) => {
     }
 };
 
-export const fetchMovieDetails = async (id) => {
+export const fetchMovieDetails = async (id, isMovie) => {
     try {
-        const response = await fetch(`${urlAPIv3}/movie/${id}?language=es-ES`, options)
-
+        const type = isMovie == true ? "movie" : "tv"
+        const response = await fetch(`${urlAPIv3}/${type}/${id}?language=es-ES`, options)
         const data = await response.json();
         if (!response.ok) {
             throw new Error("Error al encontrar los detalles")
@@ -129,9 +131,10 @@ export const fetchMovieDetails = async (id) => {
         throw err
     }
 }
-export const fetchMovieTrailers = async (peliculaId) => {
+export const fetchMovieTrailers = async (id, isMovie) => {
     try {
-        const response = await fetch(`${urlAPIv3}/movie/${peliculaId}/videos?language=es-ES`, options)
+        const type = isMovie == true ? "movie" : "tv"
+        const response = await fetch(`${urlAPIv3}/${type}/${id}/videos?language=es-ES`, options)
         const data = await response.json();
 
         if (!response.ok) {

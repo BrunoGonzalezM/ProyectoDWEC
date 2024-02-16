@@ -38,7 +38,6 @@ const Header = () => {
         <>
             {!isLoginPage && (
                 <Box
-                    overflow="hidden"
                     bg="black"
                     fontFamily={"kanit, sans-serif"}
                     fontWeight={700}
@@ -48,10 +47,12 @@ const Header = () => {
                         bg="#CC3344"
                         alignItems="center"
                         justifyContent="space-between"
+                        overflow="hidden"
+                        px="1em"
                     >
                         <Flex w="4em">
                             <Link to={`/inicio`}>
-                                <Image src={logo} alt='Logo' w="100%" aspectRatio="4/4" filter="invert(1)" p="0.5em" mx="1em" transition="0.2s" _hover={{ transform: "scale(1.1)" }} />
+                                <Image borderRadius="100%" src={logo} alt='Logo' w="100%" aspectRatio="4/4" filter="invert(1)" p="0.5em" mx="1em" transition="0.2s" _hover={{ transform: "scale(1.3)" }} />
                             </Link>
                         </Flex>
                         <Flex

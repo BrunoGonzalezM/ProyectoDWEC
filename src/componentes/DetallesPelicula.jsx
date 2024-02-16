@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos } from '../funciones/fetch';
 import CircleProgressBar from './CircleProgressBar';
-import { Box, Button, Heading, Text, Flex, Image, Stack, Badge } from "@chakra-ui/react";
+import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Accordion, AccordionButton, AccordionIcon, AccordionPanel, AccordionItem } from "@chakra-ui/react";
 
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
@@ -16,9 +16,9 @@ export default function DetallesPelicula() {
         const fetchData = async () => {
             try {
                 const [trailersData, detalles, creditos] = await Promise.all([
-                    fetchMovieTrailers(id),
-                    fetchMovieDetails(id),
-                    fetchCreditos(id)
+                    fetchMovieTrailers(id, true),
+                    fetchMovieDetails(id, true),
+                    fetchCreditos(id, true)
                 ]);
                 setTrailers(trailersData);
                 setDetalles(detalles);
@@ -31,8 +31,6 @@ export default function DetallesPelicula() {
         };
         fetchData();
     }, [id]);
-    console.log(detalles);
-
 
     // URL de imagenes con un ancho de 500
     const imgURL = `https://image.tmdb.org/t/p/w500/`;
@@ -40,7 +38,9 @@ export default function DetallesPelicula() {
     return (
         <>
             <Box
-                bg="transparent">
+                bg="#222222"
+                minH="93.3vh"
+            >
                 <Flex
                     id="detallesPelicula"
                     bg="#222222"
@@ -121,8 +121,9 @@ export default function DetallesPelicula() {
                                                             </Flex>
                                                         </Flex>
                                                         {/* Descripcion de la pelicula si es que hay y generos */}
-                                                        <Text fontSize="lg" mx={5} color="whiteAlpha.800">
-                                                             • {new Date(detalles.release_date).toLocaleDateString()} • {Math.floor(detalles.runtime/60)}h {detalles.runtime%60}m</Text>
+                                                        <Text fontSize="lg" mx={5} pt="1em" color="whiteAlpha.800">
+                                                            • {new Date(detalles.release_date).toLocaleDateString()} • {Math.floor(detalles.runtime / 60)}h {detalles.runtime % 60}m
+                                                        </Text>
                                                         <Text fontSize="2xl" mx={5} > {detalles.tagline}</Text>
                                                         <Text fontSize="lg" mx={5} color="whiteAlpha.800">{detalles.certification}</Text>
                                                         {detalles.overview && (
@@ -133,9 +134,6 @@ export default function DetallesPelicula() {
                                                             </>
                                                         )}
                                                         <Box mt="1em">
-                                                        {/* {detalles.budget !== null && detalles.budget !== 0 && (
-                                                            <Text fontSize="lg" mx={5} color="whiteAlpha.800">Presupuesto: ${detalles.budget}</Text>
-                                                        )} */}
                                                             <Stack direction='row' mx="1.2rem" >
                                                                 {detalles.genres.map((genre) => (
                                                                     <Link key={genre.id} to={`/categoria/${genre.id}`}>
@@ -170,28 +168,37 @@ export default function DetallesPelicula() {
                                 zIndex="1"
                                 bg="#00000069"
                             >
-                                <Heading
-                                    fontSize="3xl"
-                                    textAlign="center"
-                                >
-                                    Creditos
-                                </Heading>
-                                <Flex
-                                    flexDirection="row"
-                                    justifyContent="space-evenly"
-                                    m="2em"
-                                >
-                                    {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).slice(0, 5).map((actor) => (
-                                        <Box key={actor.id}>
-                                            <Text>
-                                                {actor.name}
-                                            </Text>
-                                            <br />
-                                            {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} borderRadius="md" alt={actor.name} />}
-                                            <Text >Personaje:</Text> <Text noOfLines={1} w="12.5em" >{actor.character}</Text>
-                                        </Box>
-                                    ))}
-                                </Flex>
+                                <Accordion allowToggle>
+                                    <AccordionItem>
+                                        <h2>
+                                            <AccordionButton>
+                                                <Box as="span" flex='1' textAlign='left'>
+                                                    <Text fontSize={20}> Creditos </Text>
+                                                </Box>
+                                                <AccordionIcon />
+                                            </AccordionButton>
+                                        </h2>
+                                        <AccordionPanel pb={4}>
+                                            <Flex
+                                                flexDirection="row"
+                                                justifyContent="space-evenly"
+                                                m="2em"
+                                            >
+                                                {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).slice(0, 5).map((actor) => (
+                                                    <Box key={actor.id}>
+                                                        <Text>
+                                                            {actor.name}
+                                                        </Text>
+                                                        <br />
+                                                        {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} borderRadius="md" alt={actor.name} />}
+                                                        <Text >Personaje:</Text> <Text noOfLines={1} w="12.5em" >{actor.character}</Text>
+                                                    </Box>
+                                                ))}
+                                            </Flex>
+                                        </AccordionPanel>
+                                    </AccordionItem>
+                                </Accordion>
+
                             </Box>
                         </>
                     )}

@@ -16,9 +16,9 @@ export default function DetallesSeries() {
         const fetchData = async () => {
             try {
                 const [trailersData, detalles, creditos] = await Promise.all([
-                    fetchMovieTrailers(id),
-                    fetchMovieDetails(id),
-                    fetchCreditos(id)
+                    fetchMovieTrailers(id, false),
+                    fetchMovieDetails(id, false),
+                    fetchCreditos(id, false),
                 ]);
                 setTrailers(trailersData);
                 setDetalles(detalles);
@@ -33,15 +33,15 @@ export default function DetallesSeries() {
     }, [id]);
 
     // URL de imagenes con un ancho de 500
-    const imgURL = `https://image.tmdb.org/t/p/w500/`;
+    const imgURL = `https://image.tmdb.org/t/p/w780/`;
 
     return (
         <>
             <Box
-                bg="black">
+                bg="transparent">
                 <Flex
                     id="detallesPelicula"
-                    bg="black"
+                    bg="#222222"
                     color="white"
                     flexDirection="column"
                     justifyContent="center"
@@ -49,17 +49,17 @@ export default function DetallesSeries() {
                     h="maxContent"
                     overflow="hidden"
                 >
-                    {detalles && detalles.title && (
+                    {detalles && (
                         <>
                             <Box
                                 // Imagen de fondo difuminada
                                 w="100vw"
-                                h="40em"
-                                backgroundImage={`url(${imgURL}${detalles.poster_path})`}
-                                backgroundPosition="center"
-                                transform="scale(2)"
-                                filter="blur(20px)"
-                                backgroundRepeat="repeat"
+                                h="32em"
+                                backgroundImage={`url(${`https://image.tmdb.org/t/p/original/`}${detalles.backdrop_path})`}
+                                backgroundPosition="top"
+                                backgroundSize="cover"
+                                backgroundRepeat="no-repeat"
+                                opacity="40%"
                             >
                             </Box>
                             <Flex
@@ -70,7 +70,6 @@ export default function DetallesSeries() {
                                 justifyContent="center"
                                 alignContent="center"
                                 boxSizing='border-box'
-                                bg="#00000069"
                                 w="100%"
                                 px="2em"
                             >
@@ -78,7 +77,7 @@ export default function DetallesSeries() {
                                     flexDirection="column"
                                     justifyContent="center"
                                     alignContent="center"
-                                    p={10}
+                                    px={10}
                                 >
                                     {detalles.poster_path &&
                                         <>
@@ -107,7 +106,7 @@ export default function DetallesSeries() {
                                                     {/* Titulo y detalles */}
                                                     <Box>
                                                         <Flex flexDirection="row" w="100%">
-                                                            <Heading mx={5} pr="4em">{detalles.title}</Heading>
+                                                            <Heading mx={5} pr="4em">{detalles.name}</Heading>
                                                             <Flex
                                                                 justifyContent="end"
                                                                 fontSize="2xl"
@@ -120,7 +119,11 @@ export default function DetallesSeries() {
                                                             </Flex>
                                                         </Flex>
                                                         {/* Descripcion de la pelicula si es que hay y generos */}
+                                                        <Text fontSize="lg" mx={5} pt="1em" color="whiteAlpha.800">
+                                                            • {new Date(detalles.first_air_date).toLocaleDateString()} • Episodios: {detalles.number_of_episodes} • Temporadas: {detalles.number_of_seasons}
+                                                        </Text>
                                                         <Text fontSize="2xl" mx={5} > {detalles.tagline}</Text>
+                                                        <Text fontSize="lg" mx={5} color="whiteAlpha.800">{detalles.certification}</Text>
                                                         {detalles.overview && (
                                                             <>
                                                                 <Text fontSize="1xl" maxW={900} mx={5} pr="6em" pt="1em" color="whiteAlpha.800" >

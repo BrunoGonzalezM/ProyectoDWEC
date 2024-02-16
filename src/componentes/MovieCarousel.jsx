@@ -4,7 +4,7 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { UnorderedList, ListItem, Flex, Box, Heading } from "@chakra-ui/react";
 import Tarjeta from './Tarjeta';
 
-const MovieCarousel = ({ title, movies, conSlider }) => {
+const MovieCarousel = ({ title, movies, conSlider, isMovie }) => {
     const ref = useRef(null);
     const [scroll, setScroll] = useState(0);
 
@@ -113,7 +113,7 @@ const MovieCarousel = ({ title, movies, conSlider }) => {
                                         p="1em"
                                         ref={ref}
                                     >
-                                        <Link to={`/pelicula/id/${movie.id}`}  >
+                                        <Link to={`/${isMovie == true ? "pelicula" : "serie"}/id/${movie.id}`}  >
                                             <Tarjeta movie={movie} />
                                         </Link>
                                     </UnorderedList>
