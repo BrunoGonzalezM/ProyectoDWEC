@@ -144,6 +144,16 @@ export default function DetallesPelicula() {
                                                                 ))}
                                                             </Stack>
                                                         </Box>
+                                                        <Box m="1em">
+                                                            {creditos.cast
+                                                                .filter(actor => actor.known_for_department !== "Acting")
+                                                                .map((actor) => (
+                                                                    <Box key={actor.id}>
+                                                                        <Text color="white">{actor.known_for_department}</Text>
+                                                                        <Text color="whiteAlpha.800">{actor.name}</Text>
+                                                                    </Box>
+                                                                ))}
+                                                        </Box>
                                                     </Box>
                                                     {/* Mostrar trailer si es que hay*/}
                                                     {trailersData && trailersData.key && (
@@ -194,11 +204,12 @@ export default function DetallesPelicula() {
                                                         <Text >Personaje:</Text> <Text noOfLines={1} w="12.5em" >{actor.character}</Text>
                                                     </Box>
                                                 ))}
+
+
                                             </Flex>
                                         </AccordionPanel>
                                     </AccordionItem>
                                 </Accordion>
-
                             </Box>
                         </>
                     )}
