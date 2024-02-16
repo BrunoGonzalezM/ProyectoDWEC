@@ -7,6 +7,7 @@ import Categorias from "./componentes/Categorias";
 import Peliculas from "./componentes/Peliculas";
 import ImprimirPeliculas from "./componentes/ImprimirPeliculas";
 import Login from "./componentes/Login";
+import DetallesSeries from "./componentes/DetallesSeries";
 
 import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
