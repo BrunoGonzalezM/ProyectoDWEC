@@ -60,7 +60,7 @@ const Tarjeta = ({ movie, conSlider }) => {
             color="white"
             justifyContent="end"
           >
-            <Heading size='sm' noOfLines={1}>{`${movie.title}`}</Heading>
+            <Heading size='sm' noOfLines={1}>{`${movie.title || movie.name}`}</Heading>
             <Text
               noOfLines={5}
               fontSize="sm"

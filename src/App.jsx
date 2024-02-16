@@ -22,6 +22,7 @@ function App() {
             <Route path="/inicio" element={<ImprimirPeliculas />} />
             <Route path="/series" element={<Peliculas isMovie={false}/>} />
             <Route path="/categorias" element={<Categorias isMovie={true}/>} />
+            <Route path="/serie/id/:id" element={<DetallesSeries />} />
             <Route path="/pelicula/id/:id" element={<DetallesPelicula />} />
             <Route path="/peliculas" element={<Peliculas isMovie={true} />} />
             <Route path="/categoria/:id" element={<Peliculas isMovie={true} />} />
