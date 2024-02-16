@@ -34,6 +34,20 @@ export default function DetallesPelicula() {
 
     // URL de imagenes con un ancho de 500
     const imgURL = `https://image.tmdb.org/t/p/w500/`;
+    // const filteredCrew = creditos.cast.filter(member => {
+    //     const allowedJobs = ["Acting", "Producer", "Writer", "Screenplay"];
+    //     return allowedJobs.includes(member.job);
+    //   });
+      
+    //   const directors = filteredCrew.filter(member => member.department === "Acting");
+    //   const producers = filteredCrew.filter(member => member.department === "Production");
+    //   const writers = filteredCrew.filter(member => member.department === "Writing");
+    //   const screenwriters = filteredCrew.filter(member => member.department === "Writing");
+      
+    //   console.log("Directores:", directors);
+    //   console.log("Productores:", producers);
+    //   console.log("Escritores:", writers);
+    //   console.log("Guionistas:", screenwriters);
 
     return (
         <>
