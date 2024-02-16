@@ -70,7 +70,6 @@ function Peliculas({ isMovie }) {
                     </Flex>
                 </>
             )}
-
             {(!busqueda && !id && movies.length === 0) && <Box>No se han encontrado películas</Box>}
         </Flex>
     );
