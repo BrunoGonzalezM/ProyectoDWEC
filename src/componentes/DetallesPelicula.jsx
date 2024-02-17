@@ -34,20 +34,30 @@ export default function DetallesPelicula() {
 
     // URL de imagenes con un ancho de 500
     const imgURL = `https://image.tmdb.org/t/p/w500/`;
-    // const filteredCrew = creditos.cast.filter(member => {
-    //     const allowedJobs = ["Acting", "Producer", "Writer", "Screenplay"];
-    //     return allowedJobs.includes(member.job);
-    //   });
-      
-    //   const directors = filteredCrew.filter(member => member.department === "Acting");
-    //   const producers = filteredCrew.filter(member => member.department === "Production");
-    //   const writers = filteredCrew.filter(member => member.department === "Writing");
-    //   const screenwriters = filteredCrew.filter(member => member.department === "Writing");
-      
-    //   console.log("Directores:", directors);
-    //   console.log("Productores:", producers);
-    //   console.log("Escritores:", writers);
-    //   console.log("Guionistas:", screenwriters);
+
+    const todosLosTrabajos = [...new Set(creditos.cast.map(member => member.known_for_department))];
+
+    const personasPorTrabajo = {};
+    todosLosTrabajos.forEach(job => {
+        personasPorTrabajo[job] = creditos.cast.filter(member => member.known_for_department === job);
+    });
+
+    // console.log("Trabajos únicos:", todosLosTrabajos);
+    // console.log("Personas por departamento:", personasPorTrabajo);
+
+    // Recorriendo y accediendo a los nombres de las personas por departamento
+
+    for (const job in personasPorTrabajo) {
+        console.log(job)
+        console.log(personasPorTrabajo[job].map(persona => persona.name));
+    }
+
+    // for (const job in personasPorTrabajo) {
+    //     console.log(`${job}:`);
+    //     personasPorTrabajo[job].forEach(person => {
+    //         console.log(`${person.name}`);
+    //     });
+    // }
 
     return (
         <>
@@ -142,11 +152,12 @@ export default function DetallesPelicula() {
                                                         <Text fontSize="lg" mx={5} color="whiteAlpha.800">{detalles.certification}</Text>
                                                         {detalles.overview && (
                                                             <>
-                                                                <Text fontSize="1xl" maxW={900} mx={5} pr="6em" pt="1em" color="whiteAlpha.800" >
+                                                                <Text fontSize="1xl" maxW={900} mx={5} pr="6em" pt="1em" color="whiteAlpha.800" noOfLines={6} >
                                                                     {detalles.overview}
                                                                 </Text>
                                                             </>
                                                         )}
+                                                        {/* Imprimir generos */}
                                                         <Box mt="1em">
                                                             <Stack direction='row' mx="1.2rem" >
                                                                 {detalles.genres.map((genre) => (
@@ -158,15 +169,19 @@ export default function DetallesPelicula() {
                                                                 ))}
                                                             </Stack>
                                                         </Box>
+
                                                         <Box m="1em">
-                                                            {creditos.cast
-                                                                .filter(actor => actor.known_for_department !== "Acting")
-                                                                .map((actor) => (
-                                                                    <Box key={actor.id}>
-                                                                        <Text color="white">{actor.known_for_department}</Text>
-                                                                        <Text color="whiteAlpha.800">{actor.name}</Text>
-                                                                    </Box>
-                                                                ))}
+                                                            {Object.entries(personasPorTrabajo).map(([job, personas]) => (
+                                                                (job !== "Acting") && (
+                                                                    <div key={job}>
+                                                                        <h2>{job}</h2>
+                                                                        {personas.map((persona, index) => (
+                                                                            <span key={persona.id}>
+                                                                                {persona.name} {index !== personas.length - 1 && ', '}
+                                                                            </span>
+                                                                        ))}
+                                                                    </div>
+                                                                )))}
                                                         </Box>
                                                     </Box>
                                                     {/* Mostrar trailer si es que hay*/}
