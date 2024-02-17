@@ -19,7 +19,8 @@ function App() {
         <Router>
           <Header />
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/inicio" element={<Home />} />
 
             <Route path="/series" element={<PeliculasYSeries isMovie={false}/>} />
