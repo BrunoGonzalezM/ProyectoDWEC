@@ -26,7 +26,7 @@ const links = [
 
 const Header = () => {
     const location = useLocation();
-    const isLoginPage = location.pathname === '/';
+    const isLoginPage = location.pathname === '/login';
 
     const [busqueda, setBusqueda] = useState('');
 
