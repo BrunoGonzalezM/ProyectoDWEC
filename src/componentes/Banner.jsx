@@ -76,7 +76,7 @@ export default function Banner({ movies }) {
                                                 {/* TITULOS DESCRIPCION Y VALORACION */}
                                                 <Flex flexDirection="column" w="100%">
                                                     <Flex flexDirection="row" w="100%">
-                                                        <Heading mx={5}>{movie.title} ({new Date(movie.release_date).getFullYear()})</Heading>
+                                                        <Heading mx={5}>{movie.title} </Heading>
                                                         <Stat>
                                                             <Box float="right">
                                                                 <Heading fontSize="2xl">{movie.vote_average.toFixed(1)}/10 </Heading>
