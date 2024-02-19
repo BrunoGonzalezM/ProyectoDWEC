@@ -4,6 +4,15 @@ import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchPersonId } f
 import CircleProgressBar from './CircleProgressBar';
 import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Accordion, AccordionButton, AccordionIcon, AccordionPanel, AccordionItem } from "@chakra-ui/react";
 
+const traductor = {
+    "Art" :'Arte',
+    "Production" : "Producción",
+    "Directing" : "Dirección",
+    "Crew" : "Equipo",
+    "Sound" : "Sonido"
+}
+
+
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
     const [error, setError] = useState(null);
@@ -156,16 +165,16 @@ export default function DetallesPelicula() {
                                                         <Flex
                                                             m="1em"
                                                             flexDirection="row"
-                                                            justifyContent="space-between"
-                                                            w="50%"
+                                                            justifyContent="start"
+                                                            w="100%"
                                                         >
                                                             {/* Personas involucradas:  */}
                                                             {Object.entries(personasPorTrabajo).map(([job, personas]) => (
                                                                 (job !== "Acting") && (
-                                                                    <Box
-                                                                        maxW="15em"
-                                                                    >
-                                                                        <h2>{job}</h2>
+                                                                    <Box ml="1em" maxW="10em" noOfLines={2} >
+                                                                        <Text fontWeight="bold" color="gray.500">
+                                                                            {traductor[job]}:
+                                                                        </Text>
                                                                         {personas.map((persona, index) => (
                                                                             <span key={persona.id}>
                                                                                 <Link to={`/personas/id/${persona.id}`} >
@@ -176,7 +185,6 @@ export default function DetallesPelicula() {
                                                                     </Box>
                                                                 )))}
                                                         </Flex>
-
                                                     </Box>
                                                     {/* Mostrar trailer si es que hay*/}
                                                     {trailersData && trailersData.key && (
@@ -203,14 +211,12 @@ export default function DetallesPelicula() {
                             >
                                 <Accordion allowToggle>
                                     <AccordionItem>
-                                        <h2>
-                                            <AccordionButton>
-                                                <Box as="span" flex='1' textAlign='left'>
-                                                    <Text fontSize={20}> Reparto </Text>
-                                                </Box>
-                                                <AccordionIcon />
-                                            </AccordionButton>
-                                        </h2>
+                                        <AccordionButton>
+                                            <Box as="span" flex='1' textAlign='left'>
+                                                <Text fontSize={20}> Reparto </Text>
+                                            </Box>
+                                            <AccordionIcon />
+                                        </AccordionButton>
                                         <AccordionPanel pb={4}>
                                             <Flex
                                                 flexDirection="row"
