@@ -63,12 +63,12 @@ export default function DetallesPelicula() {
                             <Box
                                 // Imagen de fondo difuminada
                                 w="100vw"
-                                h="32em"
+                                h="34em"
                                 backgroundImage={`url(${`https://image.tmdb.org/t/p/original/`}${detalles.backdrop_path})`}
                                 backgroundPosition="top"
                                 backgroundSize="cover"
                                 backgroundRepeat="no-repeat"
-                                opacity="40%"
+                                opacity="25%"
                             >
                             </Box>
                             <Flex
@@ -153,10 +153,18 @@ export default function DetallesPelicula() {
                                                             </Stack>
                                                         </Box>
 
-                                                        <Box m="1em">
+                                                        <Flex
+                                                            m="1em"
+                                                            flexDirection="row"
+                                                            justifyContent="space-between"
+                                                            w="50%"
+                                                        >
+                                                            {/* Personas involucradas:  */}
                                                             {Object.entries(personasPorTrabajo).map(([job, personas]) => (
                                                                 (job !== "Acting") && (
-                                                                    <div key={job}>
+                                                                    <Box
+                                                                        maxW="15em"
+                                                                    >
                                                                         <h2>{job}</h2>
                                                                         {personas.map((persona, index) => (
                                                                             <span key={persona.id}>
@@ -165,9 +173,10 @@ export default function DetallesPelicula() {
                                                                                 </Link>
                                                                             </span>
                                                                         ))}
-                                                                    </div>
+                                                                    </Box>
                                                                 )))}
-                                                        </Box>
+                                                        </Flex>
+
                                                     </Box>
                                                     {/* Mostrar trailer si es que hay*/}
                                                     {trailersData && trailersData.key && (

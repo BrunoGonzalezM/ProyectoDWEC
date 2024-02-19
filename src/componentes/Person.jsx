@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchPersonId, fetchPersonCredits } from '../funciones/fetch';
-import { Box, Image, Flex, Text, Button } from "@chakra-ui/react";
+import { Box, Image, Flex, Text, Button, Divider } from "@chakra-ui/react";
 
 const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
@@ -126,9 +126,8 @@ export default function Personas() {
                                 LEER MÁS
                             </Button>
                         )}
-                        <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">
-                            Participó en
-                        </Text>
+                        <Divider pt="2.5em" />
+                        <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">Participó en</Text>
                         <Flex flexWrap="wrap" justifyContent="flex-start">
                             {peliculasPersona.cast && peliculasPersona.cast.slice(0, 10).map((pelicula, index) => (
                                 <Box key={index} m="1em">
