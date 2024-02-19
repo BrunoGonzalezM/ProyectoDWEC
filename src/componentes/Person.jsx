@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchPersonId, fetchPersonCredits } from '../funciones/fetch';
-import { Box, Image, Flex, Text, Button } from "@chakra-ui/react";
+import { Box, Image, Flex, Text, Button} from "@chakra-ui/react";
 
 const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
