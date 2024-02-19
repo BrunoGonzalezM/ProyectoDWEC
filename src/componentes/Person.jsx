@@ -7,7 +7,12 @@ const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
 const departmentTranslations = {
     "Acting": "Actuación",
-    "Directing": "Dirección"
+    "Art" :'Arte',
+    "Production" : "Producción",
+    "Directing" : "Dirección",
+    "Crew" : "Equipo",
+    "Sound" : "Sonido",
+    "Lighting" : "Luces",
 };
 
 const genderTranslations = {
@@ -115,7 +120,7 @@ export default function Personas() {
                             Biografía
                         </Text>
                         <Text fontSize="lg" mx={5} pt="1em" color="whiteAlpha.800" noOfLines={showAllBiography ? undefined : 6} pr="4.5em" textAlign="justify">
-                            {persona.biography}
+                            {persona.biography ? persona.biography : "No tenemos información sobre la biografía de esta persona."}
                         </Text>
                         {showAllBiography ? (
                             <Button onClick={() => setShowAllBiography(false)} bg="#CC3344" mt="1em" color="whiteAlpha.900" ml="1em">

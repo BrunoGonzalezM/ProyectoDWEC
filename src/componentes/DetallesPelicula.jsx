@@ -9,7 +9,8 @@ const traductor = {
     "Production" : "Producción",
     "Directing" : "Dirección",
     "Crew" : "Equipo",
-    "Sound" : "Sonido"
+    "Sound" : "Sonido",
+    "Lighting" : "Luces"
 }
 
 

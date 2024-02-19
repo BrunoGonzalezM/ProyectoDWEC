@@ -12,6 +12,15 @@ export default function DetallesSeries() {
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
 
+    const traductor = {
+        "Art" :'Arte',
+        "Production" : "Producción",
+        "Directing" : "Dirección",
+        "Crew" : "Equipo",
+        "Sound" : "Sonido",
+        "Lighting" : "Luces"
+    }
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -34,6 +43,13 @@ export default function DetallesSeries() {
 
     // URL de imagenes con un ancho de 500
     const imgURL = `https://image.tmdb.org/t/p/w780/`;
+
+    const todosLosTrabajos = [...new Set(creditos.cast.map(member => member.known_for_department))];
+
+    const personasPorTrabajo = {};
+    todosLosTrabajos.forEach(job => {
+        personasPorTrabajo[job] = creditos.cast.filter(member => member.known_for_department === job);
+    });
 
     return (
         <>
@@ -142,6 +158,29 @@ export default function DetallesSeries() {
                                                                 ))}
                                                             </Stack>
                                                         </Box>
+                                                        <Flex
+                                                            m="1em"
+                                                            flexDirection="row"
+                                                            justifyContent="start"
+                                                            w="100%"
+                                                        >
+                                                            {/* Personas involucradas:  */}
+                                                            {Object.entries(personasPorTrabajo).map(([job, personas]) => (
+                                                                (job !== "Acting") && (
+                                                                    <Box ml="1em" maxW="10em" noOfLines={2} >
+                                                                        <Text fontWeight="bold" color="gray.500">
+                                                                            {traductor[job]}:
+                                                                        </Text>
+                                                                        {personas.map((persona, index) => (
+                                                                            <span key={persona.id}>
+                                                                                <Link to={`/personas/id/${persona.id}`} >
+                                                                                    {persona.name}{index !== personas.length - 1 && ', '}
+                                                                                </Link>
+                                                                            </span>
+                                                                        ))}
+                                                                    </Box>
+                                                                )))}
+                                                        </Flex>
                                                     </Box>
                                                     {/* Mostrar trailer si es que hay*/}
                                                     {trailersData && trailersData.key && (
