@@ -160,14 +160,9 @@ export default function DetallesPelicula() {
                                                                         <h2>{job}</h2>
                                                                         {personas.map((persona, index) => (
                                                                             <span key={persona.id}>
-                                                                                <Link to={`/personas/id/${persona.id}`} onClick={async () => {
-                                                                                    try {
-                                                                                        const personaData = await fetchPersonId(persona.id);
-                                                                                        console.log(personaData);
-                                                                                    } catch (err) {
-                                                                                        console.error(err);
-                                                                                    }
-                                                                                }}>{persona.name}</Link>{persona.name} {index !== personas.length - 1 && ', '}
+                                                                                <Link to={`/personas/id/${persona.id}`} >
+                                                                                    {persona.name}{index !== personas.length - 1 && ', '}
+                                                                                </Link>
                                                                             </span>
                                                                         ))}
                                                                     </div>
@@ -227,7 +222,7 @@ export default function DetallesPelicula() {
                                                         }}>
                                                             {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} borderRadius="md" alt={actor.name} />}
                                                         </Link>
-                                                        <Text>Personaje:</Text> 
+                                                        <Text>Personaje:</Text>
                                                         <Text noOfLines={1} w="12.5em">{actor.character}</Text>
                                                     </Box>
                                                 ))}
