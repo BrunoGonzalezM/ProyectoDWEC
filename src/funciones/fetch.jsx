@@ -151,10 +151,15 @@ export const fetchMovieTrailers = async (id, isMovie) => {
 
 export const fetchPersonId = async (id) => {
     try{
-        const response = await fetch(`${urlAPIv3}/person/${id}`, options)
+        const response = await fetch(`${urlAPIv3}/person/${id}?language=es-ES`, options)
         const data = await response.json();
         if(!response.ok){
             throw new Error("Error al encontrar a la persona")
+        }
+        if(!data.biography){
+            const response2 = await fetch(`${urlAPIv3}/person/${id}`, options)
+            const data2 = await response2.json();
+            return data2;
         }
         return data;
     }catch (err){

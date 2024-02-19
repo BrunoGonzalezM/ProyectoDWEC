@@ -110,7 +110,7 @@ export default function Personas() {
                             Biografía
                         </Text>
                         <Text fontSize="lg" mx={5} pt="1em" color="whiteAlpha.800" noOfLines={showAllBiography ? undefined : 12}>
-                            {persona.translations && persona.translations.find(translation => translation.iso_639_1 === "es") ? persona.translations.find(translation => translation.iso_639_1 === "es").data.biography : persona.biography ? persona.biography : "Biografía no disponible"}
+                            {persona.biography}                        
                         </Text>
                         {showAllBiography ? (
                             <Button onClick={() => setShowAllBiography(false)} bg="#CC3344" mt="1em" color="whiteAlpha.900">
