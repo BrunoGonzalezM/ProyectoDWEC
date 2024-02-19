@@ -128,10 +128,10 @@ export default function DetallesPelicula() {
                                                             </Flex>
                                                         </Flex>
                                                         {/* Descripcion de la pelicula si es que hay y generos */}
-                                                        <Text fontSize="lg" mx={5} pt="1em" color="whiteAlpha.800">
+                                                        <Text fontSize="2xl" mx={5} pt="0.5em" > {detalles.tagline}</Text>
+                                                        <Text fontSize="lg" mx={5} pt="0.5em" color="whiteAlpha.800">
                                                             • {new Date(detalles.release_date).toLocaleDateString()} • {Math.floor(detalles.runtime / 60)}h {detalles.runtime % 60}m
                                                         </Text>
-                                                        <Text fontSize="2xl" mx={5} > {detalles.tagline}</Text>
                                                         <Text fontSize="lg" mx={5} color="whiteAlpha.800">{detalles.certification}</Text>
                                                         {detalles.overview && (
                                                             <>
@@ -212,14 +212,7 @@ export default function DetallesPelicula() {
                                                     <Box key={actor.id}>
                                                         <Text>{actor.name}</Text>
                                                         <br />
-                                                        <Link to={`/personas/id/${actor.id}`} onClick={async () => {
-                                                            try {
-                                                                const personaData = await fetchPersonId(actor.id);
-                                                                console.log(personaData);
-                                                            } catch (err) {
-                                                                console.error(err);
-                                                            }
-                                                        }}>
+                                                        <Link to={`/personas/id/${actor.id}`}>
                                                             {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} borderRadius="md" alt={actor.name} />}
                                                         </Link>
                                                         <Text>Personaje:</Text>
