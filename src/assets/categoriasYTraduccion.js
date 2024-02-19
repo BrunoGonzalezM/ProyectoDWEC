@@ -42,3 +42,11 @@ export const categoriasImagenes = {
 };
 
 
+export const traductor = {
+    "Art" :'Arte',
+    "Production" : "Producción",
+    "Directing" : "Dirección",
+    "Crew" : "Equipo",
+    "Sound" : "Sonido",
+    "Lighting" : "Luces"
+}

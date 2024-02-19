@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { fetchBusqueda, fetchCategoriaPelicula, moviesPopular } from '../funciones/fetch.jsx';
 import MovieCarousel from './MovieCarousel.jsx';
-import { categoriasImagenes } from "../assets/categorias.js"
+import { categoriasImagenes } from "../assets/categoriasYTraduccion.js"
 
 function PeliculasYSeries({ isMovie }) {
     const { busqueda, id } = useParams();

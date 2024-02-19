@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchCategorias } from "../funciones/fetch";
 import { Link } from 'react-router-dom';
 import { Box, Flex, Text} from '@chakra-ui/react';
-import { categoriasImagenes } from '../assets/categorias';
+import { categoriasImagenes } from '../assets/categoriasYTraduccion';
 import "../styles/styleCategory.css";
 export default function Categorias() {
     const [categorias, setCategorias] = useState([]);

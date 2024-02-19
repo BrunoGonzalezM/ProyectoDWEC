@@ -3,16 +3,17 @@ import { useParams, Link } from 'react-router-dom';
 import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchPersonId } from '../funciones/fetch'; // Asegúrate de importar fetchPersonId
 import CircleProgressBar from './CircleProgressBar';
 import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Accordion, AccordionButton, AccordionIcon, AccordionPanel, AccordionItem } from "@chakra-ui/react";
+import {traductor} from "../assets/categoriasYTraduccion.js"
 
-const traductor = {
-    "Art" :'Arte',
-    "Production" : "Producción",
-    "Directing" : "Dirección",
-    "Crew" : "Equipo",
-    "Sound" : "Sonido",
-    "Lighting" : "Luces"
-}
-
+const config = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000
+};
 
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
