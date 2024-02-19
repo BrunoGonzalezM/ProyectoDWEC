@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos } from '../funciones/fetch';
+import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchPersonId } from '../funciones/fetch'; // Asegúrate de importar fetchPersonId
 import CircleProgressBar from './CircleProgressBar';
 import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Accordion, AccordionButton, AccordionIcon, AccordionPanel, AccordionItem } from "@chakra-ui/react";
 
@@ -41,23 +41,6 @@ export default function DetallesPelicula() {
     todosLosTrabajos.forEach(job => {
         personasPorTrabajo[job] = creditos.cast.filter(member => member.known_for_department === job);
     });
-
-    // console.log("Trabajos únicos:", todosLosTrabajos);
-    // console.log("Personas por departamento:", personasPorTrabajo);
-
-    // Recorriendo y accediendo a los nombres de las personas por departamento
-
-    for (const job in personasPorTrabajo) {
-        console.log(job)
-        console.log(personasPorTrabajo[job].map(persona => persona.name));
-    }
-
-    // for (const job in personasPorTrabajo) {
-    //     console.log(`${job}:`);
-    //     personasPorTrabajo[job].forEach(person => {
-    //         console.log(`${person.name}`);
-    //     });
-    // }
 
     return (
         <>
@@ -177,7 +160,14 @@ export default function DetallesPelicula() {
                                                                         <h2>{job}</h2>
                                                                         {personas.map((persona, index) => (
                                                                             <span key={persona.id}>
-                                                                                {persona.name} {index !== personas.length - 1 && ', '}
+                                                                                <Link to={`/personas/id/${persona.id}`} onClick={async () => {
+                                                                                    try {
+                                                                                        const personaData = await fetchPersonId(persona.id);
+                                                                                        console.log(personaData);
+                                                                                    } catch (err) {
+                                                                                        console.error(err);
+                                                                                    }
+                                                                                }}>{persona.name}</Link>{persona.name} {index !== personas.length - 1 && ', '}
                                                                             </span>
                                                                         ))}
                                                                     </div>
@@ -212,7 +202,7 @@ export default function DetallesPelicula() {
                                         <h2>
                                             <AccordionButton>
                                                 <Box as="span" flex='1' textAlign='left'>
-                                                    <Text fontSize={20}> Creditos </Text>
+                                                    <Text fontSize={20}> Reparto </Text>
                                                 </Box>
                                                 <AccordionIcon />
                                             </AccordionButton>
@@ -225,16 +215,22 @@ export default function DetallesPelicula() {
                                             >
                                                 {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).slice(0, 5).map((actor) => (
                                                     <Box key={actor.id}>
-                                                        <Text>
-                                                            {actor.name}
-                                                        </Text>
+                                                        <Text>{actor.name}</Text>
                                                         <br />
-                                                        {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} borderRadius="md" alt={actor.name} />}
-                                                        <Text >Personaje:</Text> <Text noOfLines={1} w="12.5em" >{actor.character}</Text>
+                                                        <Link to={`/personas/id/${actor.id}`} onClick={async () => {
+                                                            try {
+                                                                const personaData = await fetchPersonId(actor.id);
+                                                                console.log(personaData);
+                                                            } catch (err) {
+                                                                console.error(err);
+                                                            }
+                                                        }}>
+                                                            {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} borderRadius="md" alt={actor.name} />}
+                                                        </Link>
+                                                        <Text>Personaje:</Text> 
+                                                        <Text noOfLines={1} w="12.5em">{actor.character}</Text>
                                                     </Box>
                                                 ))}
-
-
                                             </Flex>
                                         </AccordionPanel>
                                     </AccordionItem>
@@ -247,4 +243,3 @@ export default function DetallesPelicula() {
         </>
     );
 }
-

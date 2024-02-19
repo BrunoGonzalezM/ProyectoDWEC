@@ -148,3 +148,17 @@ export const fetchMovieTrailers = async (id, isMovie) => {
         throw err
     }
 };
+
+export const fetchPersonId = async (id) => {
+    try{
+        const response = await fetch(`${urlAPIv3}/person/${id}`, options)
+        const data = await response.json();
+        if(!response.ok){
+            throw new Error("Error al encontrar a la persona")
+        }
+        return data;
+    }catch (err){
+        console.log(err);
+        throw err;
+    }
+}

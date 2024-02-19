@@ -8,6 +8,7 @@ import PeliculasYSeries from "./componentes/PeliculasYSeries";
 import Home from "./componentes/Home";
 import Login from "./componentes/Login";
 import DetallesSeries from "./componentes/DetallesSeries";
+import Person from "./componentes/Person";
 
 import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
@@ -33,6 +34,8 @@ function App() {
 
             <Route path="/search/" element={<PeliculasYSeries isMovie={true} />} /> 
             <Route path="/search/:busqueda" element={<PeliculasYSeries isMovie={true} />} />
+
+            <Route path="/personas/id/:id" element={<Person />} />
           </Routes>
         </Router>
       </ChakraProvider>
