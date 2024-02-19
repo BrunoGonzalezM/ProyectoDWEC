@@ -6,7 +6,8 @@ import { Box, Image, Flex, Text, Button } from "@chakra-ui/react";
 const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
 const departmentTranslations = {
-    "Acting": "Actuación"
+    "Acting": "Actuación",
+    "Directing": "Dirección"
 };
 
 const genderTranslations = {
@@ -66,13 +67,13 @@ export default function Personas() {
                             Conocido por
                         </Text>
                         <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                            {departmentTranslations[persona.known_for_department] || persona.known_for_department}
+                            {persona.known_for_department ? (departmentTranslations[persona.known_for_department] || persona.known_for_department) : "No tenemos información en este campo sobre esta persona"}
                         </Text>
                         <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
                             Sexo
                         </Text>
                         <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                            {genderTranslations[persona.gender] || persona.gender}
+                            {persona.gender ? (genderTranslations[persona.gender] || persona.gender) : "Género desconocido"}
                         </Text>
                         <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
                             Fecha de nacimiento
@@ -84,16 +85,22 @@ export default function Personas() {
                             Lugar de nacimiento
                         </Text>
                         <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                            {persona.place_of_birth}
+                            {persona.place_of_birth ? persona.place_of_birth : "Lugar de nacimiento desconocido"}
                         </Text>
                         <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
                             También conocido como
                         </Text>
-                        {persona.also_known_as.map((alias, index) => (
-                            <Text key={index} fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                                {alias}
+                        {persona.also_known_as && persona.also_known_as.length > 0 ? (
+                            persona.also_known_as.map((alias, index) => (
+                                <Text key={index} fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
+                                    {alias}
+                                </Text>
+                            ))
+                        ) : (
+                            <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
+                                No hay información adicional sobre otros nombres conocidos.
                             </Text>
-                        ))}
+                        )}
                     </Box>
                     <Box flex="3" p="2">
                         <Text fontSize="32px" mx={5} color="whiteAlpha.900" fontWeight="bold">
