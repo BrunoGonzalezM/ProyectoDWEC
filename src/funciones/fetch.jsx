@@ -166,4 +166,15 @@ export const fetchPersonId = async (id) => {
         console.log(err);
         throw err;
     }
+};
+
+export const fetchPersonCredits = async (id) => {
+    try{
+        const response = await fetch(`${urlAPIv3}/person/${id}/combined_credits?language=es-ES`, options)
+        const data = await response.json();
+        return data;
+    }catch(err){
+        console.log(err);
+        throw err;
+    }
 }

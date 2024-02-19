@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchPersonId } from '../funciones/fetch';
+import { fetchPersonId, fetchPersonCredits } from '../funciones/fetch';
 import { Box, Image, Flex, Text, Button } from "@chakra-ui/react";
 
 const imgURL = `https://image.tmdb.org/t/p/w500/`;
@@ -18,6 +18,7 @@ const genderTranslations = {
 export default function Personas() {
     const { id } = useParams();
     const [persona, setPersona] = useState(null);
+    const [peliculasPersona, setPeliculasPersona] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [showAllBiography, setShowAllBiography] = useState(false);
@@ -25,8 +26,12 @@ export default function Personas() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const personaData = await fetchPersonId(id);
+                const [personaData, peliculasPersonaData] = await Promise.all([
+                    fetchPersonId(id), 
+                    fetchPersonCredits(id)
+                ]);
                 setPersona(personaData);
+                setPeliculasPersona(peliculasPersonaData)
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -109,18 +114,36 @@ export default function Personas() {
                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">
                             Biografía
                         </Text>
-                        <Text fontSize="lg" mx={5} pt="1em" color="whiteAlpha.800" noOfLines={showAllBiography ? undefined : 12}>
+                        <Text fontSize="lg" mx={5} pt="1em" color="whiteAlpha.800" noOfLines={showAllBiography ? undefined : 6} pr="4.5em" textAlign="justify">
                             {persona.biography}                        
                         </Text>
                         {showAllBiography ? (
-                            <Button onClick={() => setShowAllBiography(false)} bg="#CC3344" mt="1em" color="whiteAlpha.900">
+                            <Button onClick={() => setShowAllBiography(false)} bg="#CC3344" mt="1em" color="whiteAlpha.900" ml="1em">
                                 LEER MENOS
                             </Button>
                         ) : (
-                            <Button onClick={() => setShowAllBiography(true)} bg="#CC3344" mt="1em" color="whiteAlpha.900">
+                            <Button onClick={() => setShowAllBiography(true)} bg="#CC3344" mt="1em" color="whiteAlpha.900" ml="1em">
                                 LEER MÁS
                             </Button>
                         )}
+                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">
+                            Participó en
+                        </Text>
+                        <Flex flexWrap="wrap" justifyContent="flex-start">
+                            {peliculasPersona.cast && peliculasPersona.cast.slice(0,10).map((pelicula, index) => (
+                                <Box key={index} m="1em">
+                                    <Image
+                                        src={`${imgURL}${pelicula.poster_path}`}
+                                        alt={`Póster de ${pelicula.title}`}
+                                        borderRadius="md"
+                                        w="10em"
+                                    />
+                                    <Text fontSize="18px" pt="0.5em" color="whiteAlpha.800" textAlign="center" w="9em" noOfLines={2}>
+                                        {pelicula.title}
+                                    </Text>
+                                </Box>
+                            ))}
+                        </Flex>
                     </Box>
                 </Flex>
             )}
