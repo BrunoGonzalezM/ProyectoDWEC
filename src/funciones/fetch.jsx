@@ -125,6 +125,11 @@ export const fetchMovieDetails = async (id, isMovie) => {
         if (!response.ok) {
             throw new Error("Error al encontrar los detalles")
         }
+        if(!data.overview){
+            const response2 = await fetch(`${urlAPIv3}/${type}/${id}`, options)
+            const data2 = await response2.json()
+            return data2;
+        }
         return data;
     } catch (err) {
         console.error(err);
