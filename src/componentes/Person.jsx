@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { fetchPersonId, fetchPersonCredits } from '../funciones/fetch';
-import { Box, Image, Flex, Text, Button} from "@chakra-ui/react";
+import { Box, Image, Flex, Text, Button } from "@chakra-ui/react";
 
 const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
@@ -27,7 +27,7 @@ export default function Personas() {
         const fetchData = async () => {
             try {
                 const [personaData, peliculasPersonaData] = await Promise.all([
-                    fetchPersonId(id), 
+                    fetchPersonId(id),
                     fetchPersonCredits(id)
                 ]);
                 setPersona(personaData);
@@ -115,7 +115,7 @@ export default function Personas() {
                             Biografía
                         </Text>
                         <Text fontSize="lg" mx={5} pt="1em" color="whiteAlpha.800" noOfLines={showAllBiography ? undefined : 6} pr="4.5em" textAlign="justify">
-                            {persona.biography}                        
+                            {persona.biography}
                         </Text>
                         {showAllBiography ? (
                             <Button onClick={() => setShowAllBiography(false)} bg="#CC3344" mt="1em" color="whiteAlpha.900" ml="1em">
@@ -126,22 +126,25 @@ export default function Personas() {
                                 LEER MÁS
                             </Button>
                         )}
-                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">
+                        <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">
                             Participó en
                         </Text>
                         <Flex flexWrap="wrap" justifyContent="flex-start">
-                            {peliculasPersona.cast && peliculasPersona.cast.slice(0,10).map((pelicula, index) => (
+                            {peliculasPersona.cast && peliculasPersona.cast.slice(0, 10).map((pelicula, index) => (
                                 <Box key={index} m="1em">
-                                    <Image
-                                        src={`${imgURL}${pelicula.poster_path}`}
-                                        alt={`Póster de ${pelicula.title}`}
-                                        borderRadius="md"
-                                        w="10em"
-                                    />
-                                    <Text fontSize="18px" pt="0.5em" color="whiteAlpha.800" textAlign="center" w="9em" noOfLines={2}>
-                                        {pelicula.title}
-                                    </Text>
+                                    <Link to={`/pelicula/id/${pelicula.id}`} >
+                                        <Image
+                                            src={`${imgURL}${pelicula.poster_path}`}
+                                            alt={`Póster de ${pelicula.title}`}
+                                            borderRadius="md"
+                                            w="10em"
+                                        />
+                                        <Text fontSize="18px" pt="0.5em" color="whiteAlpha.800" textAlign="center" w="9em" noOfLines={2}>
+                                            {pelicula.title}
+                                        </Text>
+                                    </Link>
                                 </Box>
+
                             ))}
                         </Flex>
                     </Box>
