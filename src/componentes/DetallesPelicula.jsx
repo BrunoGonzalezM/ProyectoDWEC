@@ -200,6 +200,7 @@ export default function DetallesPelicula() {
                                                             mx={5} mt={2}
                                                             bg='#CC3344'
                                                             color="white"
+                                                            _hover={{ bg: 'red.800' }}
                                                             onClick={() => { window.open(`https://www.youtube.com/watch?v=${trailersData.key}`) }}
                                                         >
                                                             VER TRAILER
@@ -232,40 +233,37 @@ export default function DetallesPelicula() {
                                     >
                                         <Box display="flex" color="white" w="calc(100vw - 10em)" overflow="scroll" overflowY="hidden">
                                             {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).map((actor) => (
-                                                <Flex key={actor.id} borderRadius="md" flexDirection="column">
-                                                    <Flex flexDir="column">
+                                                <Flex key={actor.id} borderRadius="md" flexDirection="column" mx="1em">
+                                                    <Flex flexDir="column" >
                                                         <Link to={`/personas/id/${actor.id}`}>
-                                                            {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} minW="11em" borderRadius="0.5em 0.5em 0 0" />}
+                                                            {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} minW="11em"  borderRadius="0.5em 0.5em 0 0" />}
                                                         </Link>
                                                     </Flex>
-                                                    <Flex bg="#CC3344" justifyContent="center" alignItems="center" flexDirection="column" borderRadius="0 0 0.5em 0.5em" pt="1em">
+                                                    <Flex bg="#222222" justifyContent="center" alignItems="center" h="25%" flexDirection="column" borderRadius="0 0 0.5em 0.5em" pt="1em">
                                                         <Link to={`/personas/id/${actor.id}`}>
-                                                            <Text fontWeight="bold" maxW="10em" textAlign="center">{actor.name}</Text>
+                                                            <Text maxW="10em" textAlign="center">{actor.name}</Text>
                                                         </Link>
-                                                        <Text maxW="10em" textAlign="center">{actor.character}</Text>
+                                                        <Text maxW="10em" color="gray.300" textAlign="center">{actor.character}</Text>
                                                     </Flex>
                                                 </Flex>
 
                                             ))}
                                         </Box>
-                                        
+
                                     </Flex>
                                     <Box as="span" flex='1' textAlign='left' pt="4em">
-                                        <Text fontSize="24px" mx={5} color="whiteAlpha.900">
-                                            Películas similares
-                                        </Text>
+                                        <Text fontSize="24px" mx={5} color="whiteAlpha.900"> Películas similares</Text>
                                     </Box>
                                     <Flex
-                                        flexDirection="row"
+                                        flexDirection="row" mt="2em"
                                         justifyContent="space-evenly"
-                                        mt="2em"
                                     >
                                         <Box display="flex" color="white" w="calc(100vw - 10em)" overflow="scroll" overflowY="hidden">
-                                        {similarMovies.results.slice(0, 8).map((movie) => (
-                                                    <Link key={movie.id} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
-                                                            <Tarjeta movie={movie} conSlider />
-                                                    </Link>
-                                        ))}
+                                            {similarMovies.results.slice(0, 8).map((movie) => (
+                                                <Link key={movie.id} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
+                                                    <Tarjeta movie={movie} conSlider />
+                                                </Link>
+                                            ))}
                                         </Box>
                                     </Flex>
                                 </Flex>
@@ -277,7 +275,6 @@ export default function DetallesPelicula() {
                                         <Link to={detalles.homepage} target="_blank" rel="noopener noreferrer" title="Visita la página principal">
                                             <FaLink size={24} />
                                         </Link>
-                                        {console.log(detalles.homepage)}
                                     </Box>
                                     {[
                                         { label: 'Título original', value: detalles.original_title || "No hay título original para esta película" },
@@ -292,16 +289,20 @@ export default function DetallesPelicula() {
                                     ))}
                                     {keywords && (
                                         <Flex flexDirection="column" pt="1em">
-                                            <Text fontSize="20px" mx={5} color="whiteAlpha.900">
-                                                Palabras clave
-                                            </Text>
+                                            <Text fontSize="20px" mx={5} color="whiteAlpha.900"> Palabras clave </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {keywords.keywords.map((keyword) => (
-                                                    <Button key={keyword.id} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
-                                                        {keyword.name}
-                                                    </Button>
-                                                ))}
+                                                {keywords.keywords.map((keyword) => {
+                                                    const primeraPalabra = keyword.name.split(" ")[0];
+                                                    return (
+                                                        <Link to={`/search/${primeraPalabra}`} key={keyword.id}>
+                                                            <Button m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
+                                                                {primeraPalabra}
+                                                            </Button>
+                                                        </Link>
+                                                    );
+                                                })}
                                             </Box>
+
                                         </Flex>
                                     )}
                                     {similarMovies && (
@@ -309,7 +310,7 @@ export default function DetallesPelicula() {
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900">
                                                 Recomendaciones
                                             </Text>
-                                                <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
+                                            <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
                                                 {recommendedMovies.results.slice(0, 8).map((movie) => (
                                                     <Link key={movie.id} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
                                                         <Button onClick={handleClick} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
