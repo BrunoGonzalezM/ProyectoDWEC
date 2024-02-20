@@ -48,15 +48,6 @@ export default function Categorias() {
                                 </Box>
                             </Box>
                         </Box>
-                        {/* <Box p="30px" w="400px" h="400px" className="cardCategory">
-                            <Image
-                                borderRadius="md"
-                                src={categoriasImagenes[categoria.id][1]}
-                                alt={categoria.name} />
-                            <Box color="white">
-                                {categoria.name}
-                            </Box>
-                        </Box> */}
                     </Link>
                 ))}
             </Flex>

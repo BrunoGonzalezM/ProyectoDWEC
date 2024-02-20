@@ -24,15 +24,15 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/inicio" element={<Home />} />
 
-            <Route path="/series" element={<PeliculasYSeries isMovie={false}/>} />
-            <Route path="/categorias" element={<Categorias isMovie={true}/>} />
+            <Route path="/categorias" element={<Categorias />} />
+            <Route path="/series" element={<PeliculasYSeries isMovie={false} />} />
             <Route path="/peliculas" element={<PeliculasYSeries isMovie={true} />} />
 
             <Route path="/serie/id/:id" element={<DetallesSeries />} />
             <Route path="/pelicula/id/:id" element={<DetallesPelicula />} />
             <Route path="/categoria/:id" element={<PeliculasYSeries isMovie={true} />} />
 
-            <Route path="/search/" element={<PeliculasYSeries isMovie={true} />} /> 
+            <Route path="/search/" element={<PeliculasYSeries isMovie={true} />} />
             <Route path="/search/:busqueda" element={<PeliculasYSeries isMovie={true} />} />
 
             <Route path="/personas/id/:id" element={<Person />} />

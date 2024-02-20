@@ -8,16 +8,6 @@ import Tarjeta from './Tarjeta';
 import nofoundimg from "../assets/nofoundimg.png"
 const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
-const config = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000
-};
-
 export default function Personas() {
     const { id } = useParams();
     const [persona, setPersona] = useState(null);
@@ -128,6 +118,7 @@ export default function Personas() {
                                 LEER MÁS
                             </Button>
                         )}
+                        
                         <Divider pt="2.5em" />
                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">Participó en</Text>
                         <Box display="flex" color="white" w="calc(100vw - 30em)" overflow="scroll" overflowY="hidden">

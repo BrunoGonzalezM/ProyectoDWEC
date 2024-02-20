@@ -250,16 +250,15 @@ export default function DetallesPelicula() {
                                         <Link to={detalles.homepage} target="_blank" rel="noopener noreferrer" title="Visita la página principal">
                                             <FaLink size={24} />
                                         </Link>
-                                        {console.log(detalles.homepage)}
                                     </Box>
                                     {[
-                                        { label: 'Título original', value: detalles.original_title || "No hay título original para esta película" },
-                                        { label: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la película desconocido" },
-                                        { label: 'Presupuesto', value: detalles.budget ? (traductor[detalles.budget] || detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Presupuesto desconocido" },
-                                        { label: 'Ingresos', value: detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Ingresos desconocidos" }
-                                    ].map(({ label, value }, index) => (
+                                        { titulo: 'Título original', value: detalles.original_title || "No hay título original para esta película" },
+                                        { titulo: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la película desconocido" },
+                                        { titulo: 'Presupuesto', value: detalles.budget ? (traductor[detalles.budget] || detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Presupuesto desconocido" },
+                                        { titulo: 'Ingresos', value: detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Ingresos desconocidos" }
+                                    ].map(({ titulo, value }, index) => (
                                         <React.Fragment key={index}>
-                                            <Text fontSize="20px" mx={5} pt={index === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{label}</Text>
+                                            <Text fontSize="20px" mx={5} pt={index === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{titulo}</Text>
                                             <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{value}</Text>
                                         </React.Fragment>
                                     ))}

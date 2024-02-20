@@ -14,8 +14,7 @@ export default function Banner({ movies }) {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 3000,
-        color: "red"
+        autoplaySpeed: 3000
     };
 
     return (
