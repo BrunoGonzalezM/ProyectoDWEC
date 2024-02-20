@@ -236,7 +236,7 @@ export default function DetallesPelicula() {
                                                 <Flex key={actor.id} borderRadius="md" flexDirection="column" mx="1em">
                                                     <Flex flexDir="column" >
                                                         <Link to={`/personas/id/${actor.id}`}>
-                                                            {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} minW="11em"  borderRadius="0.5em 0.5em 0 0" />}
+                                                            {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} minW="11em" borderRadius="0.5em 0.5em 0 0" />}
                                                         </Link>
                                                     </Flex>
                                                     <Flex bg="#222222" justifyContent="center" alignItems="center" h="25%" flexDirection="column" borderRadius="0 0 0.5em 0.5em" pt="1em">
@@ -251,13 +251,11 @@ export default function DetallesPelicula() {
                                         </Box>
 
                                     </Flex>
+                                    {/* PELICULAS SIMILARES */}
                                     <Box as="span" flex='1' textAlign='left' pt="4em">
                                         <Text fontSize="24px" mx={5} color="whiteAlpha.900"> Películas similares</Text>
                                     </Box>
-                                    <Flex
-                                        flexDirection="row" mt="2em"
-                                        justifyContent="space-evenly"
-                                    >
+                                    <Flex flexDirection="row" mt="2em" justifyContent="space-evenly" >
                                         <Box display="flex" color="white" w="calc(100vw - 10em)" overflow="scroll" overflowY="hidden">
                                             {similarMovies.results.slice(0, 8).map((movie) => (
                                                 <Link key={movie.id} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
@@ -273,7 +271,7 @@ export default function DetallesPelicula() {
                                     </Text>
                                     <Box mx={5} pt="0.1em" color="whiteAlpha.900" pb="1em">
                                         <Link to={detalles.homepage} target="_blank" rel="noopener noreferrer" title="Visita la página principal">
-                                            <FaLink size={24} />
+                                            <FaLink size={24} mb="1em" />
                                         </Link>
                                     </Box>
                                     {[
@@ -287,6 +285,7 @@ export default function DetallesPelicula() {
                                             <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{value}</Text>
                                         </React.Fragment>
                                     ))}
+                                    {/* PALABRAS CLAVE */}
                                     {keywords && (
                                         <Flex flexDirection="column" pt="1em">
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900"> Palabras clave </Text>
@@ -305,7 +304,8 @@ export default function DetallesPelicula() {
 
                                         </Flex>
                                     )}
-                                    {similarMovies && (
+                                    {/* PELICULAS RECOMENDADAS */}
+                                    {recommendedMovies && (
                                         <Flex flexDirection="column" pt="1em">
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900">
                                                 Recomendaciones
