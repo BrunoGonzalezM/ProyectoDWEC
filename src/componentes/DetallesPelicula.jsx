@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchPersonId, fetchKeywords } from '../funciones/fetch'; // Asegúrate de importar fetchPersonId
+import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchPersonId, fetchKeywords, fetchSimilarMovies } from '../funciones/fetch'; // Asegúrate de importar fetchPersonId
 import CircleProgressBar from './CircleProgressBar';
 import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Accordion, AccordionButton, AccordionIcon, AccordionPanel, AccordionItem } from "@chakra-ui/react";
-import { traductor } from "../assets/categoriasYTraduccion.js"
+import { traductor } from "../assets/categoriasYTraduccion.js";
+import { FaLink } from "react-icons/fa6";
 
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
@@ -11,22 +12,25 @@ export default function DetallesPelicula() {
     const [detalles, setDetalles] = useState(null);
     const [creditos, setCreditos] = useState({ cast: [] });
     const [keywords, setKeywords] = useState(null);
+    const [similarMovies, setSimilarMovies] = useState(null);
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [trailersData, detalles, creditos, keywords] = await Promise.all([
+                const [trailersData, detalles, creditos, keywords, similarMovies] = await Promise.all([
                     fetchMovieTrailers(id, true),
                     fetchMovieDetails(id, true),
                     fetchCreditos(id, true),
-                    fetchKeywords(id)
+                    fetchKeywords(id),
+                    fetchSimilarMovies(id)
                 ]);
                 setTrailers(trailersData);
                 setDetalles(detalles);
                 setCreditos(creditos);
-                setKeywords(keywords)
+                setKeywords(keywords);
+                setSimilarMovies(similarMovies);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -38,6 +42,10 @@ export default function DetallesPelicula() {
 
     // URL de imagenes con un ancho de 500
     const imgURL = `https://image.tmdb.org/t/p/w500/`;
+
+    const handleClick = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     const todosLosTrabajos = [...new Set(creditos.cast.map(member => member.known_for_department))];
 
@@ -205,41 +213,45 @@ export default function DetallesPelicula() {
                                 zIndex="1"
                                 bg="#00000069"
                             >
-                                <Flex flex="3" flexDirection="column" p="2">
-                                    <Accordion allowToggle>
-                                        <AccordionItem>
-                                            <AccordionButton>
-                                                <Box as="span" flex='1' textAlign='left'>
-                                                    <Text fontSize={20}> Reparto </Text>
-                                                </Box>
-                                                <AccordionIcon />
-                                            </AccordionButton>
-                                            <AccordionPanel pb={4}>
-                                                <Flex
-                                                    flexDirection="row"
-                                                    justifyContent="space-evenly"
-                                                    m="2em"
-                                                >
-                                                    {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).slice(0, 5).map((actor) => (
-                                                        <Box key={actor.id}>
-                                                            <Text>{actor.name}</Text>
-                                                            <br />
-                                                            <Link to={`/personas/id/${actor.id}`}>
-                                                                {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} borderRadius="md" alt={actor.name} />}
-                                                            </Link>
-                                                            <Text>Personaje:</Text>
-                                                            <Text noOfLines={1} w="12.5em">{actor.character}</Text>
-                                                        </Box>
-                                                    ))}
+                                <Flex flex="3" flexDirection="column" h="20em" w="60%">
+                                    <Box as="span" flex='1' textAlign='left'>
+                                        <Text fontSize="24px" mx={5} color="whiteAlpha.900">
+                                            Reparto
+                                        </Text>
+                                    </Box>
+                                    <Flex
+                                        flexDirection="row"
+                                        justifyContent="space-evenly"
+                                        mt="2em"
+                                    >
+                                        {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).slice(0, 5).map((actor) => (
+                                            <Flex key={actor.id} borderRadius="md" flexDirection="column">
+                                                <Flex flexDir="column">
+                                                    <Link to={`/personas/id/${actor.id}`}>
+                                                        {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} w="11em" borderRadius="0.5em 0.5em 0 0" />}
+                                                    </Link>
                                                 </Flex>
-                                            </AccordionPanel>
-                                        </AccordionItem>
-                                    </Accordion>
+                                                <Flex bg="#CC3344" justifyContent="center" alignItems="center" flexDirection="column" borderRadius="0 0 0.5em 0.5em" pt="1em">
+                                                    <Link to={`/personas/id/${actor.id}`}>
+                                                        <Text fontWeight="bold" maxW="10em" textAlign="center">{actor.name}</Text>
+                                                    </Link>
+                                                    <Text maxW="10em" textAlign="center">{actor.character}</Text>
+                                                </Flex>
+                                            </Flex>
+
+                                        ))}
+                                    </Flex>
                                 </Flex>
                                 <Flex flex="1" flexDirection="column" p="2">
                                     <Text fontSize="24px" mx={5} color="whiteAlpha.900">
                                         Información adicional
                                     </Text>
+                                    <Box mx={5} pt="0.1em" color="whiteAlpha.900">
+                                        <Link to={detalles.homepage} target="_blank" rel="noopener noreferrer" title="Visita la página principal">
+                                            <FaLink size={24} />
+                                        </Link>
+                                        {console.log(detalles.homepage)}
+                                    </Box>
                                     <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
                                         Título original
                                     </Text>
@@ -281,8 +293,8 @@ export default function DetallesPelicula() {
                                                         m="0.3em" // Espacio entre los botones
                                                         fontSize="14px" // Tamaño de la fuente
                                                         color="white"
-                                                        bg="red.500" // Fondo rojo
-                                                        _hover={{ bg: 'red.600' }} // Cambio de color al pasar el mouse
+                                                        bg="#CC3344" // Fondo rojo
+                                                        _hover={{ bg: 'red.800' }} // Cambio de color al pasar el mouse
                                                         size="sm" // Tamaño pequeño
                                                     >
                                                         {keyword.name}
@@ -291,7 +303,35 @@ export default function DetallesPelicula() {
                                             </Box>
                                         </Flex>
                                     )}
-
+                                    {similarMovies && (
+                                        <Flex flexDirection="column" pt="1em">
+                                            <Text fontSize="20px" mx={5} color="whiteAlpha.900">
+                                                Películas similares
+                                            </Text>
+                                            <Box
+                                                display="flex"
+                                                flexDirection="row"
+                                                flexWrap="wrap"
+                                                pl="1em"
+                                            >
+                                                {similarMovies.results.slice(0,8).map((movie) => (
+                                                    <Link key={movie.id} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
+                                                        <Button
+                                                            onClick={handleClick}
+                                                            m="0.3em" // Espacio entre los botones
+                                                            fontSize="14px" // Tamaño de la fuente
+                                                            color="white"
+                                                            bg="#CC3344" // Fondo rojo
+                                                            _hover={{ bg: 'red.800' }} // Cambio de color al pasar el mouse
+                                                            size="sm" // Tamaño pequeño
+                                                        >
+                                                            {movie.title}
+                                                        </Button>
+                                                    </Link>
+                                                ))}
+                                            </Box>
+                                        </Flex>
+                                    )}
                                 </Flex>
                             </Flex>
                         </>

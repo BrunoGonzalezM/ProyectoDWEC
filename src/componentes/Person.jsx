@@ -130,7 +130,7 @@ export default function Personas() {
                         )}
                         <Divider pt="2.5em" />
                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">Participó en</Text>
-                        <Box display="flex" color="white" w="calc(100vw - 40em)" overflow="scroll" overflowY="hidden">
+                        <Box display="flex" color="white" w="calc(100vw - 30em)" overflow="scroll" overflowY="hidden">
                             {peliculasPersona.cast && peliculasPersona.cast.slice(0, 10).map((pelicula, index) => (
                                 <Box key={index} m="1em" >
                                     <Link to={`/pelicula/id/${pelicula.id}`} >

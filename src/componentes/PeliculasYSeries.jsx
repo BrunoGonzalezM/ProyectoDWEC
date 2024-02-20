@@ -41,9 +41,11 @@ function PeliculasYSeries({ isMovie }) {
     }, [busqueda, id, page, isMovie]);
 
     const handleNextPage = () => {
+        window.scrollTo(0, 0); // Desplazar hacia arriba
         { page < 99 && (setPage(page + 1)) }
     };
     const handleBackPage = () => {
+        window.scrollTo(0, 0); // Desplazar hacia arriba
         { page > 1 && (setPage(page - 1)) }
     };
 
@@ -53,6 +55,11 @@ function PeliculasYSeries({ isMovie }) {
 
     return (
         <Flex direction="column" alignItems="center" bg="#1c1c1c" p="2em" color="white">
+            {isMovie ? (
+                <Heading color="white" mb="1em">PELÍCULAS</Heading>
+            ) : (
+                <Heading color="white" mb="1em">SERIES</Heading>
+            )}
             {loading && <p>Cargando...</p>}
             {error && <p>Error: {error}</p>}
             {busqueda && <Heading color="white" mb="1em">Resultados de: {busqueda}</Heading>}

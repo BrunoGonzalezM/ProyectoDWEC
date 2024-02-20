@@ -186,11 +186,22 @@ export const fetchPersonCredits = async (id) => {
 
 export const fetchKeywords = async (id) => {
     try{
-        const response = await fetch(`${urlAPIv3}/movie/${id}/keywords`, options)
+        const response = await fetch(`${urlAPIv3}/movie/${id}/keywords?language=es-ES`, options)
         const data = await response.json();
         return data;
     }catch(err){
         console.log(err);
         throw err;
     }
-}
+};
+
+export const fetchSimilarMovies = async (id) => {
+    try{
+        const response = await fetch(`${urlAPIv3}/movie/${id}/similar?language=es-ES`, options)
+        const data = await response.json();
+        return data;
+    }catch(err){
+        console.log(err);
+        throw err;
+    }
+};
