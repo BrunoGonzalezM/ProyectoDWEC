@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { useParams, Link } from 'react-router-dom';
 import { fetchPersonId, fetchPersonCredits } from '../funciones/fetch';
 import { Box, Image, Flex, Text, Button, Divider } from "@chakra-ui/react";
 import { traductor } from '../assets/categoriasYTraduccion';
+import Tarjeta from './Tarjeta';
+import nofoundimg from "../assets/nofoundimg.png"
 const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
 const config = {
@@ -64,10 +64,9 @@ export default function Personas() {
                 <Flex p="2em" bg="#1C1C1C">
                     <Box flex="1" p="2">
                         <Image
-                            src={`${imgURL}${persona.profile_path}`}
-                            alt={`Foto de ${persona.name}`}
-                            borderRadius="md">
-                        </Image>
+                            src={persona.profile_path ? `${imgURL}${persona.profile_path}` : nofoundimg}
+                            alt="Imagen de perfil"
+                            borderRadius="md"></Image>
                         <Text fontSize="24px" mx={5} pt="2em" color="whiteAlpha.900">
                             Información personal
                         </Text>
@@ -131,29 +130,20 @@ export default function Personas() {
                         )}
                         <Divider pt="2.5em" />
                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">Participó en</Text>
-                        <Flex flexWrap="wrap" justifyContent="flex-start">
-                            <Slider {...config}>
-                                {peliculasPersona.cast && peliculasPersona.cast.slice(0, 5).map((pelicula, index) => (
-                                    <Box key={index} m="1em" w="100em">
-                                        <Link to={`/pelicula/id/${pelicula.id}`} >
-                                            <Image
-                                                src={`${imgURL}${pelicula.poster_path}`}
-                                                alt={`Póster de ${pelicula.title}`}
-                                                borderRadius="md"
-                                                w="10em"
-                                            />
-                                            <Text fontSize="18px" pt="0.5em" color="whiteAlpha.800" textAlign="center" w="9em" noOfLines={2}>
-                                                {pelicula.title}
-                                            </Text>
-                                        </Link>
-                                    </Box>
-                                ))}
-                            </Slider>
+                        <Box display="flex" color="white" w="calc(100vw - 40em)" overflow="scroll" overflowY="hidden">
+                            {peliculasPersona.cast && peliculasPersona.cast.slice(0, 10).map((pelicula, index) => (
+                                <Box key={index} m="1em" >
+                                    <Link to={`/pelicula/id/${pelicula.id}`} >
+                                        <Tarjeta movie={pelicula} />
+                                    </Link>
+                                </Box>
+                            ))}
+                        </Box>
 
-                        </Flex>
-                    </Box>
-                </Flex>
-            )}
+                    </Box >
+                </Flex >
+            )
+            }
         </>
     );
 }
