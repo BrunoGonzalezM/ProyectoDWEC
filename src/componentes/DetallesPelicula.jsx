@@ -5,16 +5,6 @@ import CircleProgressBar from './CircleProgressBar';
 import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Accordion, AccordionButton, AccordionIcon, AccordionPanel, AccordionItem } from "@chakra-ui/react";
 import {traductor} from "../assets/categoriasYTraduccion.js"
 
-const config = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000
-};
-
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
     const [error, setError] = useState(null);

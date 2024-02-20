@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { useParams, Link } from 'react-router-dom';
 import { fetchPersonId, fetchPersonCredits } from '../funciones/fetch';
 import { Box, Image, Flex, Text, Button, Divider } from "@chakra-ui/react";
-
+import { traductor } from '../assets/categoriasYTraduccion';
 const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
-const departmentTranslations = {
-    "Acting": "Actuación",
-    "Art" :'Arte',
-    "Production" : "Producción",
-    "Directing" : "Dirección",
-    "Crew" : "Equipo",
-    "Sound" : "Sonido",
-    "Lighting" : "Luces",
-};
-
-const genderTranslations = {
-    2: "Masculino",
-    1: "Femenino"
+const config = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000
 };
 
 export default function Personas() {
@@ -77,13 +75,13 @@ export default function Personas() {
                             Conocido por
                         </Text>
                         <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                            {persona.known_for_department ? (departmentTranslations[persona.known_for_department] || persona.known_for_department) : "No tenemos información en este campo sobre esta persona"}
+                            {persona.known_for_department ? (traductor[persona.known_for_department] || persona.known_for_department) : "No tenemos información en este campo sobre esta persona"}
                         </Text>
                         <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
                             Sexo
                         </Text>
                         <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                            {persona.gender ? (genderTranslations[persona.gender] || persona.gender) : "Género desconocido"}
+                            {persona.gender ? (traductor[persona.gender] || persona.gender) : "Género desconocido"}
                         </Text>
                         <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
                             Fecha de nacimiento
@@ -134,22 +132,24 @@ export default function Personas() {
                         <Divider pt="2.5em" />
                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">Participó en</Text>
                         <Flex flexWrap="wrap" justifyContent="flex-start">
-                            {peliculasPersona.cast && peliculasPersona.cast.slice(0, 10).map((pelicula, index) => (
-                                <Box key={index} m="1em">
-                                    <Link to={`/pelicula/id/${pelicula.id}`} >
-                                        <Image
-                                            src={`${imgURL}${pelicula.poster_path}`}
-                                            alt={`Póster de ${pelicula.title}`}
-                                            borderRadius="md"
-                                            w="10em"
-                                        />
-                                        <Text fontSize="18px" pt="0.5em" color="whiteAlpha.800" textAlign="center" w="9em" noOfLines={2}>
-                                            {pelicula.title}
-                                        </Text>
-                                    </Link>
-                                </Box>
+                            <Slider {...config}>
+                                {peliculasPersona.cast && peliculasPersona.cast.slice(0, 5).map((pelicula, index) => (
+                                    <Box key={index} m="1em" w="100em">
+                                        <Link to={`/pelicula/id/${pelicula.id}`} >
+                                            <Image
+                                                src={`${imgURL}${pelicula.poster_path}`}
+                                                alt={`Póster de ${pelicula.title}`}
+                                                borderRadius="md"
+                                                w="10em"
+                                            />
+                                            <Text fontSize="18px" pt="0.5em" color="whiteAlpha.800" textAlign="center" w="9em" noOfLines={2}>
+                                                {pelicula.title}
+                                            </Text>
+                                        </Link>
+                                    </Box>
+                                ))}
+                            </Slider>
 
-                            ))}
                         </Flex>
                     </Box>
                 </Flex>

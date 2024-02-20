@@ -43,10 +43,13 @@ export const categoriasImagenes = {
 
 
 export const traductor = {
+    "Acting": "Actuación",
     "Art" :'Arte',
     "Production" : "Producción",
     "Directing" : "Dirección",
     "Crew" : "Equipo",
     "Sound" : "Sonido",
-    "Lighting" : "Luces"
+    "Lighting" : "Luces",
+    2: "Masculino",
+    1: "Femenino"
 }
