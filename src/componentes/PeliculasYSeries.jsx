@@ -41,11 +41,11 @@ function PeliculasYSeries({ isMovie }) {
     }, [busqueda, id, page, isMovie]);
 
     const handleNextPage = () => {
-        window.scrollTo(0, 0); // Desplazar hacia arriba
+        window.scrollTo(0, 0);
         { page < 99 && (setPage(page + 1)) }
     };
     const handleBackPage = () => {
-        window.scrollTo(0, 0); // Desplazar hacia arriba
+        window.scrollTo(0, 0); 
         { page > 1 && (setPage(page - 1)) }
     };
 

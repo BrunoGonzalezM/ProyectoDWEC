@@ -55,8 +55,9 @@ export const traductor = {
     "Released" : "Estrenada",
     "Post Production" : "Posproducción",
     "Screenplay" : "Guión", 
-    "Novel" : "Escritura", 
+    "Novel" : "Idea original", 
     "Visual Effects" : "Efectos Visuales", 
     "Costume & Make-Up" : "Maquillaje",
-    "Camera" : "Cámara"
+    "Camera" : "Cámara",
+    "Writing" : "Escritura"
 }

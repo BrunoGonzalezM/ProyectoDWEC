@@ -176,7 +176,7 @@ export default function DetallesPelicula() {
                                                                 (job !== "Acting") && (
                                                                     <Box ml="1em" maxW="10em" noOfLines={2} >
                                                                         <Text color="whiteAlpha.800">
-                                                                            {traductor[job]}:
+                                                                            {traductor[job] ? traductor[job] : job}:
                                                                         </Text>
                                                                         {personas.map((persona, index) => (
                                                                             <span key={persona.id}>
@@ -252,51 +252,25 @@ export default function DetallesPelicula() {
                                         </Link>
                                         {console.log(detalles.homepage)}
                                     </Box>
-                                    <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
-                                        Título original
-                                    </Text>
-                                    <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                                        {detalles.original_title ? detalles.original_title : "No hay título original para esta película"}
-                                    </Text>
-                                    <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
-                                        Estado
-                                    </Text>
-                                    <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                                        {detalles.status ? (traductor[detalles.status] || detalles.status) : "Estado de la película desconocido"}
-                                    </Text>
-                                    <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
-                                        Presupuesto
-                                    </Text>
-                                    <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                                        {detalles.budget ? (traductor[detalles.budget] || detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Presupuesto desconocido"}
-                                    </Text>
-                                    <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
-                                        Ingresos
-                                    </Text>
-                                    <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                                        {detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Ingresos desconocidos"}
-                                    </Text>
+                                    {[
+                                        { label: 'Título original', value: detalles.original_title || "No hay título original para esta película" },
+                                        { label: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la película desconocido" },
+                                        { label: 'Presupuesto', value: detalles.budget ? (traductor[detalles.budget] || detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Presupuesto desconocido" },
+                                        { label: 'Ingresos', value: detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Ingresos desconocidos" }
+                                    ].map(({ label, value }, index) => (
+                                        <React.Fragment key={index}>
+                                            <Text fontSize="20px" mx={5} pt={index === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{label}</Text>
+                                            <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{value}</Text>
+                                        </React.Fragment>
+                                    ))}
                                     {keywords && (
                                         <Flex flexDirection="column" pt="1em">
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900">
                                                 Palabras clave
                                             </Text>
-                                            <Box
-                                                display="flex"
-                                                flexDirection="row"
-                                                flexWrap="wrap"
-                                                pl="1em"
-                                            >
+                                            <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
                                                 {keywords.keywords.map((keyword) => (
-                                                    <Button
-                                                        key={keyword.id}
-                                                        m="0.3em" // Espacio entre los botones
-                                                        fontSize="14px" // Tamaño de la fuente
-                                                        color="white"
-                                                        bg="#CC3344" // Fondo rojo
-                                                        _hover={{ bg: 'red.800' }} // Cambio de color al pasar el mouse
-                                                        size="sm" // Tamaño pequeño
-                                                    >
+                                                    <Button key={keyword.id} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
                                                         {keyword.name}
                                                     </Button>
                                                 ))}
@@ -308,23 +282,10 @@ export default function DetallesPelicula() {
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900">
                                                 Películas similares
                                             </Text>
-                                            <Box
-                                                display="flex"
-                                                flexDirection="row"
-                                                flexWrap="wrap"
-                                                pl="1em"
-                                            >
-                                                {similarMovies.results.slice(0,8).map((movie) => (
+                                            <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
+                                                {similarMovies.results.slice(0, 8).map((movie) => (
                                                     <Link key={movie.id} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
-                                                        <Button
-                                                            onClick={handleClick}
-                                                            m="0.3em" // Espacio entre los botones
-                                                            fontSize="14px" // Tamaño de la fuente
-                                                            color="white"
-                                                            bg="#CC3344" // Fondo rojo
-                                                            _hover={{ bg: 'red.800' }} // Cambio de color al pasar el mouse
-                                                            size="sm" // Tamaño pequeño
-                                                        >
+                                                        <Button onClick={handleClick} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
                                                             {movie.title}
                                                         </Button>
                                                     </Link>
