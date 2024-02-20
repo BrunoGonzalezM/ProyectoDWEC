@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { Image, Heading, Text, Button, Stat, StatHelpText, StatArrow, Box, Flex } from '@chakra-ui/react';
 import { TriangleUpIcon, StarIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { fetchMovieTrailers } from '../funciones/fetch';
 
 export default function Banner({ movies }) {
     const config = {
@@ -17,22 +18,37 @@ export default function Banner({ movies }) {
         autoplaySpeed: 3000
     };
 
+    const [error, setError] = useState(null);
+
+    const [trailerData, setTrailers] = useState();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const trailerData = await fetchMovieTrailers(id, true);
+                setTrailers(trailerData);
+            } catch (err) {
+                setError(err.message);
+            }
+        };
+        fetchData();
+    })
+
     return (
         <Slider {...config}>
             {movies.slice(0, 21).map((movie) => (
                 <div key={movie.id}>
                     <Flex
                         //CONTENIDO DE movie
-                    flexDirection="column"
-                    justifyContent="center"
-                    alignContent="center"
-                    boxSizing='border-box'
-                    w="100%"
-                    h="maxContent"
-                    bg={`linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')`}
-                    backgroundPosition="top"
-                    backgroundSize="cover"
-                    backgroundRepeat="no-repeat"
+                        flexDirection="column"
+                        justifyContent="center"
+                        alignContent="center"
+                        boxSizing='border-box'
+                        w="100%"
+                        h="maxContent"
+                        bg={`linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')`}
+                        backgroundPosition="top"
+                        backgroundSize="cover"
+                        backgroundRepeat="no-repeat"
                     >
                         <Flex
                             flexDirection="column"
@@ -102,10 +118,7 @@ export default function Banner({ movies }) {
                                                         alignItems="center"
                                                         paddingBottom="2em"
                                                     >
-                                                        <Link
-                                                            w="600px"
-                                                            h="600px"
-                                                            to={`/pelicula/id/${movie.id}`}  >
+                                                        {trailerData && trailerData.key ? (
                                                             <Button
                                                                 width="5em"
                                                                 height="5em"
@@ -113,10 +126,23 @@ export default function Banner({ movies }) {
                                                                 aspectRatio="4/4"
                                                                 borderRadius="full"
                                                                 _hover={{ transform: "scale(1.2) rotate(90deg)" }}
+                                                                onClick={() => { window.open(`https://www.youtube.com/watch?v=${trailerData.key}`) }}
                                                             >
-                                                                <TriangleUpIcon boxSize="2em" />
+                                                                <TriangleUpIcon boxSize="2em" />                                                            </Button>
+                                                        ) : (
+                                                            <Button
+                                                                width="5em"
+                                                                height="5em"
+                                                                transform="rotate(90deg)"
+                                                                aspectRatio="4/4"
+                                                                borderRadius="full"
+                                                                _hover={{ transform: "scale(1.2) rotate(90deg)" }}
+                                                                onClick={() => { /* Ruta alternativa de tu proyecto */ }}
+                                                            >
+                                                                <TriangleUpIcon boxSize="2em" />                                                            
                                                             </Button>
-                                                        </Link>
+                                                        )}
+
                                                         <Link
                                                             w="200px"
                                                             h="200px"
