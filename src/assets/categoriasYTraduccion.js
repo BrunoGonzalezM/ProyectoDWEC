@@ -53,5 +53,10 @@ export const traductor = {
     2: "Masculino",
     1: "Femenino", 
     "Released" : "Estrenada",
-    "Post Production" : "Posproducción"
+    "Post Production" : "Posproducción",
+    "Screenplay" : "Guión", 
+    "Novel" : "Escritura", 
+    "Visual Effects" : "Efectos Visuales", 
+    "Costume & Make-Up" : "Maquillaje",
+    "Camera" : "Cámara"
 }

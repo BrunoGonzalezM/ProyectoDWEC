@@ -256,13 +256,13 @@ export default function DetallesPelicula() {
                                         Presupuesto
                                     </Text>
                                     <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                                        {detalles.budget ? (traductor[detalles.budget] || detalles.budget) : "Presupuesto desconocido"}
+                                        {detalles.budget ? (traductor[detalles.budget] || detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Presupuesto desconocido"}
                                     </Text>
                                     <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
                                         Ingresos
                                     </Text>
                                     <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                                        {detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue) : "Ingresos desconocidos"} $
+                                        {detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Ingresos desconocidos"}
                                     </Text>
                                     {keywords && (
                                         <Flex flexDirection="column" pt="1em">
