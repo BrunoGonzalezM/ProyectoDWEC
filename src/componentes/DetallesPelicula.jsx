@@ -179,7 +179,7 @@ export default function DetallesPelicula() {
                                                             {/* Personas involucradas:  */}
                                                             {Object.entries(personasPorTrabajo).map(([job, personas]) => (
                                                                 (job !== "Acting") && (
-                                                                    <Box ml="1em" maxW="10em" noOfLines={2} >
+                                                                    <Box mr="1em" maxW="13em" noOfLines={3} >
                                                                         <Text color="whiteAlpha.800">
                                                                             {traductor[job] ? traductor[job] : job}:
                                                                         </Text>
