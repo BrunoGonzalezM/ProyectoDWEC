@@ -39,22 +39,15 @@ export default function Banner({ movies }) {
                 <div key={movie.id}>
                     <Flex
                         //CONTENIDO DE movie
-                        flexDirection="column"
-                        justifyContent="center"
-                        alignContent="center"
-                        boxSizing='border-box'
-                        w="100%"
-                        h="maxContent"
+                        flexDirection="column" justifyContent="center"  alignContent="center"
+                        boxSizing='border-box' w="100%" h="maxContent"
                         bg={`linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')`}
-                        backgroundPosition="top"
-                        backgroundSize="cover"
-                        backgroundRepeat="no-repeat"
+                        backgroundPosition="top" backgroundSize="cover" backgroundRepeat="no-repeat"
                     >
                         <Flex
                             flexDirection="column"
                             justifyContent="center"
-                            alignContent="center"
-                            p={10}
+                            alignContent="center" p={10}
                         >
                             {movie.poster_path &&
                                 <>
@@ -65,30 +58,19 @@ export default function Banner({ movies }) {
                                     >
                                         <Image
                                             //IMAGEN DEL POSTER
-                                            w="25%"
-                                            h="100%"
-                                            maxW="300px"
-                                            maxH="400px"
-                                            aspectRatio="3/5"
+                                            w="25%" h="100%" p="5px"
+                                            maxW="300px" maxH="400px" aspectRatio="3/5"
                                             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                             alt={`Poster de ${movie.title}`}
-                                            borderRadius="0.7em"
-                                            objectFit="cover"
-                                            objectPosition="center"
-                                            p="5px"
+                                            borderRadius="0.7em" objectFit="cover" objectPosition="center"
                                         />
                                         <Flex
-                                            flexDirection="column"
-                                            justifyContent="space-between"
-                                            px={5}
-                                            maxW="100%"
-                                            width="calc(100vw - 35em)"
-                                            h="100%"
+                                            flexDirection="column" justifyContent="space-between"
+                                            px={5} maxW="100%" width="calc(100vw - 35em)" h="100%"
                                         >
                                             {/* movie TEXTO */}
                                             <Box
-                                                h="25em"
-                                                display="flex"
+                                                h="25em" display="flex"
                                                 flexDirection="column"
                                                 justifyContent="space-between"
                                             >
@@ -113,46 +95,37 @@ export default function Banner({ movies }) {
                                                     <Text fontSize="2xl" mx={5}> {movie.tagline}</Text>
                                                     {/* BOTONES DE BANNER (PLAY AÑADIR A FAVORITOS Y DETALLES) */}
                                                     <Flex
-                                                        w="full"
-                                                        mx="2em"
+                                                        w="full" mx="2em"
                                                         alignItems="center"
                                                         paddingBottom="2em"
                                                     >
                                                         {trailerData && trailerData.key ? (
                                                             <Button
-                                                                width="5em"
-                                                                height="5em"
-                                                                transform="rotate(90deg)"
-                                                                aspectRatio="4/4"
-                                                                borderRadius="full"
-                                                                _hover={{ transform: "scale(1.2) rotate(90deg)" }}
+                                                                width="5em" height="5em"
+                                                                transform="rotate(90deg)" aspectRatio="4/4"
+                                                                borderRadius="full" _hover={{ transform: "scale(1.2) rotate(90deg)" }}
                                                                 onClick={() => { window.open(`https://www.youtube.com/watch?v=${trailerData.key}`) }}
                                                             >
-                                                                <TriangleUpIcon boxSize="2em" />                                                            </Button>
+                                                                <TriangleUpIcon boxSize="2em" />
+                                                            </Button>
                                                         ) : (
                                                             <Button
-                                                                width="5em"
-                                                                height="5em"
-                                                                transform="rotate(90deg)"
-                                                                aspectRatio="4/4"
-                                                                borderRadius="full"
-                                                                _hover={{ transform: "scale(1.2) rotate(90deg)" }}
+                                                                width="5em" height="5em"
+                                                                transform="rotate(90deg)" aspectRatio="4/4"
+                                                                borderRadius="full" _hover={{ transform: "scale(1.2) rotate(90deg)" }}
                                                                 onClick={() => { /* Ruta alternativa de tu proyecto */ }}
                                                             >
-                                                                <TriangleUpIcon boxSize="2em" />                                                            
+                                                                <TriangleUpIcon boxSize="2em" />
                                                             </Button>
                                                         )}
 
                                                         <Link
-                                                            w="200px"
-                                                            h="200px"
+                                                            w="200px" h="200px"
                                                             to={`/pelicula/id/${movie.id}`}
                                                         >
                                                             <Button
-                                                                mx="2em"
-                                                                aspectRatio="4/4"
-                                                                borderRadius="full"
-                                                                transition="0.2s"
+                                                                mx="2em" aspectRatio="4/4"
+                                                                borderRadius="full" transition="0.2s"
                                                                 _hover={{ transform: "scale(1.2)" }}
                                                             >
                                                                 <StarIcon />

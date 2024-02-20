@@ -266,25 +266,27 @@ export default function DetallesPelicula() {
                                     </Flex>
                                 </Flex>
                                 <Flex flex="1" flexDirection="column" p="2">
-                                    <Text fontSize="24px" mx={5} color="whiteAlpha.900">
-                                        Información adicional
-                                    </Text>
-                                    <Box mx={5} pt="0.1em" color="whiteAlpha.900" pb="1em">
-                                        <Link to={detalles.homepage} target="_blank" rel="noopener noreferrer" title="Visita la página principal">
-                                            <FaLink size={24} mb="1em" />
-                                        </Link>
+                                    {/* INFORMACION ADICIONAL ASIDE DERECHO */}
+                                    <Box>
+                                        <Text fontSize="24px" mx={5} color="whiteAlpha.900"> Información adicional </Text>
+                                        <Box mx={5} pt="0.1em" color="whiteAlpha.900" pb="1em">
+                                            <Link to={detalles.homepage} target="_blank" rel="noopener noreferrer" title="Visita la página principal">
+                                                <FaLink size={24} mb="1em" />
+                                            </Link>
+                                        </Box>
+                                        {[
+                                            { label: 'Título original', value: detalles.original_title || "No hay título original para esta película" },
+                                            { label: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la película desconocido" },
+                                            { label: 'Presupuesto', value: detalles.budget ? (traductor[detalles.budget] || detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Presupuesto desconocido" },
+                                            { label: 'Ingresos', value: detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Ingresos desconocidos" }
+                                        ].map(({ label, value }, index) => (
+                                            <React.Fragment key={index}>
+                                                <Text fontSize="20px" mx={5} pt={index === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{label}</Text>
+                                                <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{value}</Text>
+                                            </React.Fragment>
+                                        ))}
                                     </Box>
-                                    {[
-                                        { label: 'Título original', value: detalles.original_title || "No hay título original para esta película" },
-                                        { label: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la película desconocido" },
-                                        { label: 'Presupuesto', value: detalles.budget ? (traductor[detalles.budget] || detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Presupuesto desconocido" },
-                                        { label: 'Ingresos', value: detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Ingresos desconocidos" }
-                                    ].map(({ label, value }, index) => (
-                                        <React.Fragment key={index}>
-                                            <Text fontSize="20px" mx={5} pt={index === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{label}</Text>
-                                            <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{value}</Text>
-                                        </React.Fragment>
-                                    ))}
+
                                     {/* PALABRAS CLAVE */}
                                     {keywords && (
                                         <Flex flexDirection="column" pt="1em">
