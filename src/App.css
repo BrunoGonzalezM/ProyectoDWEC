@@ -12,5 +12,11 @@ html {
 }
 
 .slick-dots li.slick-active button:before {
-    color:White !important;
+    color: White !important;
+}
+
+*::-webkit-scrollbar-corner {
+    border-radius: 100px;
+    background: #8070d4;
+    border: 6px solid rgba(0, 0, 0, 0.2);
 }
