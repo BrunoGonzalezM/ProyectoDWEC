@@ -35,7 +35,7 @@ export default function Personas() {
     }, [id]);
 
     const formatDate = (dateString) => {
-        if (!dateString || dateString === "00/00/00") return "Fecha de nacimiento desconocida";
+        if (!dateString || dateString === "00/00/00") return "Fecha desconocida";
 
         const date = new Date(dateString);
         const day = date.getDate();
@@ -62,10 +62,12 @@ export default function Personas() {
                             Información personal
                         </Text>
                         {[
-                            { label: 'Conocido por', value: persona.known_for_department ? (traductor[persona.known_for_department] || persona.known_for_department) : "No tenemos información en este campo sobre esta persona" },
-                            { label: 'Sexo', value: persona.gender ? (traductor[persona.gender] || persona.gender) : "Género desconocido" },
-                            { label: 'Fecha de nacimiento', value: formatDate(persona.birthday) },
-                            { label: 'Lugar de nacimiento', value: persona.place_of_birth ? persona.place_of_birth : "Lugar de nacimiento desconocido" },
+                            { label: 'Conocido por', value: persona.known_for_department ? (traductor[persona.known_for_department] || persona.known_for_department) : "-" },
+                            { label: 'Sexo', value: persona.gender ? (traductor[persona.gender] || persona.gender) : "-" },
+                            { label: 'Fecha de nacimiento', value: formatDate(persona.birthday ? persona.birthday : "00/00/00") },
+                            { label: 'Lugar de nacimiento', value: persona.place_of_birth ? persona.place_of_birth : "-" },
+                            { label: 'Fecha de defunción', value: formatDate(persona.deathday ? persona.deathday : "00/00/00") },
+
                         ].map(({ label, value }, index) => (
                             <React.Fragment key={index}>
                                 <Text fontSize="20px" mx={5} pt={index === 0 ? "1em" : "2em"} color="whiteAlpha.900">{label}</Text>
