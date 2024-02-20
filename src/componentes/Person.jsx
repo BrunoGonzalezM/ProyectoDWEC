@@ -56,70 +56,47 @@ export default function Personas() {
                         <Image
                             src={persona.profile_path ? `${imgURL}${persona.profile_path}` : nofoundimg}
                             alt="Imagen de perfil"
-                            borderRadius="md"></Image>
+                            borderRadius="md"
+                        />
                         <Text fontSize="24px" mx={5} pt="2em" color="whiteAlpha.900">
                             Información personal
                         </Text>
-                        <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
-                            Conocido por
-                        </Text>
-                        <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                            {persona.known_for_department ? (traductor[persona.known_for_department] || persona.known_for_department) : "No tenemos información en este campo sobre esta persona"}
-                        </Text>
-                        <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
-                            Sexo
-                        </Text>
-                        <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                            {persona.gender ? (traductor[persona.gender] || persona.gender) : "Género desconocido"}
-                        </Text>
-                        <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
-                            Fecha de nacimiento
-                        </Text>
-                        <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                            {formatDate(persona.birthday)}
-                        </Text>
-                        <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
-                            Lugar de nacimiento
-                        </Text>
-                        <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                            {persona.place_of_birth ? persona.place_of_birth : "Lugar de nacimiento desconocido"}
-                        </Text>
-                        <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
-                            También conocido como
-                        </Text>
+                        {[
+                            { label: 'Conocido por', value: persona.known_for_department ? (traductor[persona.known_for_department] || persona.known_for_department) : "No tenemos información en este campo sobre esta persona" },
+                            { label: 'Sexo', value: persona.gender ? (traductor[persona.gender] || persona.gender) : "Género desconocido" },
+                            { label: 'Fecha de nacimiento', value: formatDate(persona.birthday) },
+                            { label: 'Lugar de nacimiento', value: persona.place_of_birth ? persona.place_of_birth : "Lugar de nacimiento desconocido" },
+                        ].map(({ label, value }, index) => (
+                            <React.Fragment key={index}>
+                                <Text fontSize="20px" mx={5} pt={index === 0 ? "1em" : "2em"} color="whiteAlpha.900">{label}</Text>
+                                <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{value}</Text>
+                            </React.Fragment>
+                        ))}
+                        <Text fontSize="20px" mx={5} pt="2em" color="whiteAlpha.900">También conocido como</Text>
                         {persona.also_known_as && persona.also_known_as.length > 0 ? (
                             persona.also_known_as.map((alias, index) => (
-                                <Text key={index} fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                                    {alias}
-                                </Text>
+                                <Text key={index} fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{alias}</Text>
                             ))
                         ) : (
-                            <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
-                                No hay información adicional sobre otros nombres conocidos.
-                            </Text>
+                            <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">No hay información adicional sobre otros nombres conocidos.</Text>
                         )}
                     </Box>
                     <Box flex="3" p="2">
+                        {/* DESCRIPCION DE PERSONA */}
                         <Text fontSize="32px" mx={5} color="whiteAlpha.900" fontWeight="bold">
                             {persona.name}
                         </Text>
-                        <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">
-                            Biografía
-                        </Text>
+                        <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">Biografía</Text>
                         <Text fontSize="lg" mx={5} pt="1em" color="whiteAlpha.800" noOfLines={showAllBiography ? undefined : 6} pr="4.5em" textAlign="justify">
                             {persona.biography ? persona.biography : "No tenemos información sobre la biografía de esta persona."}
                         </Text>
-                        {showAllBiography ? (
-                            <Button onClick={() => setShowAllBiography(false)} bg="#CC3344" mt="1em" color="whiteAlpha.900" ml="1em">
-                                LEER MENOS
-                            </Button>
-                        ) : (
-                            <Button onClick={() => setShowAllBiography(true)} bg="#CC3344" mt="1em" color="whiteAlpha.900" ml="1em">
-                                LEER MÁS
-                            </Button>
-                        )}
-                        
+                        <Button onClick={() => setShowAllBiography(!showAllBiography)} bg="#CC3344" mt="1em" color="whiteAlpha.900" ml="1em">
+                            {showAllBiography ? "LEER MENOS" : "LEER MÁS"}
+                        </Button>
+
                         <Divider pt="2.5em" />
+
+                        {/* PARTICIPACIONES */}
                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">Participó en</Text>
                         <Box display="flex" color="white" w="calc(100vw - 30em)" overflow="scroll" overflowY="hidden">
                             {peliculasPersona.cast && peliculasPersona.cast.slice(0, 10).map((pelicula, index) => (
@@ -130,9 +107,9 @@ export default function Personas() {
                                 </Box>
                             ))}
                         </Box>
-
-                    </Box >
-                </Flex >
+                        
+                    </Box>
+                </Flex>
             )
             }
         </>

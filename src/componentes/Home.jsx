@@ -37,13 +37,8 @@ const Home = () => {
 
   return (
     <Flex
-      justifyContent="center"
-      alignItems="center"
-      flexWrap="wrap"
-      color="white"
-      backgroundColor="#222222"
-      height="max-content"
-      width="100%"
+      justifyContent="center" alignItems="center" flexWrap="wrap" color="white"
+      backgroundColor="#222222" height="max-content" width="100%"
     >
       {error ? (
         <p>{error}</p>
@@ -51,14 +46,7 @@ const Home = () => {
         <Box overflowX="hidden" padding="0">
           {loading ? (
             <Flex h="90vh">
-              <Spinner
-                margin="auto 0"
-                thickness='4px'
-                speed='0.65s'
-                emptyColor='gray.200'
-                color='blue.500'
-                size='xl'
-              />
+              <Spinner margin="auto 0" thickness='4px' speed='0.65s' emptyColor='gray.200' color='blue.500' size='xl' />
             </Flex>
           ) : (
             <>
