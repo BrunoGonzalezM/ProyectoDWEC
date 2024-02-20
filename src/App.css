@@ -10,3 +10,7 @@
 html {
     height: 100vh;
 }
+
+.slick-dots li.slick-active button:before {
+    color:White !important;
+}

@@ -14,7 +14,8 @@ export default function Banner({ movies }) {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 3000
+        autoplaySpeed: 3000,
+        color: "red"
     };
 
     return (
@@ -23,13 +24,16 @@ export default function Banner({ movies }) {
                 <div key={movie.id}>
                     <Flex
                         //CONTENIDO DE movie
-                        flexDirection="column"
-                        justifyContent="center"
-                        alignContent="center"
-                        boxSizing='border-box'
-                        bg="#00000069"
-                        w="100%"
-                        h="maxContent"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignContent="center"
+                    boxSizing='border-box'
+                    w="100%"
+                    h="maxContent"
+                    bg={`linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')`}
+                    backgroundPosition="top"
+                    backgroundSize="cover"
+                    backgroundRepeat="no-repeat"
                     >
                         <Flex
                             flexDirection="column"
