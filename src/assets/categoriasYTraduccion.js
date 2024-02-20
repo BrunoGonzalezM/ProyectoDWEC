@@ -59,5 +59,5 @@ export const traductor = {
     "Visual Effects" : "Efectos Visuales", 
     "Costume & Make-Up" : "Maquillaje",
     "Camera" : "Cámara",
-    "Writing" : "Escritura"
+    "Writing" : "Guión"
 }
