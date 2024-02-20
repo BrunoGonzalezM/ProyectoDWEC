@@ -213,10 +213,11 @@ export default function DetallesPelicula() {
                             </Flex>
                             <Flex
                                 // Mostrar creditos de la pelicula
-                                py="2em"
+                                pt="2em"
                                 overflow="hidden"
                                 zIndex="1"
                                 bg="#00000069"
+                                pb="10em"
                             >
                                 <Flex flex="3" flexDirection="column" h="20em" w="60%" pl="1em">
                                     <Box as="span" flex='1' textAlign='left'>
@@ -234,7 +235,7 @@ export default function DetallesPelicula() {
                                                 <Flex key={actor.id} borderRadius="md" flexDirection="column">
                                                     <Flex flexDir="column">
                                                         <Link to={`/personas/id/${actor.id}`}>
-                                                            {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} w="11em" borderRadius="0.5em 0.5em 0 0" />}
+                                                            {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} minW="11em" borderRadius="0.5em 0.5em 0 0" />}
                                                         </Link>
                                                     </Flex>
                                                     <Flex bg="#CC3344" justifyContent="center" alignItems="center" flexDirection="column" borderRadius="0 0 0.5em 0.5em" pt="1em">
