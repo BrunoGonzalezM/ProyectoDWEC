@@ -273,7 +273,7 @@ export default function DetallesPelicula() {
                                     <Text fontSize="24px" mx={5} color="whiteAlpha.900">
                                         Información adicional
                                     </Text>
-                                    <Box mx={5} pt="0.1em" color="whiteAlpha.900">
+                                    <Box mx={5} pt="0.1em" color="whiteAlpha.900" pb="1em">
                                         <Link to={detalles.homepage} target="_blank" rel="noopener noreferrer" title="Visita la página principal">
                                             <FaLink size={24} />
                                         </Link>
