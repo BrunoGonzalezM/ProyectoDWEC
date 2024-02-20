@@ -5,6 +5,8 @@ import CircleProgressBar from './CircleProgressBar';
 import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Accordion, AccordionButton, AccordionIcon, AccordionPanel, AccordionItem } from "@chakra-ui/react";
 import { traductor } from "../assets/categoriasYTraduccion.js";
 import { FaLink } from "react-icons/fa6";
+import Tarjeta from './Tarjeta';
+
 
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
@@ -13,24 +15,27 @@ export default function DetallesPelicula() {
     const [creditos, setCreditos] = useState({ cast: [] });
     const [keywords, setKeywords] = useState(null);
     const [similarMovies, setSimilarMovies] = useState(null);
+    const [recommendedMovies, setRecommendedMovies] = useState(null);
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [trailersData, detalles, creditos, keywords, similarMovies] = await Promise.all([
+                const [trailersData, detalles, creditos, keywords, similarMovies, recommendedMovies] = await Promise.all([
                     fetchMovieTrailers(id, true),
                     fetchMovieDetails(id, true),
                     fetchCreditos(id, true),
                     fetchKeywords(id),
-                    fetchSimilarMovies(id)
+                    fetchSimilarMovies(id, "similar"),
+                    fetchSimilarMovies(id, "recommendations")
                 ]);
                 setTrailers(trailersData);
                 setDetalles(detalles);
                 setCreditos(creditos);
                 setKeywords(keywords);
                 setSimilarMovies(similarMovies);
+                setRecommendedMovies(recommendedMovies);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -213,7 +218,7 @@ export default function DetallesPelicula() {
                                 zIndex="1"
                                 bg="#00000069"
                             >
-                                <Flex flex="3" flexDirection="column" h="20em" w="60%">
+                                <Flex flex="3" flexDirection="column" h="20em" w="60%" pl="1em">
                                     <Box as="span" flex='1' textAlign='left'>
                                         <Text fontSize="24px" mx={5} color="whiteAlpha.900">
                                             Reparto
@@ -224,22 +229,43 @@ export default function DetallesPelicula() {
                                         justifyContent="space-evenly"
                                         mt="2em"
                                     >
-                                        {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).slice(0, 5).map((actor) => (
-                                            <Flex key={actor.id} borderRadius="md" flexDirection="column">
-                                                <Flex flexDir="column">
-                                                    <Link to={`/personas/id/${actor.id}`}>
-                                                        {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} w="11em" borderRadius="0.5em 0.5em 0 0" />}
-                                                    </Link>
+                                        <Box display="flex" color="white" w="calc(100vw - 10em)" overflow="scroll" overflowY="hidden">
+                                            {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).map((actor) => (
+                                                <Flex key={actor.id} borderRadius="md" flexDirection="column">
+                                                    <Flex flexDir="column">
+                                                        <Link to={`/personas/id/${actor.id}`}>
+                                                            {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} w="11em" borderRadius="0.5em 0.5em 0 0" />}
+                                                        </Link>
+                                                    </Flex>
+                                                    <Flex bg="#CC3344" justifyContent="center" alignItems="center" flexDirection="column" borderRadius="0 0 0.5em 0.5em" pt="1em">
+                                                        <Link to={`/personas/id/${actor.id}`}>
+                                                            <Text fontWeight="bold" maxW="10em" textAlign="center">{actor.name}</Text>
+                                                        </Link>
+                                                        <Text maxW="10em" textAlign="center">{actor.character}</Text>
+                                                    </Flex>
                                                 </Flex>
-                                                <Flex bg="#CC3344" justifyContent="center" alignItems="center" flexDirection="column" borderRadius="0 0 0.5em 0.5em" pt="1em">
-                                                    <Link to={`/personas/id/${actor.id}`}>
-                                                        <Text fontWeight="bold" maxW="10em" textAlign="center">{actor.name}</Text>
-                                                    </Link>
-                                                    <Text maxW="10em" textAlign="center">{actor.character}</Text>
-                                                </Flex>
-                                            </Flex>
 
+                                            ))}
+                                        </Box>
+                                        
+                                    </Flex>
+                                    <Box as="span" flex='1' textAlign='left' pt="4em">
+                                        <Text fontSize="24px" mx={5} color="whiteAlpha.900">
+                                            Películas similares
+                                        </Text>
+                                    </Box>
+                                    <Flex
+                                        flexDirection="row"
+                                        justifyContent="space-evenly"
+                                        mt="2em"
+                                    >
+                                        <Box display="flex" color="white" w="calc(100vw - 10em)" overflow="scroll" overflowY="hidden">
+                                        {similarMovies.results.slice(0, 8).map((movie) => (
+                                                    <Link key={movie.id} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
+                                                            <Tarjeta movie={movie} conSlider />
+                                                    </Link>
                                         ))}
+                                        </Box>
                                     </Flex>
                                 </Flex>
                                 <Flex flex="1" flexDirection="column" p="2">
@@ -250,15 +276,16 @@ export default function DetallesPelicula() {
                                         <Link to={detalles.homepage} target="_blank" rel="noopener noreferrer" title="Visita la página principal">
                                             <FaLink size={24} />
                                         </Link>
+                                        {console.log(detalles.homepage)}
                                     </Box>
                                     {[
-                                        { titulo: 'Título original', value: detalles.original_title || "No hay título original para esta película" },
-                                        { titulo: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la película desconocido" },
-                                        { titulo: 'Presupuesto', value: detalles.budget ? (traductor[detalles.budget] || detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Presupuesto desconocido" },
-                                        { titulo: 'Ingresos', value: detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Ingresos desconocidos" }
-                                    ].map(({ titulo, value }, index) => (
+                                        { label: 'Título original', value: detalles.original_title || "No hay título original para esta película" },
+                                        { label: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la película desconocido" },
+                                        { label: 'Presupuesto', value: detalles.budget ? (traductor[detalles.budget] || detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Presupuesto desconocido" },
+                                        { label: 'Ingresos', value: detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Ingresos desconocidos" }
+                                    ].map(({ label, value }, index) => (
                                         <React.Fragment key={index}>
-                                            <Text fontSize="20px" mx={5} pt={index === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{titulo}</Text>
+                                            <Text fontSize="20px" mx={5} pt={index === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{label}</Text>
                                             <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{value}</Text>
                                         </React.Fragment>
                                     ))}
@@ -279,10 +306,10 @@ export default function DetallesPelicula() {
                                     {similarMovies && (
                                         <Flex flexDirection="column" pt="1em">
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900">
-                                                Películas similares
+                                                Recomendaciones
                                             </Text>
-                                            <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {similarMovies.results.slice(0, 8).map((movie) => (
+                                                <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
+                                                {recommendedMovies.results.slice(0, 8).map((movie) => (
                                                     <Link key={movie.id} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
                                                         <Button onClick={handleClick} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
                                                             {movie.title}
