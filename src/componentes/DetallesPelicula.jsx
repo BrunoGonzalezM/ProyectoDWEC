@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchPersonId } from '../funciones/fetch'; // Asegúrate de importar fetchPersonId
+import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchPersonId, fetchKeywords } from '../funciones/fetch'; // Asegúrate de importar fetchPersonId
 import CircleProgressBar from './CircleProgressBar';
 import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Accordion, AccordionButton, AccordionIcon, AccordionPanel, AccordionItem } from "@chakra-ui/react";
-import {traductor} from "../assets/categoriasYTraduccion.js"
+import { traductor } from "../assets/categoriasYTraduccion.js"
 
 export default function DetallesPelicula() {
     const [trailersData, setTrailers] = useState(null);
     const [error, setError] = useState(null);
     const [detalles, setDetalles] = useState(null);
     const [creditos, setCreditos] = useState({ cast: [] });
+    const [keywords, setKeywords] = useState(null);
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [trailersData, detalles, creditos] = await Promise.all([
+                const [trailersData, detalles, creditos, keywords] = await Promise.all([
                     fetchMovieTrailers(id, true),
                     fetchMovieDetails(id, true),
-                    fetchCreditos(id, true)
+                    fetchCreditos(id, true),
+                    fetchKeywords(id)
                 ]);
                 setTrailers(trailersData);
                 setDetalles(detalles);
                 setCreditos(creditos);
+                setKeywords(keywords)
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -146,7 +149,7 @@ export default function DetallesPelicula() {
                                                             <Stack direction='row' mx="1.2rem" >
                                                                 {detalles.genres.map((genre) => (
                                                                     <Link key={genre.id} to={`/categoria/${genre.id}`}>
-                                                                        <Badge _hover={{ transform: "scale(1.08)" }} transition="0.5s" colorScheme='green'>
+                                                                        <Badge _hover={{ transform: "scale(1.08)" }} transition="0.5s" bg="#CC3344" color="white">
                                                                             {genre.name}
                                                                         </Badge>
                                                                     </Link>
@@ -164,7 +167,7 @@ export default function DetallesPelicula() {
                                                             {Object.entries(personasPorTrabajo).map(([job, personas]) => (
                                                                 (job !== "Acting") && (
                                                                     <Box ml="1em" maxW="10em" noOfLines={2} >
-                                                                        <Text fontWeight="bold" color="gray.500">
+                                                                        <Text color="whiteAlpha.800">
                                                                             {traductor[job]}:
                                                                         </Text>
                                                                         {personas.map((persona, index) => (
@@ -182,7 +185,8 @@ export default function DetallesPelicula() {
                                                     {trailersData && trailersData.key && (
                                                         <Button
                                                             mx={5} mt={2}
-                                                            colorScheme='green'
+                                                            bg='#CC3344'
+                                                            color="white"
                                                             onClick={() => { window.open(`https://www.youtube.com/watch?v=${trailersData.key}`) }}
                                                         >
                                                             VER TRAILER
@@ -194,43 +198,102 @@ export default function DetallesPelicula() {
                                     }
                                 </Flex>
                             </Flex>
-                            <Box
+                            <Flex
                                 // Mostrar creditos de la pelicula
                                 py="2em"
                                 overflow="hidden"
                                 zIndex="1"
                                 bg="#00000069"
                             >
-                                <Accordion allowToggle>
-                                    <AccordionItem>
-                                        <AccordionButton>
-                                            <Box as="span" flex='1' textAlign='left'>
-                                                <Text fontSize={20}> Reparto </Text>
-                                            </Box>
-                                            <AccordionIcon />
-                                        </AccordionButton>
-                                        <AccordionPanel pb={4}>
-                                            <Flex
+                                <Flex flex="3" flexDirection="column" p="2">
+                                    <Accordion allowToggle>
+                                        <AccordionItem>
+                                            <AccordionButton>
+                                                <Box as="span" flex='1' textAlign='left'>
+                                                    <Text fontSize={20}> Reparto </Text>
+                                                </Box>
+                                                <AccordionIcon />
+                                            </AccordionButton>
+                                            <AccordionPanel pb={4}>
+                                                <Flex
+                                                    flexDirection="row"
+                                                    justifyContent="space-evenly"
+                                                    m="2em"
+                                                >
+                                                    {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).slice(0, 5).map((actor) => (
+                                                        <Box key={actor.id}>
+                                                            <Text>{actor.name}</Text>
+                                                            <br />
+                                                            <Link to={`/personas/id/${actor.id}`}>
+                                                                {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} borderRadius="md" alt={actor.name} />}
+                                                            </Link>
+                                                            <Text>Personaje:</Text>
+                                                            <Text noOfLines={1} w="12.5em">{actor.character}</Text>
+                                                        </Box>
+                                                    ))}
+                                                </Flex>
+                                            </AccordionPanel>
+                                        </AccordionItem>
+                                    </Accordion>
+                                </Flex>
+                                <Flex flex="1" flexDirection="column" p="2">
+                                    <Text fontSize="24px" mx={5} color="whiteAlpha.900">
+                                        Información adicional
+                                    </Text>
+                                    <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
+                                        Título original
+                                    </Text>
+                                    <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
+                                        {detalles.original_title ? detalles.original_title : "No hay título original para esta película"}
+                                    </Text>
+                                    <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
+                                        Estado
+                                    </Text>
+                                    <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
+                                        {detalles.status ? (traductor[detalles.status] || detalles.status) : "Estado de la película desconocido"}
+                                    </Text>
+                                    <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
+                                        Presupuesto
+                                    </Text>
+                                    <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
+                                        {detalles.budget ? (traductor[detalles.budget] || detalles.budget) : "Presupuesto desconocido"}
+                                    </Text>
+                                    <Text fontSize="20px" mx={5} pt="1em" color="whiteAlpha.900">
+                                        Ingresos
+                                    </Text>
+                                    <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">
+                                        {detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue) : "Ingresos desconocidos"} $
+                                    </Text>
+                                    {keywords && (
+                                        <Flex flexDirection="column" pt="1em">
+                                            <Text fontSize="20px" mx={5} color="whiteAlpha.900">
+                                                Palabras clave
+                                            </Text>
+                                            <Box
+                                                display="flex"
                                                 flexDirection="row"
-                                                justifyContent="space-evenly"
-                                                m="2em"
+                                                flexWrap="wrap"
+                                                pl="1em"
                                             >
-                                                {creditos && creditos.cast && creditos.cast.filter(actor => actor.profile_path).slice(0, 5).map((actor) => (
-                                                    <Box key={actor.id}>
-                                                        <Text>{actor.name}</Text>
-                                                        <br />
-                                                        <Link to={`/personas/id/${actor.id}`}>
-                                                            {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} borderRadius="md" alt={actor.name} />}
-                                                        </Link>
-                                                        <Text>Personaje:</Text>
-                                                        <Text noOfLines={1} w="12.5em">{actor.character}</Text>
-                                                    </Box>
+                                                {keywords.keywords.map((keyword) => (
+                                                    <Button
+                                                        key={keyword.id}
+                                                        m="0.3em" // Espacio entre los botones
+                                                        fontSize="14px" // Tamaño de la fuente
+                                                        color="white"
+                                                        bg="red.500" // Fondo rojo
+                                                        _hover={{ bg: 'red.600' }} // Cambio de color al pasar el mouse
+                                                        size="sm" // Tamaño pequeño
+                                                    >
+                                                        {keyword.name}
+                                                    </Button>
                                                 ))}
-                                            </Flex>
-                                        </AccordionPanel>
-                                    </AccordionItem>
-                                </Accordion>
-                            </Box>
+                                            </Box>
+                                        </Flex>
+                                    )}
+
+                                </Flex>
+                            </Flex>
                         </>
                     )}
                 </Flex>

@@ -51,5 +51,7 @@ export const traductor = {
     "Sound" : "Sonido",
     "Lighting" : "Luces",
     2: "Masculino",
-    1: "Femenino"
+    1: "Femenino", 
+    "Released" : "Estrenada",
+    "Post Production" : "Posproducción"
 }
