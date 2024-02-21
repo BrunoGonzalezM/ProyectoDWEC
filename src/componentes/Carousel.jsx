@@ -41,17 +41,17 @@ const Carousel = ({ title, items, conSlider }) => {
                             margin="0 auto" width="88vw" px="1em" ref={ref} maxW="113em"
                         >
                             {items.map((item, index) => (
-                                <>
+                                <Box key={index} >
                                     {item.poster_path &&
                                         <ListItem
-                                            key={index} backgroundColor="#00000030" {...(index == 0 ? { m: "0 2em 0 0" } : { mx: "2em" })}
+                                            backgroundColor="#00000030" {...(index == 0 ? { m: "0 2em 0 0" } : { mx: "2em" })}
                                             cursor="pointer" transition="1s" borderRadius="5px" w="12em"
                                             _hover={{ transform: "scale(1.08)", }}
                                         >
                                             <Tarjeta item={item} conSlider={true} />
                                         </ListItem>
                                     }
-                                </>
+                                </Box>
                             ))}
                         </UnorderedList>
                         {scroll < 3639 && (

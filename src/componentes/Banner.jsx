@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-import { Image, Heading, Text, Button, Stat, StatHelpText, StatArrow, Box, Flex} from '@chakra-ui/react';
+import { Image, Heading, Text, Button, Stat, StatHelpText, StatArrow, Box, Flex, useToast } from '@chakra-ui/react';
 import { TriangleUpIcon, StarIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 import { fetchMovieTrailers } from '../funciones/fetch';
 
@@ -18,14 +18,15 @@ export default function Banner({ movies }) {
         autoplaySpeed: 3000,
         appendDots: dots => (
             <div
-              style={{
-                borderRadius: "10px"
-              }}
+                style={{
+                    borderRadius: "10px"
+                }}
             >
-              <ul style={{ margin: "0px"  }}> {dots} </ul>
+                <ul style={{ margin: "0px" }}> {dots} </ul>
             </div>
-          ),
+        ),
     };
+    const toast = useToast()
     const [trailerData, setTrailers] = useState([]);
     const [error, setError] = useState(null);
     useEffect(() => {
@@ -122,11 +123,14 @@ export default function Banner({ movies }) {
                                                                         trailerData[index] ? (
                                                                             window.open(`https://www.youtube.com/watch?v=${trailerData[index].key}`)
                                                                         ) : (
-                                                                            alert("Lo siento! no hay trailer")
-                                                                        )
-                                                                    }
-                                                                }
-                                                                }
+                                                                            toast({
+                                                                                title: `No hay trailer`,
+                                                                                status: 'error',
+                                                                                isClosable: true,
+                                                                                position: 'top',
+                                                                            }))
+                                                                    }}}
+
                                                             >
                                                                 <TriangleUpIcon boxSize="2em" />
                                                             </Button>
