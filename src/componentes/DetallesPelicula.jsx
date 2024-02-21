@@ -63,7 +63,7 @@ export default function DetallesPelicula() {
         <>
             <Box
                 bg="#222222"
-                minH="93.3vh"
+                minH="100vh"
             >
                 <Flex
                     id="detallesPelicula"
@@ -151,11 +151,9 @@ export default function DetallesPelicula() {
                                                         </Text>
                                                         <Text fontSize="lg" mx={5} color="whiteAlpha.800">{detalles.certification}</Text>
                                                         {detalles.overview && (
-                                                            <>
-                                                                <Text fontSize="1xl" maxW={900} mx={5} pr="6em" pt="1em" color="whiteAlpha.800" noOfLines={6} >
-                                                                    {detalles.overview}
-                                                                </Text>
-                                                            </>
+                                                            <Text fontSize="1xl" maxW={900} mx={5} pr="6em" pt="1em" color="whiteAlpha.800" noOfLines={6} >
+                                                                {detalles.overview}
+                                                            </Text>
                                                         )}
                                                         {/* Imprimir generos */}
                                                         <Box mt="1em">
