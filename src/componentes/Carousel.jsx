@@ -25,43 +25,41 @@ const Carousel = ({ title, items, conSlider }) => {
             {conSlider ? (
                 <>
                     <Heading m="0 auto" w="85vw" pt="1em">{title}</Heading>
-
-                    <Flex className="MovieList" flexDirection="row" paddingInline="0em" alignItems="center">
-                        {scroll > 0 && (
-                            <Box
-                                position="absolute" left="0" h="fitContent" bg="#222222" opacity="60%"
-                                _hover={{ transform: "scale(1.2)", color: "white", bg: "#CC3344", opacity: "100%" }}
-                                transition=".4s" color="#a7a7a7" ml="2em" p="1em" borderRadius="full" zIndex="2"
-                            >
-                                <IoIosArrowBack className='left' onClick={handleMoveLeft} size={40} />
-                            </Box>
-                        )}
-                        <UnorderedList
-                            display="flex" listStyleType="none" overflow="hidden" padding="1em 0"
-                            margin="0 auto" width="88vw" px="1em" ref={ref} maxW="113em"
+                    <Flex className="MovieList" flexDirection="row" paddingInline="0em" alignItems="center" >
+                        <Box
+                            position="relative" left="0" h="fitContent" bg="#222222" opacity={scroll > 0 ? "0.6" : "0"}
+                            _hover={{ transform: "scale(1.2)", color: "white", bg: "#CC3344", opacity: "100%" }}
+                            transition=".4s" color="#a7a7a7"  p="1em" borderRadius="full" zIndex="2"  mr="-5em"
                         >
-                            {items.map((item, index) => (
-                                <Box key={index} >
-                                    {item.poster_path &&
-                                        <ListItem
-                                            backgroundColor="#00000030" {...(index == 0 ? { m: "0 2em 0 0" } : { mx: "2em" })}
-                                            cursor="pointer" transition="1s" borderRadius="5px" w="12em"
-                                            _hover={{ transform: "scale(1.08)", }}
-                                        >
-                                            <Tarjeta item={item} conSlider={true} />
-                                        </ListItem>
-                                    }
-                                </Box>
-                            ))}
-                        </UnorderedList>
-                        {scroll < 3639 && (
-                            <Box position="absolute" right="0" h="fitContent" bg="#222222" opacity="60%"
-                                _hover={{ transform: "scale(1.2)", color: "white", bg: "#CC3344", opacity: "100%" }}
-                                transition=".4s" color="#a7a7a7" mx="1em" p="1em" borderRadius="full"
+                            <IoIosArrowBack className='left' onClick={handleMoveLeft} size={40} />
+                        </Box>
+
+                        <Flex justifyContent="center" alignContent="center" w="100%" m="0 auto">
+                            <UnorderedList
+                                display="flex" listStyleType="none" overflow="hidden" padding="1em 0"
+                                margin="auto" ref={ref} maxW="75em" 
                             >
-                                <IoIosArrowForward className='right' onClick={handleMoveRight} size={40} />
-                            </Box>
-                        )}
+                                {items.map((item, index) => (
+                                    <Box key={index} >
+                                        {item.poster_path &&
+                                            <ListItem
+                                                backgroundColor="#00000030" {...(index == 0 ? { m: "0 2em 0 0" } : { mx: "2em" })}
+                                                cursor="pointer" transition="1s" borderRadius="5px" w="12em"
+                                                _hover={{ transform: "scale(1.08)", }}
+                                            >
+                                                <Tarjeta item={item} conSlider={true} />
+                                            </ListItem>
+                                        }
+                                    </Box>
+                                ))}
+                            </UnorderedList>
+                        </Flex>
+                        <Box position="absolute" right="0" h="fitContent" bg="#222222" opacity={scroll < 3639 ? "0.6" : "0"}
+                            _hover={{ transform: "scale(1.2)", color: "white", bg: "#CC3344", opacity: "100%" }}
+                            transition=".4s" color="#a7a7a7" mx="1em" p="1em" borderRadius="full"
+                        >
+                            <IoIosArrowForward className='right' onClick={handleMoveRight} size={40} />
+                        </Box>
                     </Flex>
                 </>
             ) : (

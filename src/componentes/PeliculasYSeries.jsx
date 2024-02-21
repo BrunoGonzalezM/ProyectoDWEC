@@ -41,16 +41,17 @@ function PeliculasYSeries({ isMovie }) {
             });
     }, [busqueda, id, page, isMovie]);
 
+    useEffect(() => {
+        setShowCarousel(!busqueda && !id);
+        setPage(1); //Resetear la página cuando cambie el tipo de contenido
+    }, [busqueda, id, isMovie]);
+
     const handleNextPage = () => {
         { page < 99 && (setPage(page + 1)) }
     };
     const handleBackPage = () => {
         { page > 1 && (setPage(page - 1)) }
     };
-
-    useEffect(() => {
-        setShowCarousel(!busqueda && !id);
-    }, [busqueda, id]);
 
     return (
         <Flex direction="column" alignItems="center" bg="#1c1c1c" p="2em" color="white">
@@ -60,6 +61,7 @@ function PeliculasYSeries({ isMovie }) {
             {error && <Text>Error: {error}</Text>}
             {busqueda && <Heading color="white" mb="1em">Resultados de: {busqueda}</Heading>}
             {id && <Heading color="white" mb="1em">Peliculas de la categoría: {categoriasImagenes[id][0]}</Heading>}
+            
             {((showCarousel || (movies && movies.length > 0))) && (
                 <>
                     <Carousel items={movies}  {...(isMovie ? true : false )} />
@@ -73,7 +75,7 @@ function PeliculasYSeries({ isMovie }) {
                     </Flex>
                 </>
             )}
-            {(!busqueda && !id && movies.length == 0 && !loading) && <Box>No se han encontrado películas</Box>}
+            {(!busqueda && !id && movies.length === 0 && !loading) && <Box>No se han encontrado películas</Box>}
         </Flex>
     );
 }

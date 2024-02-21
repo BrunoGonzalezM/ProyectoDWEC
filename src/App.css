@@ -5,6 +5,9 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Kanit';
+    scrollbar-width: auto;
+    scrollbar-color: #962633 #1a1a1a;
+    scroll-behavior: smooth;
 }
 
 html {
@@ -15,8 +18,11 @@ html {
     color: White !important;
 }
 
-* {
-    scrollbar-width: auto;
-    scrollbar-color: #962633 #1a1a1a;
-    scroll-behavior: smooth;
-  }
+.slick-dots li:not(.slick-active) button:before {
+    color: red !important;
+}
+
+.slick-dots li:hover {
+    transition: 0.2s;
+    transform: scale(1.5);
+}
