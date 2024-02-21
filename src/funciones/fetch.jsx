@@ -125,7 +125,7 @@ export const fetchMovieDetails = async (id, isMovie) => {
         if (!response.ok) {
             throw new Error("Error al encontrar los detalles")
         }
-        if(!data.overview){
+        if (!data.overview) {
             const response2 = await fetch(`${urlAPIv3}/${type}/${id}`, options)
             const data2 = await response2.json()
             return data2;
@@ -142,9 +142,12 @@ export const fetchMovieTrailers = async (id, isMovie) => {
         const response = await fetch(`${urlAPIv3}/${type}/${id}/videos?language=es-ES`, options)
         const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error("Error al encontrar el trailer")
-        }
+        // if (!response.ok) {
+        //     const response2 = await fetch(`${urlAPIv3}/${type}/${id}/videos`, options)
+        //     const data2 = await response2.json();
+        //     const trailers2 = data2.results.filter(result => result.type === "Trailer");
+        //     return trailers2[0];
+        // }
         const trailers = data.results.filter(result => result.type === "Trailer");
 
         return trailers[0];
@@ -155,52 +158,52 @@ export const fetchMovieTrailers = async (id, isMovie) => {
 };
 
 export const fetchPersonId = async (id) => {
-    try{
+    try {
         const response = await fetch(`${urlAPIv3}/person/${id}?language=es-ES`, options)
         const data = await response.json();
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error("Error al encontrar a la persona")
         }
-        if(!data.biography){
+        if (!data.biography) {
             const response2 = await fetch(`${urlAPIv3}/person/${id}`, options)
             const data2 = await response2.json();
             return data2;
         }
         return data;
-    }catch (err){
+    } catch (err) {
         console.log(err);
         throw err;
     }
 };
 
 export const fetchPersonCredits = async (id) => {
-    try{
+    try {
         const response = await fetch(`${urlAPIv3}/person/${id}/combined_credits?language=es-ES`, options)
         const data = await response.json();
         return data;
-    }catch(err){
+    } catch (err) {
         console.log(err);
         throw err;
     }
 };
 
 export const fetchKeywords = async (id) => {
-    try{
+    try {
         const response = await fetch(`${urlAPIv3}/movie/${id}/keywords?language=es-ES`, options)
         const data = await response.json();
         return data;
-    }catch(err){
+    } catch (err) {
         console.log(err);
         throw err;
     }
 };
 
 export const fetchSimilarMovies = async (id, tipo) => {
-    try{
+    try {
         const response = await fetch(`${urlAPIv3}/movie/${id}/${tipo}?language=es-ES`, options)
         const data = await response.json();
         return data;
-    }catch(err){
+    } catch (err) {
         console.log(err);
         throw err;
     }

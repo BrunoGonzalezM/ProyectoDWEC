@@ -14,7 +14,7 @@ export default function Personas() {
     const [peliculasPersona, setPeliculasPersona] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [showAllBiography, setShowAllBiography] = useState(false);
+    const [mostrarDescripcion, setMostrarDescripcion] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -55,12 +55,9 @@ export default function Personas() {
                     <Box flex="1" p="2">
                         <Image
                             src={persona.profile_path ? `${imgURL}${persona.profile_path}` : nofoundimg}
-                            alt="Imagen de perfil"
-                            borderRadius="md"
+                            alt="Imagen de perfil" borderRadius="md"
                         />
-                        <Text fontSize="24px" mx={5} pt="2em" color="whiteAlpha.900">
-                            Información personal
-                        </Text>
+                        <Text fontSize="24px" mx={5} pt="2em" color="whiteAlpha.900"> Información personal </Text>
                         {[
                             { label: 'Conocido por', value: persona.known_for_department ? (traductor[persona.known_for_department] || persona.known_for_department) : "-" },
                             { label: 'Sexo', value: persona.gender ? (traductor[persona.gender] || persona.gender) : "-" },
@@ -71,31 +68,33 @@ export default function Personas() {
                         ].map(({ label, value }, index) => (
                             <React.Fragment key={index}>
                                 <Text fontSize="20px" mx={5} pt={index === 0 ? "1em" : "2em"} color="whiteAlpha.900">{label}</Text>
-                                <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{value}</Text>
+                                <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.600">{value}</Text>
                             </React.Fragment>
                         ))}
                         <Text fontSize="20px" mx={5} pt="2em" color="whiteAlpha.900">También conocido como</Text>
-                        {persona.also_known_as && persona.also_known_as.length > 0 ? (
+                        {persona.also_known_as.length > 0 ? (
                             persona.also_known_as.map((alias, index) => (
-                                <Text key={index} fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{alias}</Text>
+                                <Text key={index} fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.600">{alias}</Text>
                             ))
                         ) : (
                             <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">No hay información adicional sobre otros nombres conocidos.</Text>
                         )}
                     </Box>
-                    <Box flex="3" p="2">
+                    <Box flex="3" p="2" >
                         {/* DESCRIPCION DE PERSONA */}
-                        <Text fontSize="32px" mx={5} color="whiteAlpha.900" fontWeight="bold">
-                            {persona.name}
+                        <Text fontSize="32px" mx={5} color="whiteAlpha.900" fontWeight="bold" >
+                            {persona.name} 
                         </Text>
                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">Biografía</Text>
-                        <Text fontSize="lg" mx={5} pt="1em" color="whiteAlpha.800" noOfLines={showAllBiography ? undefined : 6} pr="4.5em" textAlign="justify">
+                        <Text fontSize="lg" mx={5} pt="1em" color="whiteAlpha.800" lineHeight="1.5em" noOfLines={mostrarDescripcion ? undefined : 6} pr="4.5em" textAlign="justify">
                             {persona.biography ? persona.biography : "No tenemos información sobre la biografía de esta persona."}
                         </Text>
-                        <Button onClick={() => setShowAllBiography(!showAllBiography)} bg="#CC3344" mt="1em" color="whiteAlpha.900" ml="1em">
-                            {showAllBiography ? "LEER MENOS" : "LEER MÁS"}
-                        </Button>
 
+                        {persona.biography.length > 825 &&
+                            <Button onClick={() => setMostrarDescripcion(!mostrarDescripcion)} bg="#CC3344" m="1em" color="whiteAlpha.900" _hover={{ bg: 'red.800' }} >
+                                {mostrarDescripcion ? "LEER MENOS" : "LEER MÁS"}
+                            </Button>
+                        }
                         <Divider pt="2.5em" />
 
                         {/* PARTICIPACIONES */}
@@ -103,13 +102,19 @@ export default function Personas() {
                         <Box display="flex" color="white" w="calc(100vw - 30em)" overflow="scroll" overflowY="hidden">
                             {peliculasPersona.cast && peliculasPersona.cast.slice(0, 10).map((pelicula, index) => (
                                 <Box key={index} m="1em" >
-                                    <Link to={`/pelicula/id/${pelicula.id}`} >
-                                        <Tarjeta movie={pelicula} />
-                                    </Link>
+                                    {pelicula.media_type == "movie" ? (
+                                        <Link to={`/pelicula/id/${pelicula.id}`} >
+                                            <Tarjeta movie={pelicula} />
+                                        </Link>
+                                    ) : (
+                                        <Link to={`/serie/id/${pelicula.id}`} >
+                                            <Tarjeta movie={pelicula} />
+                                        </Link>
+                                    )}
                                 </Box>
                             ))}
                         </Box>
-                        
+
                     </Box>
                 </Flex>
             )
