@@ -18,15 +18,14 @@ export default function Banner({ movies }) {
         autoplaySpeed: 3000,
         appendDots: dots => (
             <div
-                style={{
-                    borderRadius: "10px"
-                }}
+                style={{ borderRadius: "10px" }}
             >
-                <ul style={{ margin: "0px" }}> {dots} </ul>
+                <ul> {dots} </ul>
             </div>
         ),
     };
     const toast = useToast()
+    const id = 'test-toast'
     const [trailerData, setTrailers] = useState([]);
     const [error, setError] = useState(null);
     useEffect(() => {
@@ -117,20 +116,17 @@ export default function Banner({ movies }) {
                                                                 width="5em" height="5em"
                                                                 transform="rotate(90deg)" aspectRatio="4/4"
                                                                 borderRadius="full" _hover={{ transform: "scale(1.2) rotate(90deg)" }}
-                                                                //SI HAY TRAILER EN LA PELICULA LA ABRE, SINO SALE UN ALERT.
+                                                                //SI HAY TRAILER EN LA PELICULA LA ABRE, SINO SALE UN TOAST ERROR.
                                                                 onClick={() => {
-                                                                    {
-                                                                        trailerData[index] ? (
-                                                                            window.open(`https://www.youtube.com/watch?v=${trailerData[index].key}`)
-                                                                        ) : (
-                                                                            toast({
-                                                                                title: `No hay trailer`,
-                                                                                status: 'error',
-                                                                                isClosable: true,
-                                                                                position: 'top',
-                                                                            }))
-                                                                    }}}
-
+                                                                    if (trailerData[index]) {
+                                                                        window.open(`https://www.youtube.com/watch?v=${trailerData[index].key}`);
+                                                                    } else {
+                                                                        if (!toast.isActive(id)) {
+                                                                            toast({ id, title: `No hay trailer`, containerStyle: { marginTop: "5em" },
+                                                                            status: 'error', position: 'top', duration: 1200,} );
+                                                                        }
+                                                                    }
+                                                                }}
                                                             >
                                                                 <TriangleUpIcon boxSize="2em" />
                                                             </Button>
