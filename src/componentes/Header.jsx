@@ -43,16 +43,16 @@ const Header = () => {
                     fontWeight={700}
                 >
                     <Flex
-                        h="maxContent"
+                        h="3em"
                         bg="#CC3344"
                         alignItems="center"
                         justifyContent="space-between"
-                        overflow="hidden"
+                        overflowY="hidden"
                         px="1em"
                     >
                         <Flex w="4em">
                             <Link to={`/inicio`}>
-                                <Image borderRadius="100%" src={logo} alt='Logo' w="100%" aspectRatio="4/4" filter="invert(1)" p="0.5em" mx="1em" transition="0.2s" _hover={{ transform: "scale(1.3)" }} />
+                                <Image src={logo} alt='Logo' w="100%" aspectRatio="4/4" filter="invert(1)" p="0.5em" mx="1em" transition="0.2s" _hover={{ transform: "scale(1.1)" }} />
                             </Link>
                         </Flex>
                         <Flex

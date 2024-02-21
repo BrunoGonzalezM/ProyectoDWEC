@@ -94,25 +94,13 @@ export default function Personas() {
                                 {mostrarDescripcion ? "LEER MENOS" : "LEER MÁS"}
                             </Button>
                         }
+                        
                         <Divider pt="2.5em" />
 
                         {/* PARTICIPACIONES */}
                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">Participó en</Text>
                         <Box display="flex" color="white" w="calc(100vw - 30em)" overflow="hidden" overflowY="hidden">
                             <Carousel conSlider items={peliculasPersona.cast} isMovie />
-                            {/* {peliculasPersona.cast && peliculasPersona.cast.slice(0, 10).map((pelicula, index) => (
-                                <Box key={index} m="1em" >
-                                    {pelicula.media_type == "movie" ? (
-                                        <Link to={`/pelicula/id/${pelicula.id}`} >
-                                            <Tarjeta movie={pelicula} />
-                                        </Link>
-                                    ) : (
-                                        <Link to={`/serie/id/${pelicula.id}`} >
-                                            <Tarjeta movie={pelicula} />
-                                        </Link>
-                                    )}
-                                </Box>
-                            ))} */}
                         </Box>
 
                     </Box>
