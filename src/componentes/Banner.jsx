@@ -15,7 +15,16 @@ export default function Banner({ movies }) {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 3000
+        autoplaySpeed: 3000,
+        appendDots: dots => (
+            <div
+              style={{
+                borderRadius: "10px"
+              }}
+            >
+              <ul style={{ margin: "0px"  }}> {dots} </ul>
+            </div>
+          ),
     };
     const [trailerData, setTrailers] = useState([]);
     const [error, setError] = useState(null);

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchKeywords, fetchSimilarMovies } from '../funciones/fetch'; // Asegúrate de importar fetchPersonId
+import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchKeywords, fetchSimilarMovies } from '../funciones/fetch';
 import CircleProgressBar from './CircleProgressBar';
-import { Box, Button, Heading, Text, Flex, Image, Stack, Badge} from "@chakra-ui/react";
+import { Box, Button, Heading, Text, Flex, Image, Stack, Badge } from "@chakra-ui/react";
 import { traductor } from "../assets/categoriasYTraduccion.js";
 import { FaLink } from "react-icons/fa6";
 import Tarjeta from './Tarjeta';
@@ -65,13 +65,13 @@ export default function DetallesPelicula() {
                 <Flex
                     id="detallesPelicula" bg="#222222" color="white"
                     flexDirection="column" justifyContent="center"
-                    alignContent="center" h="100%" overflowX="hidden" 
+                    alignContent="center" h="100%" overflowX="hidden"
                 >
                     {detalles && detalles.title && (
                         <>
                             <Box
                                 // Imagen de fondo difuminada
-                                w="100vw" h="34em" 
+                                w="100vw" h="34em"
                                 backgroundImage={`url(${`https://image.tmdb.org/t/p/original/`}${detalles.backdrop_path})`}
                                 backgroundPosition="top" backgroundSize="cover" backgroundRepeat="no-repeat" opacity="25%"
                             >
@@ -79,7 +79,7 @@ export default function DetallesPelicula() {
                             <Flex
                                 // Container de detalles
                                 position="absolute" top="8em" flexDirection="column" justifyContent="center"
-                                alignContent="center" boxSizing='border-box' w="100%" px="2em" 
+                                alignContent="center" boxSizing='border-box' w="100%" px="2em"
                             >
                                 <Flex flexDirection="column" justifyContent="center" alignContent="center" px={10} >
                                     {detalles.poster_path &&
@@ -198,9 +198,7 @@ export default function DetallesPelicula() {
                                             <Flex flexDirection="row" mt="2em" justifyContent="flex-start" >
                                                 <Box display="flex" color="white" overflow="auto" overflowY="hidden">
                                                     {similarMovies.results.slice(0, 8).map((movie) => (
-                                                        <Link key={movie.id} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none', marginBottom: "2em" }}>
-                                                            <Tarjeta movie={movie} conSlider />
-                                                        </Link>
+                                                        <Tarjeta item={movie} conSlider />
                                                     ))}
                                                 </Box>
                                             </Flex>

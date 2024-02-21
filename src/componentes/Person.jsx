@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Slider from "react-slick";
 import { useParams, Link } from 'react-router-dom';
 import { fetchPersonId, fetchPersonCredits } from '../funciones/fetch';
 import { Box, Image, Flex, Text, Button, Divider } from "@chakra-ui/react";
 import { traductor } from '../assets/categoriasYTraduccion';
-import Tarjeta from './Tarjeta';
 import nofoundimg from "../assets/nofoundimg.png"
+import Carousel from "../componentes/Carousel"
 const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
 export default function Personas() {
@@ -83,7 +82,7 @@ export default function Personas() {
                     <Box flex="3" p="2" >
                         {/* DESCRIPCION DE PERSONA */}
                         <Text fontSize="32px" mx={5} color="whiteAlpha.900" fontWeight="bold" >
-                            {persona.name} 
+                            {persona.name}
                         </Text>
                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">Biografía</Text>
                         <Text fontSize="lg" mx={5} pt="1em" color="whiteAlpha.800" lineHeight="1.5em" noOfLines={mostrarDescripcion ? undefined : 6} pr="4.5em" textAlign="justify">
@@ -99,8 +98,9 @@ export default function Personas() {
 
                         {/* PARTICIPACIONES */}
                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">Participó en</Text>
-                        <Box display="flex" color="white" w="calc(100vw - 30em)" overflow="scroll" overflowY="hidden">
-                            {peliculasPersona.cast && peliculasPersona.cast.slice(0, 10).map((pelicula, index) => (
+                        <Box display="flex" color="white" w="calc(100vw - 30em)" overflow="hidden" overflowY="hidden">
+                            <Carousel conSlider items={peliculasPersona.cast} isMovie />
+                            {/* {peliculasPersona.cast && peliculasPersona.cast.slice(0, 10).map((pelicula, index) => (
                                 <Box key={index} m="1em" >
                                     {pelicula.media_type == "movie" ? (
                                         <Link to={`/pelicula/id/${pelicula.id}`} >
@@ -112,7 +112,7 @@ export default function Personas() {
                                         </Link>
                                     )}
                                 </Box>
-                            ))}
+                            ))} */}
                         </Box>
 
                     </Box>

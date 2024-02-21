@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { moviesPopular, moviesTrending, moviesTopRated, moviesNowPlaying } from "../funciones/fetch";
 import { Flex, Box, Spinner } from "@chakra-ui/react";
 import Banner from './Banner';
-import MovieCarousel from './MovieCarousel';
+import Carousel from './Carousel';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -52,10 +52,10 @@ const Home = () => {
             <>
               <Banner movies={moviesTrend} />
               <Box p="1em">
-                <MovieCarousel conSlider title="Populares" movies={movies} />
-                <MovieCarousel conSlider title="Mejor valoradas" movies={moviesTop} />
-                <MovieCarousel conSlider title="Más vistas" movies={moviesNowPlay} />
-                <MovieCarousel conSlider title="Tendencias" movies={moviesTrend} />
+                <Carousel conSlider title="Populares" items={movies} />
+                <Carousel conSlider title="Mejor valoradas" items={moviesTop} />
+                <Carousel conSlider title="Más vistas" items={moviesNowPlay} />
+                <Carousel conSlider title="Tendencias" items={moviesTrend} />
               </Box>
             </>
           )}
