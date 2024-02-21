@@ -99,7 +99,7 @@ export default function Personas() {
 
                         {/* PARTICIPACIONES */}
                         <Text fontSize="24px" mx={5} pt="1em" color="whiteAlpha.900">Participó en</Text>
-                        <Box display="flex" color="white" w="calc(100vw - 30em)" overflow="hidden" overflowY="hidden">
+                        <Box display="flex" color="white" w="calc(100vw - 30em)"  overflowX="hidden" p="1em">
                             <Carousel conSlider items={peliculasPersona.cast} isMovie />
                         </Box>
 

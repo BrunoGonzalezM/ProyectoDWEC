@@ -29,7 +29,7 @@ const Carousel = ({ title, items, conSlider }) => {
                         <Box
                             position="relative" left="0" h="fitContent" bg="#222222" opacity={scroll > 0 ? "0.6" : "0"}
                             _hover={{ transform: "scale(1.2)", color: "white", bg: "#CC3344", opacity: "100%" }}
-                            transition=".4s" color="#a7a7a7"  p="1em" borderRadius="full" zIndex="2"  mr="-5em"
+                            transition=".4s" color="#a7a7a7"  p="1em" borderRadius="full" zIndex="2" 
                         >
                             <IoIosArrowBack className='left' onClick={handleMoveLeft} size={40} />
                         </Box>
@@ -37,7 +37,7 @@ const Carousel = ({ title, items, conSlider }) => {
                         <Flex justifyContent="center" alignContent="center" w="100%" m="0 auto">
                             <UnorderedList
                                 display="flex" listStyleType="none" overflow="hidden" padding="1em 0"
-                                margin="auto" ref={ref} maxW="75em" 
+                                margin="auto" ref={ref} maxW="75em" mr="6em" 
                             >
                                 {items.map((item, index) => (
                                     <Box key={index} >
