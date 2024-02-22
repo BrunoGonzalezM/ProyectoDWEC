@@ -135,14 +135,14 @@ export default function DetallesSeries() {
                                                         {/* Personas involucradas:  */}
                                                         <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
                                                             {detalles && detalles.created_by && (
-                                                            <Box mr="1em" maxW="13em" noOfLines={3}>
-                                                                <Text color="whiteAlpha.900">Creado por:</Text>
+                                                                <Box mr="1em" maxW="13em" noOfLines={3}>
+                                                                    <Text color="whiteAlpha.900">Creado por:</Text>
                                                                     {detalles.created_by.map((creador) => (
                                                                         <Link key={creador.id} to={`/personas/id/${creador.id}`}>
                                                                             <Text fontSize="18px" color="whiteAlpha.800">{creador.name}</Text>
                                                                         </Link>
                                                                     ))}
-                                                            </Box>
+                                                                </Box>
                                                             )}
                                                         </Flex>
                                                     </Box>
@@ -167,7 +167,7 @@ export default function DetallesSeries() {
                             <Flex pt="2em" overflow="hidden" bg="#00000069" pb="10em" >
                                 {/* REPARTO */}
                                 <Flex w="80%" flexDirection="column" h="20em" pl="1em" >
-                                <Text fontSize="24px" mx={2} color="whiteAlpha.900" > Reparto </Text>
+                                    <Text fontSize="24px" mx={2} color="whiteAlpha.900" > Reparto </Text>
                                     <Flex justifyContent="flex-start" my="2em"  >
                                         <Box display="flex" color="white" overflowX="auto" overflowY="hidden">
                                             {creditos.cast.filter(actor => actor.profile_path).map(actor => (
@@ -226,7 +226,7 @@ export default function DetallesSeries() {
                                         <Flex flexDirection="column" pt="1em">
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900"> Palabras clave </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {keywords.results.slice(0,12).map((keyword) => {
+                                                {keywords.results.slice(0, 12).map((keyword) => {
                                                     const primeraPalabra = keyword.name.split(" ")[0];
                                                     return (
                                                         <Link to={`/search/${primeraPalabra}`} key={keyword.id}>
@@ -257,6 +257,23 @@ export default function DetallesSeries() {
                                             </Box>
                                         </Flex>
                                     )}
+                                    {watchProviders && Object.keys(watchProviders.results).map(countryCode => {
+                                        const providers = watchProviders.results[countryCode].flatrate;
+                                        const spanishProvider = providers.find(provider => provider.provider_name.toLowerCase().includes('español'));
+                                        if (spanishProvider) {
+                                            const providerId = spanishProvider.provider_id;
+                                            // Aquí puedes usar el providerId como desees
+                                            return (
+                                                <div key={countryCode}>
+                                                    <p>Proveedor en español encontrado para {countryCode}: {providerId}</p>
+                                                </div>
+                                            );
+                                            console.log("Watch Providers:", watchProviders);
+
+                                        } else {
+                                            return null; // Si no se encuentra ningún proveedor en español para este país
+                                        }
+                                    })}
                                 </Flex>
                             </Flex>
                         </>

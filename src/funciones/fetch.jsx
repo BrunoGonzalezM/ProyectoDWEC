@@ -213,7 +213,7 @@ export const fetchSimilarMovies = async (id, tipo, isMovie) => {
 export const fetchWatchProviders = async (id, isMovie) => {
     try{
         const type = isMovie == true ? "movie" : "tv"
-        const response = await fetch (`${urlAPIv3}/${type}/${id}/watch/providers?language=es-ES`, options)
+        const response = await fetch (`${urlAPIv3}/${type}/${id}/watch/providers`, options)
         const data = await response.json();
         return data;
     }catch(err){
