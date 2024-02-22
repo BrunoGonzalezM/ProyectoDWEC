@@ -59,5 +59,15 @@ export const traductor = {
     "Visual Effects" : "Efectos Visuales", 
     "Costume & Make-Up" : "Maquillaje",
     "Camera" : "Cámara",
-    "Writing" : "Guión"
+    "Writing" : "Guión",
+    "Ended" : "Finalizada",
+    "Scripted" : "Con guión",
+    "Returning Series" : "En emisión",
+    "en" : "Inglés",
+    "es" : "Español",
+    "Canceled" : "Cancelada",
+    "ja" : "Japonés",
+    "Miniseries" : "Miniserie",
+    "ca" : "Catalán",
+    "ko" : "Coreano"
 }

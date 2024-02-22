@@ -26,9 +26,9 @@ export default function DetallesPelicula() {
                     fetchMovieTrailers(id, true),
                     fetchMovieDetails(id, true),
                     fetchCreditos(id, true),
-                    fetchKeywords(id),
-                    fetchSimilarMovies(id, "similar"),
-                    fetchSimilarMovies(id, "recommendations")
+                    fetchKeywords(id, true),
+                    fetchSimilarMovies(id, "similar", true),
+                    fetchSimilarMovies(id, "recommendations", true)
                 ]);
                 setTrailers(trailersData);
                 setDetalles(detalles);

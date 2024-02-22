@@ -187,9 +187,10 @@ export const fetchPersonCredits = async (id) => {
     }
 };
 
-export const fetchKeywords = async (id) => {
+export const fetchKeywords = async (id, isMovie) => {
     try {
-        const response = await fetch(`${urlAPIv3}/movie/${id}/keywords?language=es-ES`, options)
+        const type = isMovie == true ? "movie" : "tv"
+        const response = await fetch(`${urlAPIv3}/${type}/${id}/keywords?language=es-ES`, options)
         const data = await response.json();
         return data;
     } catch (err) {
@@ -198,9 +199,10 @@ export const fetchKeywords = async (id) => {
     }
 };
 
-export const fetchSimilarMovies = async (id, tipo) => {
+export const fetchSimilarMovies = async (id, tipo, isMovie) => {
     try {
-        const response = await fetch(`${urlAPIv3}/movie/${id}/${tipo}?language=es-ES`, options)
+        const type = isMovie == true ? "movie" : "tv"
+        const response = await fetch(`${urlAPIv3}/${type}/${id}/${tipo}?language=es-ES`, options)
         const data = await response.json();
         return data;
     } catch (err) {
