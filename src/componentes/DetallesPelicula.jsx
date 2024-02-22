@@ -123,7 +123,7 @@ export default function DetallesPelicula() {
                                                         {/* Generos */}
                                                         <Box mt="1em">
                                                             <Stack direction='row' mx="1.2rem" >
-                                                                {detalles.genres.map((genre) => (
+                                                                {detalles.genres.map((genre,i) => (
                                                                     <Link key={genre.id} to={`/categoria/${genre.id}`}>
                                                                         <Badge _hover={{ transform: "scale(1.08)" }} transition="0.5s" bg="#CC3344" color="white">
                                                                             {genre.name}
@@ -133,32 +133,29 @@ export default function DetallesPelicula() {
                                                             </Stack>
                                                         </Box>
                                                         {/* Personas involucradas:  */}
-                                                        <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
-                                                            {Object.entries(personasPorTrabajo).map(([job, personas], index) => (
+                                                        {/* <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
+                                                            {Object.entries(personasPorTrabajo).map(([job, personas],index) => (
                                                                 (job !== "Acting") && (
                                                                     <Box mr="1em" maxW="13em" key={index} noOfLines={3} >
                                                                         <Text color="whiteAlpha.800">
                                                                             {traductor[job] ? traductor[job] : job}:
                                                                         </Text>
-                                                                        {personas.map((persona, index) => (
+                                                                        {personas.map((persona, i) => (
                                                                             <span key={persona.id}>
                                                                                 <Link to={`/personas/id/${persona.id}`} >
-                                                                                    {persona.name}{index !== personas.length - 1 && ', '}
+                                                                                    {persona.name}{i !== personas.length - 1 && ', '}
                                                                                 </Link>
                                                                             </span>
                                                                         ))}
                                                                     </Box>
                                                                 )
                                                             ))}
-                                                        </Flex>
+                                                        </Flex> */}
                                                     </Box>
                                                     {/* Mostrar trailer si es que hay*/}
                                                     {trailersData && trailersData.key && (
                                                         <Button
-                                                            mx={5} mt={2}
-                                                            bg='#CC3344'
-                                                            color="white"
-                                                            _hover={{ bg: 'red.800' }}
+                                                            mx={5} mt={2} bg='#CC3344' color="white" _hover={{ bg: 'red.800' }}
                                                             onClick={() => { window.open(`https://www.youtube.com/watch?v=${trailersData.key}`) }}
                                                         >
                                                             VER TRAILER
@@ -176,7 +173,7 @@ export default function DetallesPelicula() {
                                     <Text fontSize="24px" mx={2} color="whiteAlpha.900" > Reparto </Text>
                                     <Flex justifyContent="flex-start" my="2em"  >
                                         <Box display="flex" color="white" overflowX="auto" overflowY="hidden">
-                                            {creditos.cast.filter(actor => actor.profile_path).map(actor => (
+                                            {creditos.cast.filter(actor => actor.profile_path).map((actor) => (
                                                 <Flex key={actor.id} flexDirection="column" mx="1em">
                                                     <Link to={`/personas/id/${actor.id}`} style={{ borderRadius: "0.5em 0.5em 0 0", overflow: "hidden" }} >
                                                         {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} minW="11em" transition="0.4s" _hover={{ transform: "scale(1.1)" }} borderRadius="0.5em 0.5em 0 0" />}
@@ -198,7 +195,7 @@ export default function DetallesPelicula() {
                                             <Flex flexDirection="row" mt="2em" justifyContent="flex-start" >
                                                 <Box display="flex" color="white" overflow="auto" overflowY="hidden">
                                                     {similarMovies.results.slice(0, 8).map((movie) => (
-                                                        <Tarjeta item={movie} conSlider />
+                                                        <Tarjeta item={movie} key={movie.id} conSlider />
                                                     ))}
                                                 </Box>
                                             </Flex>
@@ -210,7 +207,7 @@ export default function DetallesPelicula() {
                                     <Box>
                                         <Text fontSize="24px" mx={5} color="whiteAlpha.900"> Información adicional </Text>
                                         <Box mx={5} pt="0.1em" color="whiteAlpha.900" pb="1em">
-                                            <Link to={detalles.homepage} target="_blank" rel="noopener noreferrer" title="Visita la página principal">
+                                            <Link to={detalles.homepage} target="_blank" title="Visita la página principal">
                                                 <FaLink size={24} mb="1em" />
                                             </Link>
                                         </Box>
@@ -220,11 +217,11 @@ export default function DetallesPelicula() {
                                             { label: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la película desconocido" },
                                             { label: 'Presupuesto', value: detalles.budget ? (traductor[detalles.budget] || detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Presupuesto desconocido" },
                                             { label: 'Ingresos', value: detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Ingresos desconocidos" }
-                                        ].map(({ label, value }, index) => (
-                                            <React.Fragment key={index}>
-                                                <Text fontSize="20px" mx={5} pt={index === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{label}</Text>
+                                        ].map(({ label, value }, i) => (
+                                            <Box key={i}>
+                                                <Text fontSize="20px" mx={5} pt={i === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{label}</Text>
                                                 <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{value}</Text>
-                                            </React.Fragment>
+                                            </Box>
                                         ))}
                                     </Box>
                                     {/* PALABRAS CLAVE */}
@@ -232,18 +229,14 @@ export default function DetallesPelicula() {
                                         <Flex flexDirection="column" pt="1em">
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900"> Palabras clave </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {keywords.keywords.map((keyword) => {
-                                                    const primeraPalabra = keyword.name.split(" ")[0];
-                                                    return (
-                                                        <Link to={`/search/${primeraPalabra}`} key={keyword.id}>
-                                                            <Button m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
-                                                                {primeraPalabra}
-                                                            </Button>
-                                                        </Link>
-                                                    );
-                                                })}
+                                                {keywords.keywords.map((keyword, i) => (
+                                                    <Link to={`/search/${keyword}`} key={i}>
+                                                        <Button m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
+                                                            {keyword.name}
+                                                        </Button>
+                                                    </Link>
+                                                ))}
                                             </Box>
-
                                         </Flex>
                                     )}
                                     {/* PELICULAS RECOMENDADAS */}
@@ -253,8 +246,8 @@ export default function DetallesPelicula() {
                                                 Recomendaciones
                                             </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {recommendedMovies.results.slice(0, 8).map((movie) => (
-                                                    <Link key={movie.id} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
+                                                {recommendedMovies.results.slice(0, 8).map((movie, i) => (
+                                                    <Link key={i} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
                                                         <Button onClick={handleClick} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
                                                             {movie.title}
                                                         </Button>

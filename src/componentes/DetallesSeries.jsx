@@ -149,8 +149,7 @@ export default function DetallesSeries() {
                                                     {/* Mostrar trailer si es que hay*/}
                                                     {trailersData && trailersData.key && (
                                                         <Button
-                                                            mx={5} mt={2}
-                                                            bg='#CC3344'
+                                                            mx={5} mt={2} bg='#CC3344'
                                                             color="white"
                                                             _hover={{ bg: 'red.800' }}
                                                             onClick={() => { window.open(`https://www.youtube.com/watch?v=${trailersData.key}`) }}
@@ -211,21 +210,15 @@ export default function DetallesSeries() {
                                         {/* Contenido aside derecho con detalles adicionales de la pelicula o serie */}
                                         {[
                                             { label: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la serie desconocido" },
-                                            { 
-                                                label: 'Canal', 
+                                            {
+                                                label: 'Canal',
                                                 value: (
                                                     <>
-                                                        {watchProviders && watchProviders.results.ES && watchProviders.results.ES.flatrate && (
-                                                            <>
-                                                                {(watchProviders.results.ES.flatrate.length > 0) && (
-                                                                    <div>
-                                                                        <Link to={`/provider/${watchProviders.results.ES.flatrate[0].provider_id}`}>
-                                                                            {watchProviders.results.ES.flatrate[0].logo_path && <Image src={`https://image.tmdb.org/t/p/w45/${watchProviders.results.ES.flatrate[0].logo_path}`} alt={watchProviders.results.ES.flatrate[0].provider_name}></Image>}
-                                                                        </Link>
-                                                                    </div>
-                                                                )}
-                                                            </>
-                                                        )}
+                                                        {watchProviders.results.ES.flatrate[0].logo_path &&
+                                                            <Image borderRadius="100%" src={`https://image.tmdb.org/t/p/w45/${watchProviders.results.ES.flatrate[0].logo_path}`}
+                                                                alt={watchProviders.results.ES.flatrate[0].provider_name}
+                                                            />
+                                                        }
                                                     </>
                                                 )
                                             },
@@ -243,16 +236,13 @@ export default function DetallesSeries() {
                                         <Flex flexDirection="column" pt="1em">
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900"> Palabras clave </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {keywords.results.slice(0, 12).map((keyword) => {
-                                                    const primeraPalabra = keyword.name.split(" ")[0];
-                                                    return (
-                                                        <Link to={`/search/${primeraPalabra}`} key={keyword.id}>
+                                                {keywords.results.slice(0, 12).map((keyword,index) => (
+                                                        <Link to={`/search/${keyword}`} key={index}>
                                                             <Button m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
-                                                                {primeraPalabra}
+                                                                {keyword.name}
                                                             </Button>
                                                         </Link>
-                                                    );
-                                                })}
+                                                ))}
                                             </Box>
 
                                         </Flex>
