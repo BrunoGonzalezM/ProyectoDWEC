@@ -15,14 +15,7 @@ export default function Banner({ movies }) {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 3000,
-        appendDots: dots => (
-            <div
-                style={{ borderRadius: "10px" }}
-            >
-                <ul> {dots} </ul>
-            </div>
-        ),
+        autoplaySpeed: 3000
     };
     const toast = useToast()
     const id = 'test-toast'
