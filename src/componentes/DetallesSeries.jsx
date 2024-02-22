@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchKeywords, fetchSimilarMovies } from '../funciones/fetch';
+import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchKeywords, fetchSimilarMovies, fetchWatchProviders } from '../funciones/fetch';
 import CircleProgressBar from './CircleProgressBar';
 import { Box, Button, Heading, Text, Flex, Image, Stack, Badge } from "@chakra-ui/react";
 import { traductor } from "../assets/categoriasYTraduccion.js";
@@ -16,19 +16,21 @@ export default function DetallesSeries() {
     const [keywords, setKeywords] = useState(null);
     const [similarMovies, setSimilarMovies] = useState(null);
     const [recommendedMovies, setRecommendedMovies] = useState(null);
+    const [watchProviders, setWatchProviders] = useState(null);
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [trailersData, detalles, creditos, keywords, similarMovies, recommendedMovies] = await Promise.all([
+                const [trailersData, detalles, creditos, keywords, similarMovies, recommendedMovies, watchProviders] = await Promise.all([
                     fetchMovieTrailers(id, false),
                     fetchMovieDetails(id, false),
                     fetchCreditos(id, false),
                     fetchKeywords(id, false),
                     fetchSimilarMovies(id, "similar", false),
-                    fetchSimilarMovies(id, "recommendations", false)
+                    fetchSimilarMovies(id, "recommendations", false),
+                    fetchWatchProviders(id, false)
                 ]);
                 setTrailers(trailersData);
                 setDetalles(detalles);
@@ -36,6 +38,7 @@ export default function DetallesSeries() {
                 setKeywords(keywords);
                 setSimilarMovies(similarMovies);
                 setRecommendedMovies(recommendedMovies);
+                setWatchProviders(watchProviders);
             } catch (err) {
                 setError(err.message);
             } finally {
