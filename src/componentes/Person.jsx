@@ -89,7 +89,7 @@ export default function Personas() {
                             {persona.biography ? persona.biography : "No tenemos información sobre la biografía de esta persona."}
                         </Text>
 
-                        {persona.biography.length > 825 &&
+                        {persona.biography.length > 625 &&
                             <Button onClick={() => setMostrarDescripcion(!mostrarDescripcion)} bg="#CC3344" m="1em" color="whiteAlpha.900" _hover={{ bg: 'red.800' }} >
                                 {mostrarDescripcion ? "LEER MENOS" : "LEER MÁS"}
                             </Button>

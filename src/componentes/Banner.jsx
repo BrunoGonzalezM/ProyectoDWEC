@@ -3,11 +3,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-import { Image, Heading, Text, Button, Stat, StatHelpText, StatArrow, Box, Flex, useToast } from '@chakra-ui/react';
+import { Image, Heading, Text, Button, Stat, StatArrow, Box, Flex, useToast } from '@chakra-ui/react';
 import { TriangleUpIcon, StarIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 import { fetchMovieTrailers } from '../funciones/fetch';
 
 export default function Banner({ movies }) {
+    //Configuracion del slider de react-slick
     const config = {
         dots: true,
         infinite: true,
@@ -19,8 +20,13 @@ export default function Banner({ movies }) {
     };
     const toast = useToast()
     const id = 'test-toast'
+
+    //Donde se guarda los trailers
     const [trailerData, setTrailers] = useState([]);
     const [error, setError] = useState(null);
+
+    //En el useEffect hacemos un map a movies para sacar cada movie 
+    //y con cada movie podemos hacerle un fetch para sacar cada trailer 
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -72,9 +78,7 @@ export default function Banner({ movies }) {
                                                         <Stat>
                                                             <Box float="right">
                                                                 <Heading fontSize="2xl">{movie.vote_average.toFixed(1)}/10 </Heading>
-                                                                <StatHelpText >
-                                                                    <StatArrow type={(movie.id % 100) < 30 ? 'decrease' : 'increase'} /> {((movie.vote_count % 50) * 0.3384).toFixed(2)}%
-                                                                </StatHelpText>
+                                                                <StatArrow type={(movie.id % 100) < 30 ? 'decrease' : 'increase'} /> {((movie.vote_count % 50) * 0.3384).toFixed(2)}%
                                                             </Box>
                                                         </Stat>
                                                     </Flex>
