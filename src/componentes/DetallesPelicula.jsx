@@ -52,12 +52,13 @@ export default function DetallesPelicula() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const todosLosTrabajos = [...new Set(creditos.cast.map(member => member.known_for_department))];
+    // const todosLosTrabajos = [...new Set(creditos.cast.map(member => member.known_for_department))];
 
-    const personasPorTrabajo = {};
-    todosLosTrabajos.forEach(job => {
-        personasPorTrabajo[job] = creditos.cast.filter(member => member.known_for_department === job);
-    });
+    // const personasPorTrabajo = {};
+    // todosLosTrabajos.forEach(job => {
+    //     personasPorTrabajo[job] = creditos.cast.filter(member => member.known_for_department === job);
+    // });
+
 
     return (
         <>
@@ -133,24 +134,15 @@ export default function DetallesPelicula() {
                                                             </Stack>
                                                         </Box>
                                                         {/* Personas involucradas:  */}
-                                                        {/* <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
-                                                            {Object.entries(personasPorTrabajo).map(([job, personas],index) => (
-                                                                (job !== "Acting") && (
-                                                                    <Box mr="1em" maxW="13em" key={index} noOfLines={3} >
-                                                                        <Text color="whiteAlpha.800">
-                                                                            {traductor[job] ? traductor[job] : job}:
-                                                                        </Text>
-                                                                        {personas.map((persona, i) => (
-                                                                            <span key={persona.id}>
-                                                                                <Link to={`/personas/id/${persona.id}`} >
-                                                                                    {persona.name}{i !== personas.length - 1 && ', '}
-                                                                                </Link>
-                                                                            </span>
-                                                                        ))}
-                                                                    </Box>
-                                                                )
-                                                            ))}
-                                                        </Flex> */}
+                                                        <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
+                                                            {/* {creditos.map((c) => {
+                                                                <Box mr="1em" maxW="13em" key={c.id} noOfLines={3} >
+                                                                    <Text color="whiteAlpha.800">
+                                                                        {c.known_for_department}:
+                                                                    </Text>
+                                                                </Box>
+                                                            })} */}
+                                                        </Flex>
                                                     </Box>
                                                     {/* Mostrar trailer si es que hay*/}
                                                     {trailersData && trailersData.key && (
@@ -173,7 +165,7 @@ export default function DetallesPelicula() {
                                     <Text fontSize="24px" mx={2} color="whiteAlpha.900" > Reparto </Text>
                                     <Flex justifyContent="flex-start" my="2em"  >
                                         <Box display="flex" color="white" overflowX="auto" overflowY="hidden">
-                                            {creditos.cast.filter(actor => actor.profile_path).map((actor,index) => (
+                                            {creditos.filter(actor => actor.profile_path).map((actor, index) => (
                                                 <Flex key={index} flexDirection="column" mx="1em">
                                                     <Link to={`/personas/id/${actor.id}`} style={{ borderRadius: "0.5em 0.5em 0 0", overflow: "hidden" }} >
                                                         {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} minW="11em" transition="0.4s" _hover={{ transform: "scale(1.1)" }} borderRadius="0.5em 0.5em 0 0" />}
@@ -195,7 +187,7 @@ export default function DetallesPelicula() {
                                             <Flex flexDirection="row" mt="2em" justifyContent="flex-start" >
                                                 <Box display="flex" color="white" overflow="auto" overflowY="hidden">
                                                     {similarMovies.results.slice(0, 8).map((movie) => (
-                                                        <Tarjeta item={movie}  conSlider key={movie.id}/>
+                                                        <Tarjeta item={movie} conSlider key={movie.id} />
                                                     ))}
                                                 </Box>
                                             </Flex>
@@ -217,7 +209,7 @@ export default function DetallesPelicula() {
                                             { label: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la película desconocido" },
                                             { label: 'Presupuesto', value: detalles.budget ? (traductor[detalles.budget] || detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Presupuesto desconocido" },
                                             { label: 'Ingresos', value: detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Ingresos desconocidos" }
-                                        ].map(({ label, value },index) => (
+                                        ].map(({ label, value }, index) => (
                                             <Box key={index}>
                                                 <Text fontSize="20px" mx={5} pt={index === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{label}</Text>
                                                 <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{value}</Text>
