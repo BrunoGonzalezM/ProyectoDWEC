@@ -135,8 +135,8 @@ export default function DetallesSeries() {
                                                         {/* Personas involucradas:  */}
                                                         <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
                                                             {detalles && detalles.created_by && (
-                                                                <Box mr="1em" maxW="13em" >
-                                                                    {(detalles.created_by.length > 0) && <Text color="whiteAlpha.900">Creado por:</Text>}
+                                                                <Box mr="1em" maxW="13em" noOfLines={3}>
+                                                                    <Text color="whiteAlpha.900">Creado por:</Text>
                                                                     {detalles.created_by.map((creador) => (
                                                                         <Link key={creador.id} to={`/personas/id/${creador.id}`}>
                                                                             <Text fontSize="18px" color="whiteAlpha.800">{creador.name}</Text>
@@ -166,7 +166,7 @@ export default function DetallesSeries() {
                             </Flex>
                             <Flex pt="2em" overflow="hidden" bg="#00000069" pb="10em" >
                                 {/* REPARTO */}
-                                <Flex w="75%" flexDirection="column" h="20em" pl="1em" >
+                                <Flex w="80%" flexDirection="column" h="20em" pl="1em" >
                                     <Text fontSize="24px" mx={2} color="whiteAlpha.900" > Reparto </Text>
                                     <Flex justifyContent="flex-start" my="2em"  >
                                         <Box display="flex" color="white" overflowX="auto" overflowY="hidden">
@@ -192,7 +192,7 @@ export default function DetallesSeries() {
                                             <Flex flexDirection="row" mt="2em" justifyContent="flex-start" >
                                                 <Box display="flex" color="white" overflow="auto" overflowY="hidden">
                                                     {similarMovies.results.slice(0, 8).map((movie) => (
-                                                        <Tarjeta key={movie.id} item={movie} conSlider />
+                                                        <Tarjeta item={movie} conSlider />
                                                     ))}
                                                 </Box>
                                             </Flex>
