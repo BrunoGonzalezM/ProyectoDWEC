@@ -109,7 +109,7 @@ export const fetchCreditos = async (id, isMovie) => {
         const response = await fetch(`${urlAPIv3}/${type}/${id}/credits?language=es-ES`, options)
         const data = await response.json();
 
-        return data;
+        return data.cast;
     } catch (err) {
         console.error(err);
         throw err
