@@ -245,7 +245,7 @@ export default function DetallesSeries() {
                                             </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
                                                 {recommendedMovies.results.slice(0, 8).map((tv) => (
-                                                    <Link key={tv.id} to={`/pelicula/id/${tv.id}`} style={{ textDecoration: 'none' }}>
+                                                    <Link key={tv.id} to={`/serie/id/${tv.id}`} style={{ textDecoration: 'none' }}>
                                                         <Button onClick={handleClick} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
                                                             {tv.name}
                                                         </Button>
