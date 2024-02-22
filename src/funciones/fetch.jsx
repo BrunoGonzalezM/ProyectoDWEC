@@ -8,7 +8,7 @@ const options = {
     }
 };
 
-export const fetchBusqueda = async (page, busqueda, isMovie) => {
+export const fetchBusqueda = async (page, isMovie,busqueda ) => {
     try {
         const type = isMovie == true ? "movie" : "tv"
         const response = await fetch(`${urlAPIv3}/search/${type}?query=${busqueda}&include_adult=false&language=es-ES&page=${page}`, options);
@@ -22,7 +22,7 @@ export const fetchBusqueda = async (page, busqueda, isMovie) => {
         throw error
     }
 }
-export const moviesPopular = async (page, parametroVacio, isMovie) => {
+export const moviesPopular = async (page, isMovie) => {
     try {
         const type = isMovie == true ? "movie" : "tv"
         const response = await fetch(`${urlAPIv3}/trending/${type}/week?language=es-ES&page=${page}`, options);
@@ -80,7 +80,7 @@ export const moviesTrending = async (page) => {
     }
 }
 
-export const fetchCategoriaPelicula = async (page, id, isMovie) => {
+export const fetchCategoriaPelicula = async (page, isMovie, id) => {
     try {
         const type = isMovie == true ? "movie" : "tv"
         const response = await fetch(`${urlAPIv3}/discover/${type}?include_adult=false&language=es-ES&page=${page}&sort_by=popularity.desc&with_genres=${id}`, options)
