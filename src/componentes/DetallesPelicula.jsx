@@ -172,7 +172,7 @@ export default function DetallesPelicula() {
                             </Flex>
                             <Flex pt="2em" overflow="hidden" bg="#00000069" pb="10em" >
                                 {/* REPARTO */}
-                                <Flex w="80%" flexDirection="column" h="20em" pl="1em" >
+                                <Flex w="75%" flexDirection="column" h="20em" pl="1em" >
                                     <Text fontSize="24px" mx={2} color="whiteAlpha.900" > Reparto </Text>
                                     <Flex justifyContent="flex-start" my="2em"  >
                                         <Box display="flex" color="white" overflowX="auto" overflowY="hidden">
