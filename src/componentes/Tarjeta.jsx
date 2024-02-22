@@ -5,13 +5,16 @@ import "../styles/stylesTarjeta.css"
 
 const Tarjeta = ({ item, conSlider }) => {
   const [isHovered, setIsHovered] = useState(false);
-
+  const handleClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
   return (
     <>
       {item.poster_path && (
         <>
           <Link to={item.first_air_date ? `/serie/id/${item.id}` : `/pelicula/id/${item.id}`}>
             <Box
+              onClick={handleClick}
               position="relative"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}

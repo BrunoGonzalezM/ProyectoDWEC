@@ -29,7 +29,7 @@ function PeliculasYSeries({ isMovie }) {
         } else {
             fetchFunction = moviesPopular;
         }
-        fetchFunction(page, busqueda || id, (isMovie ? true : false))
+        fetchFunction(page, (isMovie ? true : false), busqueda || id)
             .then((data) => {
                 setMovies(data);
             })
