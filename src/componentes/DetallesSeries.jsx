@@ -211,7 +211,24 @@ export default function DetallesSeries() {
                                         {/* Contenido aside derecho con detalles adicionales de la pelicula o serie */}
                                         {[
                                             { label: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la serie desconocido" },
-                                            // { label: 'Canal', value: detalles.original_title || "No hay título original para esta serie" },
+                                            { 
+                                                label: 'Canal', 
+                                                value: (
+                                                    <>
+                                                        {watchProviders && watchProviders.results.ES && watchProviders.results.ES.flatrate && (
+                                                            <>
+                                                                {(watchProviders.results.ES.flatrate.length > 0) && (
+                                                                    <div>
+                                                                        <Link to={`/provider/${watchProviders.results.ES.flatrate[0].provider_id}`}>
+                                                                            {watchProviders.results.ES.flatrate[0].logo_path && <Image src={`https://image.tmdb.org/t/p/w45/${watchProviders.results.ES.flatrate[0].logo_path}`} alt={watchProviders.results.ES.flatrate[0].provider_name}></Image>}
+                                                                        </Link>
+                                                                    </div>
+                                                                )}
+                                                            </>
+                                                        )}
+                                                    </>
+                                                )
+                                            },
                                             { label: 'Idioma original', value: traductor[detalles.original_language] || detalles.original_language || "No hay idioma original para esta serie" },
                                             { label: 'Tipo', value: traductor[detalles.type] || detalles.type || "No hay tipo para esta serie" },
                                         ].map(({ label, value }, index) => (
@@ -257,23 +274,6 @@ export default function DetallesSeries() {
                                             </Box>
                                         </Flex>
                                     )}
-                                    {watchProviders && Object.keys(watchProviders.results).map(countryCode => {
-                                        const providers = watchProviders.results[countryCode].flatrate;
-                                        const spanishProvider = providers.find(provider => provider.provider_name.toLowerCase().includes('español'));
-                                        if (spanishProvider) {
-                                            const providerId = spanishProvider.provider_id;
-                                            // Aquí puedes usar el providerId como desees
-                                            return (
-                                                <div key={countryCode}>
-                                                    <p>Proveedor en español encontrado para {countryCode}: {providerId}</p>
-                                                </div>
-                                            );
-                                            console.log("Watch Providers:", watchProviders);
-
-                                        } else {
-                                            return null; // Si no se encuentra ningún proveedor en español para este país
-                                        }
-                                    })}
                                 </Flex>
                             </Flex>
                         </>
