@@ -123,7 +123,7 @@ export default function DetallesPelicula() {
                                                         {/* Generos */}
                                                         <Box mt="1em">
                                                             <Stack direction='row' mx="1.2rem" >
-                                                                {detalles.genres.map((genre,i) => (
+                                                                {detalles.genres.map((genre) => (
                                                                     <Link key={genre.id} to={`/categoria/${genre.id}`}>
                                                                         <Badge _hover={{ transform: "scale(1.08)" }} transition="0.5s" bg="#CC3344" color="white">
                                                                             {genre.name}
@@ -173,8 +173,8 @@ export default function DetallesPelicula() {
                                     <Text fontSize="24px" mx={2} color="whiteAlpha.900" > Reparto </Text>
                                     <Flex justifyContent="flex-start" my="2em"  >
                                         <Box display="flex" color="white" overflowX="auto" overflowY="hidden">
-                                            {creditos.cast.filter(actor => actor.profile_path).map((actor) => (
-                                                <Flex key={actor.id} flexDirection="column" mx="1em">
+                                            {creditos.cast.filter(actor => actor.profile_path).map((actor,index) => (
+                                                <Flex key={index} flexDirection="column" mx="1em">
                                                     <Link to={`/personas/id/${actor.id}`} style={{ borderRadius: "0.5em 0.5em 0 0", overflow: "hidden" }} >
                                                         {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} minW="11em" transition="0.4s" _hover={{ transform: "scale(1.1)" }} borderRadius="0.5em 0.5em 0 0" />}
                                                     </Link>
@@ -195,7 +195,7 @@ export default function DetallesPelicula() {
                                             <Flex flexDirection="row" mt="2em" justifyContent="flex-start" >
                                                 <Box display="flex" color="white" overflow="auto" overflowY="hidden">
                                                     {similarMovies.results.slice(0, 8).map((movie) => (
-                                                        <Tarjeta item={movie} key={movie.id} conSlider />
+                                                        <Tarjeta item={movie}  conSlider key={movie.id}/>
                                                     ))}
                                                 </Box>
                                             </Flex>
@@ -217,9 +217,9 @@ export default function DetallesPelicula() {
                                             { label: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la película desconocido" },
                                             { label: 'Presupuesto', value: detalles.budget ? (traductor[detalles.budget] || detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Presupuesto desconocido" },
                                             { label: 'Ingresos', value: detalles.revenue ? (traductor[detalles.revenue] || detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "Ingresos desconocidos" }
-                                        ].map(({ label, value }, i) => (
-                                            <Box key={i}>
-                                                <Text fontSize="20px" mx={5} pt={i === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{label}</Text>
+                                        ].map(({ label, value },index) => (
+                                            <Box key={index}>
+                                                <Text fontSize="20px" mx={5} pt={index === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{label}</Text>
                                                 <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{value}</Text>
                                             </Box>
                                         ))}
@@ -229,8 +229,8 @@ export default function DetallesPelicula() {
                                         <Flex flexDirection="column" pt="1em">
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900"> Palabras clave </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {keywords.keywords.map((keyword, i) => (
-                                                    <Link to={`/search/${keyword}`} key={i}>
+                                                {keywords.keywords.map((keyword) => (
+                                                    <Link to={`/search/${keyword.id}`} key={keyword.id}>
                                                         <Button m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
                                                             {keyword.name}
                                                         </Button>
@@ -246,8 +246,8 @@ export default function DetallesPelicula() {
                                                 Recomendaciones
                                             </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {recommendedMovies.results.slice(0, 8).map((movie, i) => (
-                                                    <Link key={i} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
+                                                {recommendedMovies.results.slice(0, 8).map((movie) => (
+                                                    <Link key={movie.id} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
                                                         <Button onClick={handleClick} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
                                                             {movie.title}
                                                         </Button>

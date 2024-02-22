@@ -136,10 +136,10 @@ export default function DetallesSeries() {
                                                         <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
                                                             {detalles && detalles.created_by && (
                                                                 <Box mr="1em" maxW="13em" noOfLines={3}>
-                                                                    <Text color="whiteAlpha.900">Creado por:</Text>
+                                                                    <Text color="whiteAlpha.800">Creado por:</Text>
                                                                     {detalles.created_by.map((creador) => (
                                                                         <Link key={creador.id} to={`/personas/id/${creador.id}`}>
-                                                                            <Text fontSize="18px" color="whiteAlpha.800">{creador.name}</Text>
+                                                                            <Text fontSize="18px" color="whiteAlpha.900">{creador.name}</Text>
                                                                         </Link>
                                                                     ))}
                                                                 </Box>
@@ -191,7 +191,7 @@ export default function DetallesSeries() {
                                             <Flex flexDirection="row" mt="2em" justifyContent="flex-start" >
                                                 <Box display="flex" color="white" overflow="auto" overflowY="hidden">
                                                     {similarMovies.results.slice(0, 8).map((movie) => (
-                                                        <Tarjeta item={movie} conSlider />
+                                                        <Tarjeta item={movie} key={movie.id} conSlider />
                                                     ))}
                                                 </Box>
                                             </Flex>
@@ -236,15 +236,14 @@ export default function DetallesSeries() {
                                         <Flex flexDirection="column" pt="1em">
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900"> Palabras clave </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {keywords.results.slice(0, 12).map((keyword,index) => (
-                                                        <Link to={`/search/${keyword}`} key={index}>
-                                                            <Button m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
-                                                                {keyword.name}
-                                                            </Button>
-                                                        </Link>
+                                                {keywords.results.slice(0, 12).map((keyword) => (
+                                                    <Link to={`/search/${keyword.name}`} key={keyword.id}>
+                                                        <Button m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
+                                                            {keyword.name}
+                                                        </Button>
+                                                    </Link>
                                                 ))}
                                             </Box>
-
                                         </Flex>
                                     )}
                                     {/* PELICULAS RECOMENDADAS */}
