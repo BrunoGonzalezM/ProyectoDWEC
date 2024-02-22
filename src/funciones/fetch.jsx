@@ -221,3 +221,14 @@ export const fetchWatchProviders = async (id, isMovie) => {
         throw err;
     }
 }
+
+export const fetchTvSeasons = async (id, seasonNumber) => {
+    try{
+        const response = await fetch (`${urlAPIv3}/tv/${id}/season/${seasonNumber}`, options)
+        const data = await response.json();
+        return data;
+    }catch(err){
+        console.log(err);
+        throw err;
+    }
+}
