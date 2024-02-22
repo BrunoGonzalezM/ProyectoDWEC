@@ -25,7 +25,6 @@ export const fetchBusqueda = async (page, busqueda, isMovie) => {
 export const moviesPopular = async (page, parametroVacio, isMovie) => {
     try {
         const type = isMovie == true ? "movie" : "tv"
-        const chPopularTopRated = isMovie == true ? "popular" : "top_rated"
         const response = await fetch(`${urlAPIv3}/trending/${type}/week?language=es-ES&page=${page}`, options);
         const data = await response.json();
         if (!response.ok) {
