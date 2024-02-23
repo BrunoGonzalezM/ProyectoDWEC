@@ -45,6 +45,9 @@ export default function Temporadas() {
         {detalles && detalles.seasons.map(season => (
             <div key={season.id}>
                 {season.name} 
+                • ({season.air_date ? new Date(season.air_date).getFullYear() : ""}) 
+                • {season.episode_count} episodios
+                • {season.vote_average}
                 <br/>
                 {season.overview}
                 <br/>
