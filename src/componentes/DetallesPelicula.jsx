@@ -106,10 +106,12 @@ export default function DetallesPelicula({ isMovie }) {
                                                         </Flex>
                                                         {/* Descripcion de la pelicula si es que hay y generos */}
                                                         <Text fontSize="2xl" mx={5} pt="0.5em" > {detalles.tagline}</Text>
+                                                        
                                                         <Text fontSize="lg" mx={5} pt="0.5em" color="whiteAlpha.800">
                                                             • {new Date(detalles.release_date).toLocaleDateString()} • {Math.floor(detalles.runtime / 60)}h {detalles.runtime % 60}m
                                                         </Text>
-                                                        <Text fontSize="lg" mx={5} color="whiteAlpha.800">{detalles.certification}</Text>
+
+                                                        {console.log(detalles)}
                                                         {/* Descripcion  */}
                                                         {detalles.overview && (
                                                             <Text fontSize="1xl" maxW={900} mx={5} pr="6em" pt="1em" color="whiteAlpha.800" noOfLines={6} >
@@ -121,25 +123,33 @@ export default function DetallesPelicula({ isMovie }) {
                                                             <Stack direction='row' mx="1.2rem" >
                                                                 {detalles.genres.map((genre) => (
                                                                     <Link key={genre.id} to={`/categoria/${genre.id}`}>
-                                                                        <Badge _hover={{ transform: "scale(1.08)" }} transition="0.5s" bg="#CC3344" color="white">
+                                                                        <Box _hover={{ transform: "scale(1.08)" }} transition="0.5s" bg="#CC3344" p="0.3em" fontSize={12} borderRadius="0.5em" color="white">
                                                                             {genre.name}
-                                                                        </Badge>
+                                                                        </Box>
                                                                     </Link>
                                                                 ))}
                                                             </Stack>
                                                         </Box>
                                                         {/* Personas involucradas:  */}
                                                         <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
+                                                            {/* Dificil de explicar quiza lo quitemos */}
                                                             {creditos && (
-                                                                <Box mr="1em" maxW="13em" noOfLines={3}>
-                                                                    <Text color="whiteAlpha.800">Creado por:</Text>
-                                                                    {creditos.map((credito) => (
-                                                                        <Link key={credito.credit_id} to={`/personas/id/${credito.id}`}>
-                                                                            <Text fontSize="18px" color="whiteAlpha.900">{credito.name}</Text>
-                                                                        </Link>
-                                                                    ))}
+                                                                <Box mr="1em" display="flex" w="50em" >
+                                                                    {creditos.map((credito, index) => {
+                                                                        if (credito.known_for_department !== "Acting" &&
+                                                                            creditos.findIndex(c => c.name === credito.name) === index) {
+                                                                            return (
+                                                                                <Box key={credito.id} mr="1em" maxW="13em" >
+                                                                                    <Text color="whiteAlpha.700">{traductor[credito.known_for_department]}:</Text>
+                                                                                    {credito.name}
+                                                                                </Box>
+                                                                            );
+                                                                        }
+                                                                        return null;
+                                                                    })}
                                                                 </Box>
                                                             )}
+
                                                         </Flex>
                                                     </Box>
                                                     {/* Mostrar trailer si es que hay*/}

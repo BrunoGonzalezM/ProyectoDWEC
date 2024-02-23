@@ -108,6 +108,11 @@ export default function DetallesSeries() {
                                                         {/* Descripcion de la pelicula si es que hay y generos */}
                                                         <Text fontSize="2xl" mx={5} pt="0.5em" > {detalles.tagline}</Text>
 
+                                                        <Text fontSize="lg" mx={5} pt="0.5em" color="whiteAlpha.800">
+                                                            • {"Temporadas: "+(detalles.number_of_seasons)} • {"Episodios: "+(detalles.number_of_episodes)}
+                                                        </Text>
+                                                        {console.log(detalles)}
+
                                                         {/* Descripcion  */}
                                                         {detalles.overview && (
                                                             <Text fontSize="1xl" maxW={900} mx={5} pr="6em" pt="1em" color="whiteAlpha.800" noOfLines={6} >
@@ -119,9 +124,9 @@ export default function DetallesSeries() {
                                                             <Stack direction='row' mx="1.2rem" >
                                                                 {detalles.genres.map((genre) => (
                                                                     <Link key={genre.id} to={`/categoria/${genre.id}`}>
-                                                                        <Badge _hover={{ transform: "scale(1.08)" }} transition="0.5s" bg="#CC3344" color="white">
+                                                                        <Box _hover={{ transform: "scale(1.08)" }} transition="0.5s" bg="#CC3344" p="0.3em" fontSize={12} borderRadius="0.5em" color="white">
                                                                             {genre.name}
-                                                                        </Badge>
+                                                                        </Box>
                                                                     </Link>
                                                                 ))}
                                                             </Stack>
