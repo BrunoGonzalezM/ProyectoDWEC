@@ -111,7 +111,6 @@ export default function DetallesPelicula({ isMovie }) {
                                                             • {new Date(detalles.release_date).toLocaleDateString()} • {Math.floor(detalles.runtime / 60)}h {detalles.runtime % 60}m
                                                         </Text>
 
-                                                        {console.log(detalles)}
                                                         {/* Descripcion  */}
                                                         {detalles.overview && (
                                                             <Text fontSize="1xl" maxW={900} mx={5} pr="6em" pt="1em" color="whiteAlpha.800" noOfLines={6} >
