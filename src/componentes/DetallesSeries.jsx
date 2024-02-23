@@ -12,7 +12,7 @@ export default function DetallesSeries() {
     const [trailersData, setTrailers] = useState(null);
     const [error, setError] = useState(null);
     const [detalles, setDetalles] = useState(null);
-    const [creditos, setCreditos] = useState({ cast: [] });
+    const [creditos, setCreditos] = useState();
     const [keywords, setKeywords] = useState(null);
     const [similar, setSimilar] = useState(null);
     const [recommended, setRecommended] = useState(null);
@@ -197,7 +197,7 @@ export default function DetallesSeries() {
                                     <Box>
                                         <Text fontSize="24px" mx={5} color="whiteAlpha.900"> Información adicional </Text>
                                         <Box mx={5} pt="0.1em" color="whiteAlpha.900" pb="1em">
-                                            <Link to={detalles.homepage} target="_blank"  title="Visita la página principal">
+                                            <Link to={detalles.homepage} target="_blank" title="Visita la página principal">
                                                 <FaLink size={24} mb="1em" />
                                             </Link>
                                         </Box>
@@ -208,11 +208,9 @@ export default function DetallesSeries() {
                                                 label: 'Canal',
                                                 value: (
                                                     <>
-                                                        {watchProviders.ES.flatrate[0].logo_path &&
-                                                            <Image borderRadius="100%" src={`https://image.tmdb.org/t/p/w45/${watchProviders.ES.flatrate[0].logo_path}`}
-                                                                alt={watchProviders.ES.flatrate[0].provider_name}
-                                                            />
-                                                        }
+                                                        {watchProviders && watchProviders.US && watchProviders.US.flatrate ? (
+                                                            <Image borderRadius="100%" src={`https://image.tmdb.org/t/p/w45/${watchProviders.US.flatrate[0].logo_path}`} />
+                                                        ) : ("No hay información del proveedor")}
                                                     </>
                                                 )
                                             },

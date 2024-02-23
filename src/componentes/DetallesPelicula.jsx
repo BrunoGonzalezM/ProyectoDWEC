@@ -8,11 +8,11 @@ import { FaLink } from "react-icons/fa6";
 import Tarjeta from './Tarjeta';
 
 
-export default function DetallesPelicula() {
+export default function DetallesPelicula({ isMovie }) {
     const [trailersData, setTrailers] = useState(null);
     const [error, setError] = useState(null);
     const [detalles, setDetalles] = useState(null);
-    const [creditos, setCreditos] = useState({ cast: [] });
+    const [creditos, setCreditos] = useState();
     const [keywords, setKeywords] = useState(null);
     const [similar, setSimilar] = useState(null);
     const [recommended, setRecommended] = useState(null);
@@ -23,7 +23,7 @@ export default function DetallesPelicula() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [trailersData, detalles, creditos, keywords, similar, recommended,watchProviders] = await Promise.all([
+                const [trailersData, detalles, creditos, keywords, similar, recommended, watchProviders] = await Promise.all([
                     fetchMovieTrailers(id, true),
                     fetchMovieDetails(id, true),
                     fetchCreditos(id, true),
@@ -129,7 +129,7 @@ export default function DetallesPelicula() {
                                                             </Stack>
                                                         </Box>
                                                         {/* Personas involucradas:  */}
-                                                        {/* <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
+                                                        <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
                                                             {creditos && (
                                                                 <Box mr="1em" maxW="13em" noOfLines={3}>
                                                                     <Text color="whiteAlpha.800">Creado por:</Text>
@@ -140,7 +140,7 @@ export default function DetallesPelicula() {
                                                                     ))}
                                                                 </Box>
                                                             )}
-                                                        </Flex> */}
+                                                        </Flex>
                                                     </Box>
                                                     {/* Mostrar trailer si es que hay*/}
                                                     {trailersData && trailersData.key && (
@@ -163,8 +163,8 @@ export default function DetallesPelicula() {
                                     <Text fontSize="24px" mx={2} color="whiteAlpha.900" > Reparto </Text>
                                     <Flex justifyContent="flex-start" my="2em"  >
                                         <Box display="flex" color="white" overflowX="auto" overflowY="hidden">
-                                            {creditos.map(actor => (
-                                                <Flex key={actor.id} flexDirection="column" mx="1em">
+                                            {creditos.map((actor, index) => (
+                                                <Flex key={index} flexDirection="column" mx="1em">
                                                     <Link to={`/personas/id/${actor.id}`} style={{ borderRadius: "0.5em 0.5em 0 0", overflow: "hidden" }} >
                                                         {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} minW="11em" transition="0.4s" _hover={{ transform: "scale(1.1)" }} borderRadius="0.5em 0.5em 0 0" />}
                                                     </Link>
@@ -208,11 +208,9 @@ export default function DetallesPelicula() {
                                                 label: 'Canal',
                                                 value: (
                                                     <>
-                                                        {watchProviders.US.rent[0].logo_path &&
-                                                            <Image borderRadius="100%" src={`https://image.tmdb.org/t/p/w45/${watchProviders.US.rent[0].logo_path}`}
-                                                                alt={watchProviders.US.rent[0].provider_name}
-                                                            />
-                                                        }
+                                                        {watchProviders && watchProviders.US && watchProviders.US.buy ? (
+                                                            <Image borderRadius="100%" src={`https://image.tmdb.org/t/p/w45/${watchProviders.US.buy[0].logo_path}`} />
+                                                        ) : ("No hay información del proveedor")}
                                                     </>
                                                 )
                                             },
@@ -247,10 +245,10 @@ export default function DetallesPelicula() {
                                                 Recomendaciones
                                             </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {recommended.results.slice(0, 8).map(movie => (
-                                                    <Link key={movie.id} to={`/pelicula/id/${movie.id}`} style={{ textDecoration: 'none' }}>
+                                                {recommended.results.slice(0, 8).map(item => (
+                                                    <Link key={item.id} to={(isMovie ? (`/serie`) : (`/pelicula`)) + `/id/${item.id}`} style={{ textDecoration: 'none' }}>
                                                         <Button onClick={handleClick} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
-                                                            {movie.title}
+                                                            {item.title}
                                                         </Button>
                                                     </Link>
                                                 ))}

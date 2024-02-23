@@ -31,7 +31,7 @@ function App() {
 
             <Route path="/serie/id/:id" element={<DetallesSeries />} />
             <Route path="/serie/id/:id/temporadas" element={<Temporadas />}></Route>
-            <Route path="/pelicula/id/:id" element={<DetallesPelicula />} />
+            <Route path="/pelicula/id/:id" element={<DetallesPelicula isMovie />} />
             <Route path="/categoria/:id" element={<PeliculasYSeries isMovie={true} />} />
 
             <Route path="/search/" element={<PeliculasYSeries isMovie={true} />} />
