@@ -109,7 +109,7 @@ export default function DetallesSeries() {
                                                         <Text fontSize="2xl" mx={5} pt="0.5em" > {detalles.tagline}</Text>
 
                                                         <Text fontSize="lg" mx={5} pt="0.5em" color="whiteAlpha.800">
-                                                            • {"Temporadas: "+(detalles.number_of_seasons)} • {"Episodios: "+(detalles.number_of_episodes)}
+                                                            • {"Temporadas: " + (detalles.number_of_seasons)} • {"Episodios: " + (detalles.number_of_episodes)}
                                                         </Text>
 
                                                         {/* Descripcion  */}
@@ -182,7 +182,7 @@ export default function DetallesSeries() {
                                             ))}
                                         </Box>
                                     </Flex>
-                                    {/* PELICULAS SIMILARES */}
+                                    {/* SERIES SIMILARES */}
                                     {similar.results.length > 0 && (
                                         <>
                                             <Text fontSize="24px" mx={2} color="whiteAlpha.900"> Series similares</Text>
@@ -195,6 +195,20 @@ export default function DetallesSeries() {
                                             </Flex>
                                         </>
                                     )}
+                                    <Flex
+                                        justifyContent="left"
+                                        alignItems="center"
+                                        fontSize="24px"
+                                        color="#CC3344"
+                                        pt="2em"
+                                    >
+                                        <Link to={`/serie/id/${detalles.id}/temporadas`}>
+                                            <Text _hover={{ color: '#822727' }}>
+                                                VER TODAS LAS TEMPORADAS
+                                            </Text>
+                                        </Link>
+                                    </Flex>
+
                                 </Flex>
                                 {/* INFORMACION ADICIONAL ASIDE DERECHO */}
                                 <Flex w="20em" flexDirection="column" p="2" minH="80vh">

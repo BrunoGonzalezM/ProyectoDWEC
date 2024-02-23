@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieDetails, fetchTvSeasons } from '../funciones/fetch';
-import {Image} from '@chakra-ui/react';
+import { Image, Flex, Box } from '@chakra-ui/react';
 
 
 
@@ -41,16 +41,21 @@ export default function Temporadas() {
     return (
 
         <>
-        
-        {detalles && detalles.seasons.map(season => (
-            <div key={season.id}>
-                {season.name} 
-                <br/>
-                {season.overview}
-                <br/>
-                <Image src={`${imgURL}${season.poster_path}`}></Image>
-            </div>
-        ))}
+            <Flex p="2em" flexDirection="column">
+                {detalles && detalles.seasons.map(season => (
+                    <Box key={season.id} mt="4em" justifyContent="center" alignItems="center">
+                        {season.name}
+                        • ({season.air_date ? new Date(season.air_date).getFullYear() : ""})
+                        • {season.episode_count} episodios
+                        • {season.vote_average}
+                        <br />
+                        {season.overview}
+                        <br />
+                        <Image src={`${imgURL}${season.poster_path}`}></Image>
+                    </Box>
+                ))}
+            </Flex>
+
         </>
     )
 
