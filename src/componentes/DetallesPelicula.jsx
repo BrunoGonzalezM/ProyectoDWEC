@@ -199,11 +199,8 @@ export default function DetallesPelicula({ isMovie }) {
                                     <PeliculasSimilares similar={similar} />
                                     {isMovie ? ("") : (
                                         <Flex
-                                            justifyContent="left"
-                                            alignItems="center"
-                                            fontSize="24px"
-                                            color="#CC3344"
-                                            pt="2em"
+                                            justifyContent="left" alignItems="center"
+                                            fontSize="24px" color="#CC3344"pt="2em"
                                         >
                                             <Link to={`/serie/id/${detalles.id}/temporadas`}>
                                                 <Text _hover={{ color: '#822727' }}>
