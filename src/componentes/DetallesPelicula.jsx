@@ -168,7 +168,7 @@ export default function DetallesPelicula({ isMovie }) {
                             </Flex>
                             <Flex pt="2em" overflow="hidden" bg="#00000069" pb="10em" >
                                 {/* REPARTO */}
-                                <Flex w="80%" flexDirection="column" h="20em" pl="1em" >
+                                <Flex w="75%" flexDirection="column" h="20em" pl="1em" >
                                     <Text fontSize="24px" mx={2} color="whiteAlpha.900" > Reparto </Text>
                                     <Flex justifyContent="flex-start" my="2em"  >
                                         <Box display="flex" color="white" overflowX="auto" overflowY="hidden">
@@ -257,7 +257,7 @@ export default function DetallesPelicula({ isMovie }) {
                                             </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
                                                 {recommended.results.slice(0, 8).map(item => (
-                                                    <Link key={item.id} to={(isMovie ? (`/serie`) : (`/pelicula`)) + `/id/${item.id}`} style={{ textDecoration: 'none' }}>
+                                                    <Link key={item.id} to={(isMovie===true ? (`/pelicula`) : (`/serie`)) + `/id/${item.id}`} style={{ textDecoration: 'none' }}>
                                                         <Button onClick={handleClick} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
                                                             {item.title}
                                                         </Button>
