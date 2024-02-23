@@ -198,7 +198,7 @@ export const fetchKeywords = async (id, isMovie) => {
     }
 };
 
-export const fetchSimilarMovies = async (id, tipo, isMovie) => {
+export const fetchSimilar = async (id, tipo, isMovie) => {
     try {
         const type = isMovie == true ? "movie" : "tv"
         const response = await fetch(`${urlAPIv3}/${type}/${id}/${tipo}?language=es-ES`, options)
@@ -215,7 +215,7 @@ export const fetchWatchProviders = async (id, isMovie) => {
         const type = isMovie == true ? "movie" : "tv"
         const response = await fetch (`${urlAPIv3}/${type}/${id}/watch/providers`, options)
         const data = await response.json();
-        return data;
+        return data.results;
     }catch(err){
         console.log(err);
         throw err;

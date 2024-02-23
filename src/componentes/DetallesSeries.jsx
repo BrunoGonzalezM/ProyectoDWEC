@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchKeywords, fetchSimilarMovies, fetchWatchProviders } from '../funciones/fetch';
+import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchKeywords, fetchSimilar, fetchWatchProviders } from '../funciones/fetch';
 import CircleProgressBar from './CircleProgressBar';
 import { Box, Button, Heading, Text, Flex, Image, Stack, Badge } from "@chakra-ui/react";
 import { traductor } from "../assets/categoriasYTraduccion.js";
@@ -14,8 +14,8 @@ export default function DetallesSeries() {
     const [detalles, setDetalles] = useState(null);
     const [creditos, setCreditos] = useState({ cast: [] });
     const [keywords, setKeywords] = useState(null);
-    const [similarMovies, setSimilarMovies] = useState(null);
-    const [recommendedMovies, setRecommendedMovies] = useState(null);
+    const [similar, setSimilar] = useState(null);
+    const [recommended, setRecommended] = useState(null);
     const [watchProviders, setWatchProviders] = useState(null);
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
@@ -23,21 +23,21 @@ export default function DetallesSeries() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [trailersData, detalles, creditos, keywords, similarMovies, recommendedMovies, watchProviders] = await Promise.all([
+                const [trailersData, detalles, creditos, keywords, similar, recommended, watchProviders] = await Promise.all([
                     fetchMovieTrailers(id, false),
                     fetchMovieDetails(id, false),
                     fetchCreditos(id, false),
                     fetchKeywords(id, false),
-                    fetchSimilarMovies(id, "similar", false),
-                    fetchSimilarMovies(id, "recommendations", false),
+                    fetchSimilar(id, "similar", false),
+                    fetchSimilar(id, "recommendations", false),
                     fetchWatchProviders(id, false)
                 ]);
                 setTrailers(trailersData);
                 setDetalles(detalles);
                 setCreditos(creditos);
                 setKeywords(keywords);
-                setSimilarMovies(similarMovies);
-                setRecommendedMovies(recommendedMovies);
+                setSimilar(similar);
+                setRecommended(recommended);
                 setWatchProviders(watchProviders);
             } catch (err) {
                 setError(err.message);
@@ -51,12 +51,6 @@ export default function DetallesSeries() {
     // URL de imagenes con un ancho de 500
     const imgURL = `https://image.tmdb.org/t/p/w500/`;
 
-    const todosLosTrabajos = [...new Set(creditos.cast.map(member => member.known_for_department))];
-
-    const personasPorTrabajo = {};
-    todosLosTrabajos.forEach(job => {
-        personasPorTrabajo[job] = creditos.cast.filter(member => member.known_for_department === job);
-    });
 
     const handleClick = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -134,9 +128,9 @@ export default function DetallesSeries() {
                                                         </Box>
                                                         {/* Personas involucradas:  */}
                                                         <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
-                                                            {detalles && detalles.created_by && (
+                                                            {detalles.created_by && (
                                                                 <Box mr="1em" maxW="13em" noOfLines={3}>
-                                                                    <Text color="whiteAlpha.800">Creado por:</Text>
+                                                                    {detalles.created_by && <Text color="whiteAlpha.800">Creado por:</Text>}
                                                                     {detalles.created_by.map((creador) => (
                                                                         <Link key={creador.id} to={`/personas/id/${creador.id}`}>
                                                                             <Text fontSize="18px" color="whiteAlpha.900">{creador.name}</Text>
@@ -169,7 +163,7 @@ export default function DetallesSeries() {
                                     <Text fontSize="24px" mx={2} color="whiteAlpha.900" > Reparto </Text>
                                     <Flex justifyContent="flex-start" my="2em"  >
                                         <Box display="flex" color="white" overflowX="auto" overflowY="hidden">
-                                            {creditos.cast.filter(actor => actor.profile_path).map(actor => (
+                                            {creditos.map(actor => (
                                                 <Flex key={actor.id} flexDirection="column" mx="1em">
                                                     <Link to={`/personas/id/${actor.id}`} style={{ borderRadius: "0.5em 0.5em 0 0", overflow: "hidden" }} >
                                                         {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} minW="11em" transition="0.4s" _hover={{ transform: "scale(1.1)" }} borderRadius="0.5em 0.5em 0 0" />}
@@ -185,12 +179,12 @@ export default function DetallesSeries() {
                                         </Box>
                                     </Flex>
                                     {/* PELICULAS SIMILARES */}
-                                    {similarMovies.results.length > 0 && (
+                                    {similar.results.length > 0 && (
                                         <>
                                             <Text fontSize="24px" mx={2} color="whiteAlpha.900"> Series similares</Text>
                                             <Flex flexDirection="row" mt="2em" justifyContent="flex-start" >
                                                 <Box display="flex" color="white" overflow="auto" overflowY="hidden">
-                                                    {similarMovies.results.slice(0, 8).map((movie) => (
+                                                    {similar.results.slice(0, 8).map((movie) => (
                                                         <Tarjeta item={movie} key={movie.id} conSlider />
                                                     ))}
                                                 </Box>
@@ -203,7 +197,7 @@ export default function DetallesSeries() {
                                     <Box>
                                         <Text fontSize="24px" mx={5} color="whiteAlpha.900"> Información adicional </Text>
                                         <Box mx={5} pt="0.1em" color="whiteAlpha.900" pb="1em">
-                                            <Link to={detalles.homepage} target="_blank" rel="noopener noreferrer" title="Visita la página principal">
+                                            <Link to={detalles.homepage} target="_blank"  title="Visita la página principal">
                                                 <FaLink size={24} mb="1em" />
                                             </Link>
                                         </Box>
@@ -214,9 +208,9 @@ export default function DetallesSeries() {
                                                 label: 'Canal',
                                                 value: (
                                                     <>
-                                                        {watchProviders.results.ES.flatrate[0].logo_path &&
-                                                            <Image borderRadius="100%" src={`https://image.tmdb.org/t/p/w45/${watchProviders.results.ES.flatrate[0].logo_path}`}
-                                                                alt={watchProviders.results.ES.flatrate[0].provider_name}
+                                                        {watchProviders.ES.flatrate[0].logo_path &&
+                                                            <Image borderRadius="100%" src={`https://image.tmdb.org/t/p/w45/${watchProviders.ES.flatrate[0].logo_path}`}
+                                                                alt={watchProviders.ES.flatrate[0].provider_name}
                                                             />
                                                         }
                                                     </>
@@ -237,7 +231,7 @@ export default function DetallesSeries() {
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900"> Palabras clave </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
                                                 {keywords.results.slice(0, 12).map((keyword) => (
-                                                    <Link to={`/search/${keyword.name}`} key={keyword.id}>
+                                                    <Link to={`/search/${keyword.name.split(" ")[0]}`} key={keyword.id}>
                                                         <Button m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
                                                             {keyword.name}
                                                         </Button>
@@ -247,13 +241,13 @@ export default function DetallesSeries() {
                                         </Flex>
                                     )}
                                     {/* PELICULAS RECOMENDADAS */}
-                                    {recommendedMovies.results.length > 0 && (
+                                    {recommended.results.length > 0 && (
                                         <Flex flexDirection="column" pt="1em">
                                             <Text fontSize="20px" mx={5} color="whiteAlpha.900">
                                                 Recomendaciones
                                             </Text>
                                             <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {recommendedMovies.results.slice(0, 8).map((tv) => (
+                                                {recommended.results.slice(0, 8).map((tv) => (
                                                     <Link key={tv.id} to={`/serie/id/${tv.id}`} style={{ textDecoration: 'none' }}>
                                                         <Button onClick={handleClick} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
                                                             {tv.name}
