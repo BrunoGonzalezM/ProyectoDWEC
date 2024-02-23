@@ -111,7 +111,6 @@ export default function DetallesSeries() {
                                                         <Text fontSize="lg" mx={5} pt="0.5em" color="whiteAlpha.800">
                                                             • {"Temporadas: "+(detalles.number_of_seasons)} • {"Episodios: "+(detalles.number_of_episodes)}
                                                         </Text>
-                                                        {console.log(detalles)}
 
                                                         {/* Descripcion  */}
                                                         {detalles.overview && (
