@@ -107,7 +107,7 @@ export default function DetallesSeries() {
                                                         </Flex>
                                                         {/* Descripcion de la pelicula si es que hay y generos */}
                                                         <Text fontSize="2xl" mx={5} pt="0.5em" > {detalles.tagline}</Text>
-
+                                                        
                                                         <Text fontSize="lg" mx={5} pt="0.5em" color="whiteAlpha.800">
                                                             • {"Temporadas: " + (detalles.number_of_seasons)} • {"Episodios: " + (detalles.number_of_episodes)}
                                                         </Text>

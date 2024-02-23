@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import Tarjeta from './Tarjeta';
 const PalabrasClave = ({ keywords }) => {
     return (
-        keywords.keywords.length > 0 && (
+        keywords.results.length > 0 && (
             <Flex flexDirection="column" pt="1em">
                 <Text fontSize="20px" mx={5} color="whiteAlpha.900"> Palabras clave </Text>
                 <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                    {keywords.keywords.map((keyword) => (
+                    {keywords.results.map((keyword) => (
                         <Link to={`/search/${keyword.name.split(" ")[0]}`} key={keyword.id}>
                             <Button m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
                                 {keyword.name}
@@ -30,7 +30,7 @@ const PeliculasRecomendadas = ({ recommended, isMovie, handleClick }) => {
                     {recommended.results.slice(0, 8).map(item => (
                         <Link key={item.id} to={(isMovie === true ? (`/pelicula`) : (`/serie`)) + `/id/${item.id}`} style={{ textDecoration: 'none' }}>
                             <Button onClick={handleClick} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
-                                {item.title}
+                                {item.title || item.name}
                             </Button>
                         </Link>
                     ))}

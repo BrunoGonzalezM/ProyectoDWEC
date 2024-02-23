@@ -8,7 +8,6 @@ import { FaLink } from "react-icons/fa6";
 import { PalabrasClave, PeliculasRecomendadas, Reparto, PeliculasSimilares } from '../componentes/RecommdSimilarReparto.jsx';
 
 import Detalle from "../componentes/Detalle.jsx"
-import Tarjeta from './Tarjeta';
 
 
 export default function DetallesPelicula({ isMovie }) {
@@ -27,13 +26,13 @@ export default function DetallesPelicula({ isMovie }) {
         const fetchData = async () => {
             try {
                 const [trailersData, detalles, creditos, keywords, similar, recommended, watchProviders] = await Promise.all([
-                    fetchMovieTrailers(id, true),
-                    fetchMovieDetails(id, true),
-                    fetchCreditos(id, true),
-                    fetchKeywords(id, true),
-                    fetchSimilar(id, "similar", true),
-                    fetchSimilar(id, "recommendations", true),
-                    fetchWatchProviders(id, true)
+                    fetchMovieTrailers(id, isMovie),
+                    fetchMovieDetails(id, isMovie),
+                    fetchCreditos(id, isMovie),
+                    fetchKeywords(id, isMovie),
+                    fetchSimilar(id, "similar", isMovie),
+                    fetchSimilar(id, "recommendations", isMovie),
+                    fetchWatchProviders(id, isMovie)
                 ]);
                 setTrailers(trailersData);
                 setDetalles(detalles);
@@ -60,13 +59,13 @@ export default function DetallesPelicula({ isMovie }) {
 
     return (
         <>
-            <Box bg="#222222" minH="100vh" >
+            <Box bg="#222222" color="white" minH="100vh" >
                 <Flex
                     id="detallesPelicula" bg="#222222" color="white"
                     flexDirection="column" justifyContent="center"
                     alignContent="center" h="100%" overflowX="hidden"
                 >
-                    {detalles && detalles.title && (
+                    {detalles && (detalles.title||detalles.name) && (
                         <>
                             <Box
                                 // Imagen de fondo difuminada
@@ -191,6 +190,7 @@ export default function DetallesPelicula({ isMovie }) {
                                     }
                                 </Flex>
                             </Flex>
+                            
                             <Flex pt="2em" overflow="hidden" bg="#00000069" pb="10em" >
                                 <Box maxW="75%">
                                     {/* REPARTO */}

@@ -29,9 +29,9 @@ function App() {
             <Route path="/series" element={<PeliculasYSeries isMovie={false} />} />
             <Route path="/peliculas" element={<PeliculasYSeries isMovie={true} />} />
 
-            <Route path="/serie/id/:id" element={<DetallesSeries />} />
+            <Route path="/serie/id/:id" element={<DetallesPelicula isMovie={false} />} />
             <Route path="/serie/id/:id/temporadas" element={<Temporadas />}></Route>
-            <Route path="/pelicula/id/:id" element={<DetallesPelicula isMovie />} />
+            <Route path="/pelicula/id/:id" element={<DetallesPelicula isMovie={true} />} />
             <Route path="/categoria/:id" element={<PeliculasYSeries isMovie={true} />} />
 
             <Route path="/search/" element={<PeliculasYSeries isMovie={true} />} />
