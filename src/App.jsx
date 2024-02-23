@@ -7,7 +7,6 @@ import Categorias from "./componentes/Categorias";
 import PeliculasYSeries from "./componentes/PeliculasYSeries";
 import Home from "./componentes/Home";
 import Login from "./componentes/Login";
-import DetallesSeries from "./componentes/DetallesSeries";
 import Person from "./componentes/Person";
 import Temporadas from "./componentes/Temporadas";
 
