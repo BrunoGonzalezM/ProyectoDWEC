@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import Tarjeta from './Tarjeta';
 const PalabrasClave = ({ keywords }) => {
     return (
-        keywords.results.length > 0 && (
+        (keywords.keywords || keywords.results).length > 0 && (
             <Flex flexDirection="column" pt="1em">
                 <Text fontSize="20px" mx={5} color="whiteAlpha.900"> Palabras clave </Text>
                 <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                    {keywords.results.map((keyword) => (
+                    {(keywords.results || keywords.keywords).map((keyword) => (
                         <Link to={`/search/${keyword.name.split(" ")[0]}`} key={keyword.id}>
                             <Button m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
                                 {keyword.name}
