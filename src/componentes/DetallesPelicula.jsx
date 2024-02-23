@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchKeywords, fetchSimilar, fetchWatchProviders } from '../funciones/fetch';
 import CircleProgressBar from './CircleProgressBar';
-import { Box, Button, Heading, Text, Flex, Image, Stack, Badge } from "@chakra-ui/react";
+import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Divider } from "@chakra-ui/react";
 import { traductor } from "../assets/categoriasYTraduccion.js";
 import { FaLink } from "react-icons/fa6";
+import { PalabrasClave, PeliculasRecomendadas, Reparto, PeliculasSimilares } from '../componentes/RecommdSimilarReparto.jsx';
+
+import Detalle from "../componentes/Detalle.jsx"
 import Tarjeta from './Tarjeta';
 
 
@@ -95,7 +98,11 @@ export default function DetallesPelicula({ isMovie }) {
                                                     {/* Titulo y detalles */}
                                                     <Box>
                                                         <Flex flexDirection="row" w="100%">
-                                                            <Heading mx={5} pr="4em">{detalles.title}</Heading>
+                                                            {isMovie ? (
+                                                                <Heading mx={5} pr="4em">{detalles.title}</Heading>
+                                                            ) : (
+                                                                <Heading mx={5} pr="4em">{detalles.name} ({detalles.first_air_date ? new Date(detalles.first_air_date).getFullYear() : ""})</Heading>
+                                                            )}
                                                             <Flex
                                                                 justifyContent="end" fontSize="2xl" float="right"
                                                                 position="absolute" right="4em" top="0"
@@ -106,11 +113,15 @@ export default function DetallesPelicula({ isMovie }) {
                                                         </Flex>
                                                         {/* Descripcion de la pelicula si es que hay y generos */}
                                                         <Text fontSize="2xl" mx={5} pt="0.5em" > {detalles.tagline}</Text>
-                                                        
-                                                        <Text fontSize="lg" mx={5} pt="0.5em" color="whiteAlpha.800">
-                                                            • {new Date(detalles.release_date).toLocaleDateString()} • {Math.floor(detalles.runtime / 60)}h {detalles.runtime % 60}m
-                                                        </Text>
-
+                                                        {isMovie ? (
+                                                            <Text fontSize="lg" mx={5} pt="0.5em" color="whiteAlpha.800">
+                                                                • {new Date(detalles.release_date).toLocaleDateString()} • {Math.floor(detalles.runtime / 60)}h {detalles.runtime % 60}m
+                                                            </Text>
+                                                        ) : (
+                                                            <Text fontSize="lg" mx={5} pt="0.5em" color="whiteAlpha.800">
+                                                                • {"Temporadas: " + (detalles.number_of_seasons)} • {"Episodios: " + (detalles.number_of_episodes)}
+                                                            </Text>
+                                                        )}
                                                         {/* Descripcion  */}
                                                         {detalles.overview && (
                                                             <Text fontSize="1xl" maxW={900} mx={5} pr="6em" pt="1em" color="whiteAlpha.800" noOfLines={6} >
@@ -130,26 +141,40 @@ export default function DetallesPelicula({ isMovie }) {
                                                             </Stack>
                                                         </Box>
                                                         {/* Personas involucradas:  */}
-                                                        <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
-                                                            {/* Dificil de explicar quiza lo quitemos */}
-                                                            {creditos && (
-                                                                <Box mr="1em" display="flex" w="50em" >
-                                                                    {creditos.map((credito, index) => {
-                                                                        if (credito.known_for_department !== "Acting" &&
-                                                                            creditos.findIndex(c => c.name === credito.name) === index) {
-                                                                            return (
-                                                                                <Box key={credito.id} mr="1em" maxW="13em" >
-                                                                                    <Text color="whiteAlpha.700">{traductor[credito.known_for_department]}:</Text>
-                                                                                    {credito.name}
-                                                                                </Box>
-                                                                            );
-                                                                        }
-                                                                        return null;
-                                                                    })}
-                                                                </Box>
-                                                            )}
-
-                                                        </Flex>
+                                                        {isMovie ? (
+                                                            <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
+                                                                {/* Dificil de explicar quiza lo quitemos */}
+                                                                {creditos && (
+                                                                    <Box mr="1em" display="flex" w="50em" >
+                                                                        {creditos.map((credito, index) => {
+                                                                            if (credito.known_for_department !== "Acting" &&
+                                                                                creditos.findIndex(c => c.name === credito.name) === index) {
+                                                                                return (
+                                                                                    <Box key={credito.id} mr="1em" maxW="13em" >
+                                                                                        <Text color="whiteAlpha.700">{traductor[credito.known_for_department]}:</Text>
+                                                                                        {credito.name}
+                                                                                    </Box>
+                                                                                );
+                                                                            }
+                                                                            return null;
+                                                                        })}
+                                                                    </Box>
+                                                                )}
+                                                            </Flex>
+                                                        ) : (
+                                                            <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
+                                                                {detalles.created_by && (
+                                                                    <Box mr="1em" maxW="13em" noOfLines={3}>
+                                                                        {detalles.created_by && <Text color="whiteAlpha.800">Creado por:</Text>}
+                                                                        {detalles.created_by.map((creador) => (
+                                                                            <Link key={creador.id} to={`/personas/id/${creador.id}`}>
+                                                                                <Text fontSize="18px" color="whiteAlpha.900">{creador.name}</Text>
+                                                                            </Link>
+                                                                        ))}
+                                                                    </Box>
+                                                                )}
+                                                            </Flex>
+                                                        )}
                                                     </Box>
                                                     {/* Mostrar trailer si es que hay*/}
                                                     {trailersData && trailersData.key && (
@@ -167,40 +192,13 @@ export default function DetallesPelicula({ isMovie }) {
                                 </Flex>
                             </Flex>
                             <Flex pt="2em" overflow="hidden" bg="#00000069" pb="10em" >
-                                {/* REPARTO */}
-                                <Flex w="75%" flexDirection="column" h="20em" pl="1em" >
-                                    <Text fontSize="24px" mx={2} color="whiteAlpha.900" > Reparto </Text>
-                                    <Flex justifyContent="flex-start" my="2em"  >
-                                        <Box display="flex" color="white" overflowX="auto" overflowY="hidden">
-                                            {creditos.map((actor, index) => (
-                                                <Flex key={index} flexDirection="column" mx="1em">
-                                                    <Link to={`/personas/id/${actor.id}`} style={{ borderRadius: "0.5em 0.5em 0 0", overflow: "hidden" }} >
-                                                        {actor.profile_path && <Image src={`https://image.tmdb.org/t/p/w200/${actor.profile_path}`} alt={actor.name} minW="11em" transition="0.4s" _hover={{ transform: "scale(1.1)" }} borderRadius="0.5em 0.5em 0 0" />}
-                                                    </Link>
-                                                    <Flex bg="#222222" justifyContent="center" alignItems="center" h="25%" mb="3em" flexDirection="column" borderRadius="0 0 0.5em 0.5em" pt="1em">
-                                                        <Link to={`/personas/id/${actor.id}`}>
-                                                            <Text maxW="10em" textAlign="center">{actor.name}</Text>
-                                                        </Link>
-                                                        <Text maxW="10em" color="gray.300" textAlign="center">{actor.character}</Text>
-                                                    </Flex>
-                                                </Flex>
-                                            ))}
-                                        </Box>
-                                    </Flex>
-                                    {/* PELICULAS SIMILARES */}
-                                    {similar.results.length > 0 && (
-                                        <>
-                                            <Text fontSize="24px" mx={2} color="whiteAlpha.900"> Series similares</Text>
-                                            <Flex flexDirection="row" mt="2em" justifyContent="flex-start" >
-                                                <Box display="flex" color="white" overflow="auto" overflowY="hidden">
-                                                    {similar.results.slice(0, 8).map((movie) => (
-                                                        <Tarjeta item={movie} key={movie.id} conSlider />
-                                                    ))}
-                                                </Box>
-                                            </Flex>
-                                        </>
-                                    )}
-                                </Flex>
+                                <Box maxW="75%">
+                                    {/* REPARTO */}
+                                    <Reparto creditos={creditos} />
+                                    {/* SIMILARES */}
+                                    <PeliculasSimilares similar={similar} />
+                                </Box>
+
                                 {/* INFORMACION ADICIONAL ASIDE DERECHO */}
                                 <Flex w="20em" flexDirection="column" p="2" minH="80vh">
                                     <Box>
@@ -211,62 +209,24 @@ export default function DetallesPelicula({ isMovie }) {
                                             </Link>
                                         </Box>
                                         {/* Contenido aside derecho con detalles adicionales de la pelicula o serie */}
-                                        {[
-                                            { label: 'Título original', value: detalles.original_title ? detalles.original_title : "No hay títlo original para esta película" },
-                                            { label: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la serie desconocido" },
-                                            {
-                                                label: 'Canal',
-                                                value: (
-                                                    <>
-                                                        {watchProviders && watchProviders.US && watchProviders.US.buy ? (
-                                                            <Image borderRadius="100%" src={`https://image.tmdb.org/t/p/w45/${watchProviders.US.buy[0].logo_path}`} />
-                                                        ) : ("No hay información del proveedor")}
-                                                    </>
-                                                )
-                                            },
-                                            { label: 'Idioma original', value: traductor[detalles.original_language] || detalles.original_language || "No hay idioma original para esta película" },
-                                            { label: 'Presupuesto', value: detalles.budget ? (detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "-" },
-                                            { label: 'Ingresos', value: detalles.revenue ? (detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "-" }
-                                        ].map(({ label, value }, index) => (
-                                            <React.Fragment key={index}>
-                                                <Text fontSize="20px" mx={5} pt={index === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{label}</Text>
-                                                <Text fontSize="18px" mx={5} pt="0.1em" color="whiteAlpha.800">{value}</Text>
-                                            </React.Fragment>
-                                        ))}
+                                        <>
+                                            <Detalle titulo="Título original" valor={detalles.original_title} />
+                                            <Detalle titulo="Estado" valor={traductor[detalles.status] || detalles.status || "Estado de la serie desconocido"} />
+                                            <Detalle titulo="Canal" tipo="imagen" watchProviders={watchProviders} />
+                                            <Detalle titulo="Idioma original" valor={traductor[detalles.original_language] || detalles.original_language || "No hay idioma original para esta película"} />
+                                            <Detalle titulo="Presupuesto" valor={detalles.budget ? (detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "-"} />
+                                            <Detalle titulo="Ingresos" valor={detalles.revenue ? (detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "-"} />
+                                        </>
+
                                     </Box>
                                     {/* PALABRAS CLAVE */}
-                                    {keywords.keywords.length > 0 && (
-                                        <Flex flexDirection="column" pt="1em">
-                                            <Text fontSize="20px" mx={5} color="whiteAlpha.900"> Palabras clave </Text>
-                                            <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {keywords.keywords.map((keyword) => (
-                                                    <Link to={`/search/${keyword.name.split(" ")[0]}`} key={keyword.id}>
-                                                        <Button m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
-                                                            {keyword.name}
-                                                        </Button>
-                                                    </Link>
-                                                ))}
-                                            </Box>
-                                        </Flex>
-                                    )}
-                                    {/* PELICULAS RECOMENDADAS */}
-                                    {recommended.results.length > 0 && (
-                                        <Flex flexDirection="column" pt="1em">
-                                            <Text fontSize="20px" mx={5} color="whiteAlpha.900">
-                                                Recomendaciones
-                                            </Text>
-                                            <Box display="flex" flexDirection="row" flexWrap="wrap" pl="1em">
-                                                {recommended.results.slice(0, 8).map(item => (
-                                                    <Link key={item.id} to={(isMovie===true ? (`/pelicula`) : (`/serie`)) + `/id/${item.id}`} style={{ textDecoration: 'none' }}>
-                                                        <Button onClick={handleClick} m="0.3em" fontSize="14px" color="white" bg="#CC3344" _hover={{ bg: 'red.800' }} size="sm">
-                                                            {item.title}
-                                                        </Button>
-                                                    </Link>
-                                                ))}
-                                            </Box>
-                                        </Flex>
-                                    )}
+                                    <PalabrasClave keywords={keywords} />
+
+                                    {/* RECOMENDADAS */}
+                                    <PeliculasRecomendadas recommended={recommended} isMovie={isMovie} handleClick={handleClick} />
+
                                 </Flex>
+
                             </Flex>
                         </>
                     )}
