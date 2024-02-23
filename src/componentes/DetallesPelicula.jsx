@@ -212,6 +212,7 @@ export default function DetallesPelicula({ isMovie }) {
                                         </Box>
                                         {/* Contenido aside derecho con detalles adicionales de la pelicula o serie */}
                                         {[
+                                            { label: 'Título original', value: detalles.original_title ? detalles.original_title : "No hay títlo original para esta película" },
                                             { label: 'Estado', value: traductor[detalles.status] || detalles.status || "Estado de la serie desconocido" },
                                             {
                                                 label: 'Canal',
@@ -223,8 +224,9 @@ export default function DetallesPelicula({ isMovie }) {
                                                     </>
                                                 )
                                             },
-                                            { label: 'Idioma original', value: traductor[detalles.original_language] || detalles.original_language || "No hay idioma original para esta serie" },
-                                            { label: 'Tipo', value: traductor[detalles.type] || detalles.type || "No hay tipo para esta serie" },
+                                            { label: 'Idioma original', value: traductor[detalles.original_language] || detalles.original_language || "No hay idioma original para esta película" },
+                                            { label: 'Presupuesto', value: detalles.budget ? (detalles.budget).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "-" },
+                                            { label: 'Ingresos', value: detalles.revenue ? (detalles.revenue).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : "-" }
                                         ].map(({ label, value }, index) => (
                                             <React.Fragment key={index}>
                                                 <Text fontSize="20px" mx={5} pt={index === 0 ? "0.1em" : "1em"} color="whiteAlpha.900">{label}</Text>
