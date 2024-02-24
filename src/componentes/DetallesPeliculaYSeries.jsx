@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchKeywords, fetchSimilar, fetchWatchProviders } from '../funciones/fetch';
-import CircleProgressBar from './CircleProgressBar';
-import { Box, Button, Heading, Text, Flex, Image, Stack, Badge, Divider } from "@chakra-ui/react";
+import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchKeywords, fetchSimilar, fetchWatchProviders } from '../funciones/fetch.jsx';
+import CircleProgressBar from './CircleProgressBar.jsx';
+import { Box, Button, Heading, Text, Flex, Image, Stack } from "@chakra-ui/react";
 import { traductor } from "../assets/categoriasYTraduccion.js";
 import { FaLink } from "react-icons/fa6";
-import { PalabrasClave, PeliculasRecomendadas, Reparto, PeliculasSimilares } from '../componentes/RecommdSimilarReparto.jsx';
+import { PalabrasClave, PeliculasRecomendadas, Reparto, PeliculasSimilares, Detalle } from './RecommdSimilarReparto.jsx';
 
-import Detalle from "../componentes/Detalle.jsx"
-
-
-export default function DetallesPelicula({ isMovie }) {
+export default function DetallesPeliculaYSeries({ isMovie }) {
     const [trailersData, setTrailers] = useState(null);
     const [error, setError] = useState(null);
     const [detalles, setDetalles] = useState(null);
@@ -65,7 +62,7 @@ export default function DetallesPelicula({ isMovie }) {
                     flexDirection="column" justifyContent="center"
                     alignContent="center" h="100%" overflowX="hidden"
                 >
-                    {detalles && (detalles.title||detalles.name) && (
+                    {detalles && (detalles.title || detalles.name) && (
                         <>
                             <Box
                                 // Imagen de fondo difuminada
@@ -190,25 +187,21 @@ export default function DetallesPelicula({ isMovie }) {
                                     }
                                 </Flex>
                             </Flex>
-                            
+
                             <Flex pt="2em" overflow="hidden" bg="#00000069" pb="10em" >
                                 <Box maxW="75%">
                                     {/* REPARTO */}
                                     <Reparto creditos={creditos} />
                                     {/* SIMILARES */}
                                     <PeliculasSimilares similar={similar} />
-                                    {isMovie ? ("") : (
-                                        <Flex
-                                            justifyContent="left" alignItems="center"
-                                            fontSize="24px" color="#CC3344"pt="2em"
-                                        >
-                                            <Link to={`/serie/id/${detalles.id}/temporadas`}>
-                                                <Text _hover={{ color: '#822727' }}>
-                                                    VER TODAS LAS TEMPORADAS
-                                                </Text>
+                                    {!isMovie && (
+                                        <Flex justifyContent="left" alignItems="center" fontSize="24px" color="#CC3344" pt="2em">
+                                            <Link to={`/serie/id/${detalles.id}/temporadas`} style={{ textDecoration: 'none' }}>
+                                                <Text _hover={{ color: '#822727' }} fontWeight="bold"> Ver Todas las Temporadas </Text>
                                             </Link>
                                         </Flex>
                                     )}
+
                                 </Box>
 
                                 {/* INFORMACION ADICIONAL ASIDE DERECHO */}
@@ -238,7 +231,6 @@ export default function DetallesPelicula({ isMovie }) {
                                     <PeliculasRecomendadas recommended={recommended} isMovie={isMovie} handleClick={handleClick} />
 
                                 </Flex>
-
                             </Flex>
                         </>
                     )}

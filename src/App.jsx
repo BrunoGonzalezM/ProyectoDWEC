@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Header from "./componentes/Header";
-import DetallesPelicula from "./componentes/DetallesPelicula";
+import DetallesPeliculaYSeries from "./componentes/DetallesPeliculaYSeries";
 import Categorias from "./componentes/Categorias";
 import PeliculasYSeries from "./componentes/PeliculasYSeries";
 import Home from "./componentes/Home";
@@ -28,9 +28,9 @@ function App() {
             <Route path="/series" element={<PeliculasYSeries isMovie={false} />} />
             <Route path="/peliculas" element={<PeliculasYSeries isMovie={true} />} />
 
-            <Route path="/serie/id/:id" element={<DetallesPelicula isMovie={false} />} />
+            <Route path="/serie/id/:id" element={<DetallesPeliculaYSeries isMovie={false} />} />
             <Route path="/serie/id/:id/temporadas" element={<Temporadas />}></Route>
-            <Route path="/pelicula/id/:id" element={<DetallesPelicula isMovie={true} />} />
+            <Route path="/pelicula/id/:id" element={<DetallesPeliculaYSeries isMovie={true} />} />
             <Route path="/categoria/:id" element={<PeliculasYSeries isMovie={true} />} />
 
             <Route path="/search/" element={<PeliculasYSeries isMovie={true} />} />

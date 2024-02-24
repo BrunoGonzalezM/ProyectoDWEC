@@ -76,7 +76,7 @@ export default function Temporadas() {
                                 w="100px"
                                 h="150px"
                             />
-                            <Box flex="1" outline="1px solid red" h="9em">
+                            <Box flex="1" h="9em">
                                 <Text fontSize="lg" color="#fff" mb="0.5em">
                                     {season.name} ({season.air_date ? new Date(season.air_date).getFullYear() : ""}) Episodios: {season.episode_count}
                                 </Text>
