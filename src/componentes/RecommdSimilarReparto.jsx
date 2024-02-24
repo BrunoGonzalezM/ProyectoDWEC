@@ -70,7 +70,7 @@ const PeliculasSimilares = ({ similar }) => {
     return (
         similar.results.length > 0 && (
             <Flex p="1em" mt="15em" flexDirection="column" pt="1em">
-                <Text fontSize="24px" mx={2} color="whiteAlpha.900"> Series similares</Text>
+                <Text fontSize="24px" mx={2} color="whiteAlpha.900"> Contenido similar</Text>
                 <Flex flexDirection="row" mt="2em" justifyContent="flex-start" >
                     <Box display="flex" color="white" overflow="auto" overflowY="hidden">
                         {similar.results.slice(0, 8).map((movie) => (
