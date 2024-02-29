@@ -94,7 +94,7 @@ export default function Banner({ movies }) {
                                                     <Flex w="full" mx="2em" alignItems="center" paddingBottom="2em">
                                                         {trailerData && (
                                                             <Button
-                                                                width="5em" height="5em" transform="rotate(90deg)" aspectRatio="4/4"
+                                                                width="5em" height="5em" transform="rotate(90deg)" aspectRatio="4/4" mr="5"
                                                                 borderRadius="full" _hover={{ transform: "scale(1.2) rotate(90deg)" }}
                                                                 //SI HAY TRAILER EN LA PELICULA LA ABRE, SINO SALE UN TOAST ERROR.
                                                                 onClick={() => {
