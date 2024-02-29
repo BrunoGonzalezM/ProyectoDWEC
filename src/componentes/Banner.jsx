@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 import { Link } from "react-router-dom";
 import { Image, Heading, Text, Button, Stat, StatArrow, Box, Flex, useToast } from '@chakra-ui/react';
-import { TriangleUpIcon, StarIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { TriangleUpIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 import { fetchMovieTrailers } from '../funciones/fetch';
 
 export default function Banner({ movies }) {
@@ -111,14 +113,6 @@ export default function Banner({ movies }) {
                                                                 <TriangleUpIcon boxSize="2em" />
                                                             </Button>
                                                         )}
-
-                                                        <Link w="200px" h="200px" to={`/pelicula/id/${movie.id}`} >
-                                                            <Button mx="2em" aspectRatio="4/4" borderRadius="full" transition="0.2s"
-                                                                _hover={{ transform: "scale(1.2)" }}
-                                                            >
-                                                                <StarIcon />
-                                                            </Button>
-                                                        </Link>
                                                         <Link w="200px" h="200px" to={`/pelicula/id/${movie.id}`} >
                                                             <Button width="2.5m" _hover={{ transform: "scale(1.2)" }}
                                                                 height="2.5em" aspectRatio="4/4" borderRadius="full"

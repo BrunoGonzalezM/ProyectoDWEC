@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { fetchPersonId, fetchPersonCredits } from '../funciones/fetch';
 import { Box, Image, Flex, Text, Button, Divider } from "@chakra-ui/react";
 import { traductor } from '../assets/categoriasYTraduccion';

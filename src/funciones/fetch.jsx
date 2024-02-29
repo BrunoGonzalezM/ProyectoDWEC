@@ -141,12 +141,6 @@ export const fetchMovieTrailers = async (id, isMovie) => {
         const response = await fetch(`${urlAPIv3}/${type}/${id}/videos?language=es-ES`, options)
         const data = await response.json();
 
-        // if (!response.ok) {
-        //     const response2 = await fetch(`${urlAPIv3}/${type}/${id}/videos`, options)
-        //     const data2 = await response2.json();
-        //     const trailers2 = data2.results.filter(result => result.type === "Trailer");
-        //     return trailers2[0];
-        // }
         const trailers = data.results.filter(result => result.type === "Trailer");
 
         return trailers[0];
@@ -216,17 +210,6 @@ export const fetchWatchProviders = async (id, isMovie) => {
         const response = await fetch (`${urlAPIv3}/${type}/${id}/watch/providers`, options)
         const data = await response.json();
         return data.results;
-    }catch(err){
-        console.log(err);
-        throw err;
-    }
-}
-
-export const fetchTvSeasons = async (id, seasonNumber) => {
-    try{
-        const response = await fetch (`${urlAPIv3}/tv/${id}/season/${seasonNumber}`, options)
-        const data = await response.json();
-        return data;
     }catch(err){
         console.log(err);
         throw err;

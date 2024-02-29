@@ -92,7 +92,6 @@ const Header = () => {
                                 textTransform="uppercase"
                                 w="16em"
                             />
-                            {/* <Link to={`/peliculas/search/${busqueda.trim()}`}> */}
                             <Link to={`/search/${busqueda.trim()}`}>
                                 <Button
                                     bg="transparent"

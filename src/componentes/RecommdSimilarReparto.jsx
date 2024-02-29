@@ -3,6 +3,7 @@ import { Flex, Text, Box, Button, Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import Tarjeta from './Tarjeta';
 import nofoundimg from "../assets/nofoundimg.png"
+
 const PalabrasClave = ({ keywords }) => {
     return (
         (keywords.keywords || keywords.results).length > 0 && (

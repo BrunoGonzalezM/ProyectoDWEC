@@ -6,9 +6,7 @@ import DetallesPeliculaYSeries from "./componentes/DetallesPeliculaYSeries";
 import Categorias from "./componentes/Categorias";
 import PeliculasYSeries from "./componentes/PeliculasYSeries";
 import Home from "./componentes/Home";
-import Login from "./componentes/Login";
 import Person from "./componentes/Person";
-import Temporadas from "./componentes/Temporadas";
 
 import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
@@ -21,7 +19,6 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/inicio" element={<Home />} />
 
             <Route path="/categorias" element={<Categorias />} />
@@ -29,7 +26,6 @@ function App() {
             <Route path="/peliculas" element={<PeliculasYSeries isMovie={true} />} />
 
             <Route path="/serie/id/:id" element={<DetallesPeliculaYSeries isMovie={false} />} />
-            <Route path="/serie/id/:id/temporadas" element={<Temporadas />}></Route>
             <Route path="/pelicula/id/:id" element={<DetallesPeliculaYSeries isMovie={true} />} />
             <Route path="/categoria/:id" element={<PeliculasYSeries isMovie={true} />} />
 

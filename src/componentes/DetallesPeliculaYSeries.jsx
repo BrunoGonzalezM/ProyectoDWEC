@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchKeywords, fetchSimilar, fetchWatchProviders } from '../funciones/fetch.jsx';
-import CircleProgressBar from './CircleProgressBar.jsx';
 import { Box, Button, Heading, Text, Flex, Image, Stack } from "@chakra-ui/react";
 import { traductor } from "../assets/categoriasYTraduccion.js";
 import { FaLink } from "react-icons/fa6";
@@ -99,15 +98,8 @@ export default function DetallesPeliculaYSeries({ isMovie }) {
                                                             ) : (
                                                                 <Heading mx={5} pr="4em">{detalles.name} ({detalles.first_air_date ? new Date(detalles.first_air_date).getFullYear() : ""})</Heading>
                                                             )}
-                                                            <Flex
-                                                                justifyContent="end" fontSize="2xl" float="right"
-                                                                position="absolute" right="4em" top="0"
-                                                            >
-                                                                {/* Componente circulo de valoracion */}
-                                                                <CircleProgressBar max={100} value={detalles.vote_average.toFixed(1) * 10} />
-                                                            </Flex>
                                                         </Flex>
-                                                        {/* Descripcion de la pelicula si es que hay y generos */}
+                                                        {/* Duracion de pelicula o de Serie en temporadas y capitulos */}
                                                         <Text fontSize="2xl" mx={5} pt="0.5em" > {detalles.tagline}</Text>
                                                         {isMovie ? (
                                                             <Text fontSize="lg" mx={5} pt="0.5em" color="whiteAlpha.800">
@@ -118,7 +110,7 @@ export default function DetallesPeliculaYSeries({ isMovie }) {
                                                                 • {"Temporadas: " + (detalles.number_of_seasons)} • {"Episodios: " + (detalles.number_of_episodes)}
                                                             </Text>
                                                         )}
-                                                        {/* Descripcion  */}
+                                                        {/* Descripcion de pelicula o serie */}
                                                         {detalles.overview && (
                                                             <Text fontSize="1xl" maxW={900} mx={5} pr="6em" pt="1em" color="whiteAlpha.800" noOfLines={6} >
                                                                 {detalles.overview}
@@ -136,19 +128,20 @@ export default function DetallesPeliculaYSeries({ isMovie }) {
                                                                 ))}
                                                             </Stack>
                                                         </Box>
-                                                        {/* Personas involucradas:  */}
+                                                        {/* Personas involucradas */}
                                                         {isMovie ? (
                                                             <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
-                                                                {/* Dificil de explicar quiza lo quitemos */}
                                                                 {creditos && (
                                                                     <Box mr="1em" display="flex" w="50em" >
-                                                                        {creditos.map((credito, index) => {
-                                                                            if (credito.known_for_department !== "Acting" &&
-                                                                                creditos.findIndex(c => c.name === credito.name) === index) {
+                                                                        {creditos.map((credito) => {
+                                                                            //Solo la lista que queramos (Arete , Production, etc..)
+                                                                            if (["Art", "Production", "Directing", "Sound"].includes(credito.known_for_department)) {
                                                                                 return (
                                                                                     <Box key={credito.id} mr="1em" maxW="13em" >
                                                                                         <Text color="whiteAlpha.700">{traductor[credito.known_for_department]}:</Text>
-                                                                                        {credito.name}
+                                                                                        <Link to={`/personas/id/${credito.id}`}>
+                                                                                            {credito.name}
+                                                                                        </Link>
                                                                                     </Box>
                                                                                 );
                                                                             }
@@ -158,6 +151,7 @@ export default function DetallesPeliculaYSeries({ isMovie }) {
                                                                 )}
                                                             </Flex>
                                                         ) : (
+                                                            //"Creado por" en series
                                                             <Flex m="1em" w="100%" flexDirection="row" justifyContent="start" >
                                                                 {detalles.created_by && (
                                                                     <Box mr="1em" maxW="13em" noOfLines={3}>
@@ -172,7 +166,7 @@ export default function DetallesPeliculaYSeries({ isMovie }) {
                                                             </Flex>
                                                         )}
                                                     </Box>
-                                                    {/* Mostrar trailer si es que hay*/}
+                                                    {/* Mostrar trailer, si es que existe*/}
                                                     {trailersData && trailersData.key && (
                                                         <Button
                                                             mx={5} mt={2} bg='#CC3344' color="white" _hover={{ bg: 'red.800' }}
@@ -194,17 +188,9 @@ export default function DetallesPeliculaYSeries({ isMovie }) {
                                     <Reparto creditos={creditos} />
                                     {/* SIMILARES */}
                                     <PeliculasSimilares similar={similar} />
-                                    {!isMovie && (
-                                        <Flex justifyContent="left" alignItems="center" fontSize="24px" color="#CC3344" pt="2em">
-                                            <Link to={`/serie/id/${detalles.id}/temporadas`} style={{ textDecoration: 'none' }}>
-                                                <Text _hover={{ color: '#822727' }} fontWeight="bold"> Ver Todas las Temporadas </Text>
-                                            </Link>
-                                        </Flex>
-                                    )}
-
                                 </Box>
 
-                                {/* INFORMACION ADICIONAL ASIDE DERECHO */}
+                                {/* INFORMACION ADICIONAL */}
                                 <Flex w="20em" flexDirection="column" p="2" minH="80vh">
                                     <Box>
                                         <Text fontSize="24px" mx={5} color="whiteAlpha.900"> Información adicional </Text>
@@ -213,7 +199,7 @@ export default function DetallesPeliculaYSeries({ isMovie }) {
                                                 <FaLink size={24} mb="1em" />
                                             </Link>
                                         </Box>
-                                        {/* Contenido aside derecho con detalles adicionales de la pelicula o serie */}
+                                        {/* Contenido con detalles adicionales de la pelicula o serie */}
                                         <>
                                             <Detalle titulo="Título original" valor={detalles.original_title} />
                                             <Detalle titulo="Estado" valor={traductor[detalles.status] || detalles.status || "Estado de la serie desconocido"} />
