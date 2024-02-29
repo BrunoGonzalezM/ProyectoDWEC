@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Button, Flex, Heading ,Text} from '@chakra-ui/react';
-import { fetchBusqueda, fetchCategoriaPelicula, moviesPopular } from '../funciones/fetch.jsx';
+import { fetchBusqueda, fetchCategoriaPelicula, moviesPopular } from '../services/fetch.jsx';
 import Carousel from '../componentes/Carousel.jsx';
 import { categoriasImagenes } from "../assets/categoriasYTraduccion.js"
 

@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
 import { Image, Heading, Text, Button, Stat, StatArrow, Box, Flex, useToast } from '@chakra-ui/react';
 import { TriangleUpIcon, InfoOutlineIcon } from "@chakra-ui/icons";
-import { fetchMovieTrailers } from '../funciones/fetch';
+import { fetchMovieTrailers } from '../services/fetch';
 
 export default function Banner({ movies }) {
     //Configuracion del slider de react-slick

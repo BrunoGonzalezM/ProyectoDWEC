@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Box, Image, Flex, Button, Input } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import logo from '../IMG/Logo.png';
@@ -25,9 +25,6 @@ const links = [
 ];
 
 const Header = () => {
-    const location = useLocation();
-    const isLoginPage = location.pathname === '/login';
-
     const [busqueda, setBusqueda] = useState('');
 
     const handleChange = (e) => {

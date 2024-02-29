@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchPersonId, fetchPersonCredits } from '../funciones/fetch';
+import { fetchPersonId, fetchPersonCredits } from '../services/fetch';
 import { Box, Image, Flex, Text, Button, Divider } from "@chakra-ui/react";
 import { traductor } from '../assets/categoriasYTraduccion';
 import nofoundimg from "../assets/nofoundimg.png"

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardBody, Image, Stack, Heading, Box, Text, Skeleton } from "@chakra-ui/react"
-import "../styles/stylesTarjeta.css"
 
 const Tarjeta = ({ item, conSlider }) => {
   const [isHovered, setIsHovered] = useState(false);

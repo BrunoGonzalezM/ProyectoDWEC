@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchCategorias } from "../funciones/fetch";
+import { fetchCategorias } from "../services/fetch";
 import { Link } from 'react-router-dom';
 import { Box, Flex, Text} from '@chakra-ui/react';
 import { categoriasImagenes } from '../assets/categoriasYTraduccion';
