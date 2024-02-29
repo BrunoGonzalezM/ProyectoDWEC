@@ -11,7 +11,6 @@ function PeliculasYSeries({ isMovie }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
-    const [showCarousel, setShowCarousel] = useState(false);
 
     useEffect(() => {
         setPage(1);
@@ -42,7 +41,6 @@ function PeliculasYSeries({ isMovie }) {
     }, [busqueda, id, page, isMovie]);
 
     useEffect(() => {
-        setShowCarousel(!busqueda && !id);
         setPage(1); //Resetear la página cuando cambie el tipo de contenido
     }, [busqueda, id, isMovie]);
 
@@ -62,7 +60,7 @@ function PeliculasYSeries({ isMovie }) {
             {busqueda && <Heading color="white" mb="1em">Resultados de: {busqueda}</Heading>}
             {id && <Heading color="white" mb="1em">Peliculas de la categoría: {categoriasImagenes[id][0]}</Heading>}
             
-            {((showCarousel || (movies && movies.length > 0))) && (
+            {((movies && movies.length > 0)) && (
                 <>
                     <Carousel items={movies}  {...(isMovie ? true : false )} />
                     <Flex justifyContent="center">
