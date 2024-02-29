@@ -19,7 +19,6 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/inicio" element={<Home />} />
 
             <Route path="/categorias" element={<Categorias />} />
             <Route path="/series" element={<PeliculasYSeries isMovie={false} />} />

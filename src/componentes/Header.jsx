@@ -8,7 +8,7 @@ import '../styles/styleHeader.css';
 const links = [
     {
         name: 'Inicio',
-        href: '/inicio',
+        href: '/',
     },
     {
         name: 'Películas',
@@ -47,7 +47,7 @@ const Header = () => {
                     px="1em"
                 >
                     <Flex w="4em">
-                        <Link to={`/inicio`}>
+                        <Link to={`/`}>
                             <Image src={logo} alt='Logo' w="100%" aspectRatio="4/4" filter="invert(1)" p="0.5em" mx="1em" transition="0.2s" _hover={{ transform: "scale(1.1)" }} />
                         </Link>
                     </Flex>
