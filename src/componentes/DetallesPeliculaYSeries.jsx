@@ -4,7 +4,7 @@ import { fetchMovieTrailers, fetchMovieDetails, fetchCreditos, fetchKeywords, fe
 import { Box, Button, Heading, Text, Flex, Image, Stack } from "@chakra-ui/react";
 import { traductor } from "../assets/categoriasYTraduccion.js";
 import { FaLink } from "react-icons/fa6";
-import { PalabrasClave, PeliculasRecomendadas, Reparto, PeliculasSimilares, Detalle } from './RecommdSimilarReparto.jsx';
+import { PalabrasClave, PeliculasRecomendadas, Reparto, PeliculasSimilares, Detalle } from './InformacionAdicional.jsx';
 
 export default function DetallesPeliculaYSeries({ isMovie }) {
     const [trailersData, setTrailers] = useState(null);
